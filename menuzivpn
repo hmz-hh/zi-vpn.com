@@ -176,8 +176,8 @@ ${YELLOW}${GREEN}${YELLOW}${RED}   ${RED} ────────
 ${YELLOW}${GREEN}${YELLOW}${RED} 5 ${RED} START ZIVPN
 ${YELLOW}${GREEN}${YELLOW}${RED} 6 ${RED} STOP ZIVPN
 ${YELLOW}${GREEN}${YELLOW}${RED} 7 ${RED} RECALIN ZIVPN
-${YELLOW}${GREEN}${YELLOW}${RED} 0 ${RED} EXIT
-${GRAY}${RED}${GRAY}${RED} └───────────────────────────────┘ "
+${YELLOW}${GREEN}│${YELLOW}${RED} 0 ${RED} EXIT
+${GRAY}${RED}${GRAY}│${RED}└───────────────────────────────┘ "
 echo -e "${YELLOW} Δ CHOOSE AN OPTION:      ${YELLOW}"
 read -p " : " option
 tput cuu1 >&2 && tput dl1 >&2
