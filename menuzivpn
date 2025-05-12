@@ -167,17 +167,17 @@ echo -e "${YELLOW} › ${WHITE}Linux Dist:${GREEN} $distribution "
 echo -e "${YELLOW} › ${WHITE}IP:${GREEN} $IP "
 echo -e "${YELLOW} › ${WHITE}Network:${GREEN} $Network "
 echo -e "${YELLOW} › ${WHITE}Running:${GREEN} $ports "
-echo -e "${GRAY}[${RED}-${GRAY}]${RED} ┌──────────────────────────────────────┐ "
-echo -e "${YELLOW}[${GREEN}1${YELLOW}] ${RED} › ${WHITE} INSTALL ZIVPN V1 (5666)
-${YELLOW}[${GREEN}2${YELLOW}] ${RED} › ${RED} INSTALL ZIVPN V2 AMD (5667)
-${YELLOW}[${GREEN}3${YELLOW}] ${RED} › ${RED} INSTALL ZIVPN V2 ARM (5667)
+echo -e "${GRAY}[${RED}-${GRAY}]${RED} ┌───────────────────────────────┐ "
+echo -e "${YELLOW}[${GREEN}1${YELLOW}] ${RED} › ${WHITE} INSTALL ZIVPN V1 (2)
+${YELLOW}[${GREEN}2${YELLOW}] ${RED} › ${RED} INSTALL ZIVPN V2 AMD (3)
+${YELLOW}[${GREEN}3${YELLOW}] ${RED} › ${RED} INSTALL ZIVPN V2 ARM (1)
 ${YELLOW}[${GREEN}4${YELLOW}] ${RED} › ${RED} DELETE SCRIPT
 ${YELLOW}[${GREEN} ${YELLOW}] ${RED} › ${RED} ────────
 ${YELLOW}[${GREEN}5${YELLOW}] ${RED} › ${RED} START ZIVPN
 ${YELLOW}[${GREEN}6${YELLOW}] ${RED} › ${RED} STOP ZIVPN
 ${YELLOW}[${GREEN}7${YELLOW}] ${RED} › ${RED} RECALIN ZIVPN
 ${YELLOW}[${GREEN}0${YELLOW}] ${RED} › ${RED} EXIT
-${GRAY}[${RED}-${GRAY}]${RED}   └──────────────────────────────────────┘ "
+${GRAY}[${RED}-${GRAY}]${RED} └───────────────────────────────┘ "
 echo -e "${YELLOW} Δ CHOOSE AN OPTION:      ${YELLOW}"
 read -p " : " option
 tput cuu1 >&2 && tput dl1 >&2
