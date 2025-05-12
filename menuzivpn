@@ -178,7 +178,7 @@ ${YELLOW}${ORANGE}│${YELLOW}${RED} 6 ${RED} STOP ZIVPN
 ${YELLOW}${ORANGE}│${YELLOW}${RED} 7 ${RED} RECALIN ZIVPN
 ${YELLOW}${ORANGE}│${YELLOW}${RED} 0 ${RED} EXIT
 ${ORANGE}${ORANGE}${ORANGE}${ORANGE}└───────────────────────────────┘ "
-echo -e "${GREEN} Select From Options [ 1 - 7 ] :     ${GREEN}" 
+echo -e "${GREEN} Select From Options [ 1 - 7 ] :      ${GREEN}" 
 read -p " : " option
 tput cuu1 >&2 && tput dl1 >&2
 else
