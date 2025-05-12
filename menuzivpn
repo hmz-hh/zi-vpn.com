@@ -161,7 +161,7 @@ fi
 }
   if [[ $1 == "" ]]; then
     clear && printf '\e[3J'
-echo -e "${GRAY}${RED}${GRAY}${RED}  ┌────────────── HAMZA TECH ───────────────┐ "
+echo -e "${GRAY}${RED}${GRAY}${RED}┌────────────── HAMZA TECH ───────────────┐ "
 echo -e "${YELLOW}   【          ${RED}ZIVPN            ${YELLOW}】 "
 echo -e "${YELLOW} › ${WHITE}SYS OS :${GREEN} $distribution "
 echo -e "${YELLOW} › ${WHITE}IP :${GREEN} $IP "
@@ -177,7 +177,7 @@ ${YELLOW}${ORANGE}│ ${YELLOW}${RED}5${RED} START ZIVPN
 ${YELLOW}${ORANGE}│ ${YELLOW}${RED}6${RED} STOP ZIVPN
 ${YELLOW}${ORANGE}│ ${YELLOW}${RED}7${RED} RECALIN ZIVPN
 ${YELLOW}${ORANGE}│ ${YELLOW}${RED}0${RED} EXIT
-${GRAY}${RED}${GRAY}${ORANGE}└───────────────────────────────┘ "
+${GRAY}${RED}${GRAY}${RED}└───────────────────────────────┘ "
 echo -e "${YELLOW} Δ CHOOSE AN OPTION:      ${YELLOW}"
 read -p " : " option
 tput cuu1 >&2 && tput dl1 >&2
