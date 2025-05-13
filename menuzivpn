@@ -165,7 +165,10 @@ echo -e "${GRAY}${RED}${GRAY}${RED}┌─────── HAMZA TECH ───
 echo -e "${YELLOW}│  ${WHITE}SYS OS :${GREEN} $distribution "
 echo -e "${YELLOW}│ ${WHITE}IP :${GREEN} $IP "
 echo -e "${YELLOW}│ ${WHITE}Network:${GREEN} $Network "
-echo -e "${YELLOW}│ ${WHITE}Running:${GREEN} $contry "
+echo -e "${YELLOW}│ ${WHITE}Running:${GREEN} IP=(curl -s ifconfig.me)
+COUNTRY=(curl -s ipinfo.io/IP/country)
+echo "Your IP is:IP"
+echo "Your country is: $COUNTRY "
 echo -e "${GRAY}${RED}${GRAY}${RED}┌──────────────── ZIVPN ────────────────┐ "
 echo -e "${RED}${ORANGE}│ ${YELLOW}${RED} 1.${RED}INSTALL ZIVPN V1  5.START ZIVPN
 ${YELLOW}${RED}│ ${YELLOW}${RED} 2.${RED}INSTALL ZIVPN V2  6.STOP ZIVPN
