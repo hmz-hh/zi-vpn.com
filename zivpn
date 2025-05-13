@@ -168,11 +168,11 @@ echo -e "${YELLOW} › ${WHITE}IP:${GREEN} $IP "
 echo -e "${YELLOW} › ${WHITE}Network:${GREEN} $Network "
 echo -e "${YELLOW} › ${WHITE}Running:${GREEN} $ports "
 echo -e "${GRAY}${RED}${GRAY}${RED} ┌──────────────── HAMZA TECH ────────────────┐ "
-echo -e "${YELLOW}      [${GREEN}1${YELLOW}] ${RED} . ${MAGENTA} INSTALL ZIVPN V1 (5666)              . 
-${YELLOW}      [${GREEN}2${YELLOW}] ${RED} . ${MAGENTA} INSTALL ZIVPN V2 AMD (5667)    . 
-${YELLOW}      [${GREEN}3${YELLOW}] ${RED} . ${MAGENTA} INSTALL ZIVPN V2 ARM (5667)     .  
-${YELLOW}      [${GREEN}4${YELLOW}] ${RED} . ${MAGENTA} UNINSTALL SCRIPT ZIVPN             .  
-${YELLOW}      [${GREEN}5${YELLOW}] ${RED} . ${MAGENTA} START ACCOUNT ZIVPN                 .  
+echo -e "${YELLOW}      [${GREEN}1${YELLOW}] ${RED} . ${MAGENTA} INSTALL ZIVPN V1 (5666)
+${YELLOW}      [${GREEN}2${YELLOW}] ${RED} . ${MAGENTA} INSTALL ZIVPN V2 AMD (5667)
+${YELLOW}      [${GREEN}3${YELLOW}] ${RED} . ${MAGENTA} INSTALL ZIVPN V2 ARM (5667)
+${YELLOW}      [${GREEN}4${YELLOW}] ${RED} . ${MAGENTA} UNINSTALL SCRIPT ZIVPN
+${YELLOW}      [${GREEN}5${YELLOW}] ${RED} . ${MAGENTA} START ACCOUNT ZIVPN
 ${YELLOW}      [${GREEN}6${YELLOW}] ${RED} . ${MAGENTA} STOP ACCOUNT ZIVPN
 ${YELLOW}      [${GREEN}7${YELLOW}] ${RED} . ${MAGENTA} RESTART ACCOUNT ZIVPN
 ${YELLOW}      [${GREEN}0${YELLOW}] ${RED} . ${MAGENTA} EXIT ZIVPN
