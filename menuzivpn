@@ -175,7 +175,7 @@ ${GRAY}${RED}${GRAY}${RED}└─────────────────
 echo ""
 echo -e "       ╔═════════════════════════════════════╗"
 echo -e "       ║  MADE WITH LOVE BY PROJECT SSLAB LK ║" | lolcat
-echo -e "       ║   2019-2024 © All Rights Reserved.  ║"
+echo -e "       ║   2020-2024 © All Rights Reserved.  ║"
 echo -e "       ╚═══════════════•⊱✦⊰•═════════════════╝"
 echo ""
 echo -e "${YELLOW} Select From Options [ 1 - 7 ] :      ${YELLOW}"
