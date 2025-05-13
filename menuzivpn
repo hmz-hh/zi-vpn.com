@@ -179,19 +179,19 @@ else
 option=$1
 fi
 case $option in
-  1 | 01 )
+  1. | 01 )
    installv1;;
-  2 | 02 )
+  2. | 02 )
    installv2;;
-  3 | 03 )
+  3. | 03 )
    installv3;;
-  4 | 04)
+  4. | 04)
    uninstall;;
-  5 | 05)
+  5. | 05)
    startzivpn;;
-  6 | 06)
+  6. | 06)
    stopzivpn;;
-  7 | 07)
+  7. | 07)
    restartzivpn;;
   0)
   exit;;
