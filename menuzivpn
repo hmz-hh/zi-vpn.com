@@ -167,7 +167,7 @@ echo -e "${YELLOW} › ${WHITE}Linux Dist:${GREEN} $distribution "
 echo -e "${YELLOW} › ${WHITE}IP:${GREEN} $IP "
 echo -e "${YELLOW} › ${WHITE}Network:${GREEN} $Network "
 echo -e "${YELLOW} › ${WHITE}Running:${GREEN} $ports "
-echo -e "${GRAY}[${RED}-${GRAY}]${RED} ────────────── /// ─────────────── "
+echo -e "${GRAY}[${RED}-${GRAY}]${RED} ┌──────────────── /// ───────────────────┐ "
 echo -e "${YELLOW}[${GREEN}1${YELLOW}] ${RED} › ${MAGENTA} INSTALL ZIVPN V1 (5666) [Discontinued]
 ${YELLOW}[${GREEN}2${YELLOW}] ${RED} › ${MAGENTA} INSTALL ZIVPN V2 AMD (5667) [Recommended]
 ${YELLOW}[${GREEN}3${YELLOW}] ${RED} › ${MAGENTA} INSTALL ZIVPN V2 ARM (5667)
@@ -176,7 +176,7 @@ ${YELLOW}[${GREEN}5${YELLOW}] ${RED} › ${MAGENTA} START ZIVPN
 ${YELLOW}[${GREEN}6${YELLOW}] ${RED} › ${MAGENTA} STOP ZIVPN
 ${YELLOW}[${GREEN}7${YELLOW}] ${RED} › ${MAGENTA} RESTART ZIVPN
 ${YELLOW}[${GREEN}0${YELLOW}] ${RED} › ${MAGENTA} EXIT
-${GRAY}[${RED}-${GRAY}]${RED} ────────────── /// ─────────────── "
+${GRAY}[${RED}-${GRAY}]${RED} └────────────── /// ────────────────┘ "
 echo -e "${YELLOW} Δ CHOOSE AN OPTION:      ${YELLOW}"
 read -p " : " option
 tput cuu1 >&2 && tput dl1 >&2
