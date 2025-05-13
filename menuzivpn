@@ -166,12 +166,12 @@ echo -e "${YELLOW} › ${WHITE}SYS OS :${GREEN} $distribution "
 echo -e "${YELLOW} › ${WHITE}IP :${GREEN} $IP "
 echo -e "${YELLOW} › ${WHITE}Network:${GREEN} $Network "
 echo -e "${YELLOW} › ${WHITE}Running:${GREEN} $ports "
-echo -e "${GRAY}${RED}${GRAY}${RED}┌─────────────── ZIVPN ───────────────┐ "
+echo -e "${GRAY}${RED}${GRAY}${RED}┌──────────────── ZIVPN ────────────────┐ "
 echo -e "${RED}${ORANGE}│ ${YELLOW}${RED} 1.${RED}INSTALL ZIVPN V1  5.START ZIVPN
 ${YELLOW}${RED}│ ${YELLOW}${RED} 2.${RED}INSTALL ZIVPN V2  6.STOP ZIVPN
 ${YELLOW}${RED}│ ${YELLOW}${RED} 3.${RED}INSTALL ZIVPN V3  7.RECALIN ZIVPN
-${YELLOW}${RED}│ ${YELLOW}${RED} 4.${RED}RESTART SCRIPT     0.EXIT SCRIPT
-${GRAY}${RED}${GRAY}${RED}└─────────────────────────────────────┘ "
+${YELLOW}${RED}│ ${YELLOW}${RED} 4.${RED}RESTART SCRIPT    0.EXIT SCRIPT
+${GRAY}${RED}${GRAY}${RED}└───────────────────────────────────────┘ "
 echo -e "${YELLOW} Select From Options [ 1 - 7 ] :      ${YELLOW}"
 read -p " : " option
 tput cuu1 >&2 && tput dl1 >&2
