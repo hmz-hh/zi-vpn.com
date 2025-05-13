@@ -168,14 +168,14 @@ echo -e "${YELLOW} › ${WHITE}IP:${GREEN} $IP "
 echo -e "${YELLOW} › ${WHITE}Network:${GREEN} $Network "
 echo -e "${YELLOW} › ${WHITE}Running:${GREEN} $ports "
 echo -e "${GRAY}[${RED}-${GRAY}]${RED} ────────────── /// ─────────────── "
-echo -e "${YELLOW}[${GREEN}1${YELLOW}] ${RED} › ${WHITE} INSTALL ZIVPN V1 (5666) [Discontinued]
-${YELLOW}[${GREEN}2${YELLOW}] ${RED} › ${WHITE} INSTALL ZIVPN V2 AMD (5667) [Recommended]
-${YELLOW}[${GREEN}3${YELLOW}] ${RED} › ${WHITE} INSTALL ZIVPN V2 ARM (5667)
-${YELLOW}[${GREEN}4${YELLOW}] ${RED} › ${WHITE} UNINSTALL ZIVPN
-${YELLOW}[${GREEN}5${YELLOW}] ${RED} › ${WHITE} START ZIVPN
-${YELLOW}[${GREEN}6${YELLOW}] ${RED} › ${WHITE} STOP ZIVPN
-${YELLOW}[${GREEN}7${YELLOW}] ${RED} › ${WHITE} RESTART ZIVPN
-${YELLOW}[${GREEN}0${YELLOW}] ${RED} › ${WHITE} EXIT
+echo -e "${YELLOW}[${GREEN}1${YELLOW}] ${RED} › ${MAGENTA} INSTALL ZIVPN V1 (5666) [Discontinued]
+${YELLOW}[${GREEN}2${YELLOW}] ${RED} › ${MAGENTA} INSTALL ZIVPN V2 AMD (5667) [Recommended]
+${YELLOW}[${GREEN}3${YELLOW}] ${RED} › ${MAGENTA} INSTALL ZIVPN V2 ARM (5667)
+${YELLOW}[${GREEN}4${YELLOW}] ${RED} › ${MAGENTA} UNINSTALL ZIVPN
+${YELLOW}[${GREEN}5${YELLOW}] ${RED} › ${MAGENTA} START ZIVPN
+${YELLOW}[${GREEN}6${YELLOW}] ${RED} › ${MAGENTA} STOP ZIVPN
+${YELLOW}[${GREEN}7${YELLOW}] ${RED} › ${MAGENTA} RESTART ZIVPN
+${YELLOW}[${GREEN}0${YELLOW}] ${RED} › ${MAGENTA} EXIT
 ${GRAY}[${RED}-${GRAY}]${RED} ────────────── /// ─────────────── "
 echo -e "${YELLOW} Δ CHOOSE AN OPTION:      ${YELLOW}"
 read -p " : " option
