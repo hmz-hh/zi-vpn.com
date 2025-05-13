@@ -174,9 +174,9 @@ ${YELLOW}${ORANGE}│ ${YELLOW}${RED}4.${RED}DELETE SCRIPT     0.EXIT SCRIPT
 ${YELLOW}${ORANGE}│${YELLOW}${RED}${RED}─────────────────────────────────┘
 ${YELLOW}${ORANGE}${YELLOW}${RED}5${RED}
 ${YELLOW}${ORANGE}${YELLOW}${RED}6${RED}
-${YELLOW}${ORANGE}${YELLOW}${RED}7${RED}
+   ${YELLOW}${ORANGE}${YELLOW}${RED}7${RED}
 #${YELLOW}${ORANGE}${YELLOW}${RED}0${RED}
-#${GRAY}${RED}${GRAY}${RED}└───────────────────────────┘ "
+   #${GRAY}${RED}${GRAY}${RED}└───────────────────────────┘ "
 echo -e "${YELLOW} Δ CHOOSE AN OPTION:      ${YELLOW}"
 read -p " : " option
 tput cuu1 >&2 && tput dl1 >&2
