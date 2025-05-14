@@ -1,5 +1,11 @@
 #!/bin/bash
 
+
+
+
+echo -e "${YELLOW}  › ${WHITE}Linux Dist:${GREEN} $distribution "
+echo -e "${YELLOW}  › ${WHITE}IP:${GREEN} $IP "
+
 # echo -e "${YELLOW}  › ${WHITE}IP:${GREEN} $IP "
 
 # OS
