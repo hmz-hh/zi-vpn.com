@@ -1,17 +1,16 @@
 #!/bin/bash
 
-# IP VPS
 ip=$(curl -s ifconfig.me)
 echo "IP VPS: $ip"
 
-# 
 disk_space=$(df -h / | awk 'NR==2 {print $4}')
 echo " : $disk_space"
 
-# RAM
 ram=$(free -m | awk 'NR==2 {print $4}')
 echo " RAM : $ram MB"
 
-# 
 os=$(cat /etc/os-release | grep PRETTY_NAME | cut -d "=" -f 2- | tr -d '"')
 echo " : $os"
+
+country=$(curl -s ip-api.com/json/$(curl -s ifconfig.me) | grep country | cut -d ":" -f 2- | tr -d '"' | tr -d ",")
+echo " : $country"
