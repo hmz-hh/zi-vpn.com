@@ -166,11 +166,8 @@ echo -e "${YELLOW}  › ${WHITE}Linux Dist:${GREEN} $distribution "
 echo -e "${YELLOW}  › ${WHITE}IP:${GREEN} $IP "
 echo -e "${YELLOW}  › ${WHITE}Network:${GREEN} $Network "
 echo -e "${YELLOW}  › ${WHITE}Running:${GREEN} $ports "
-echo -e "${GRAY}${RED}${GRAY}${RED}        _____ _ __     __ ____   _   _
-   __/\__|__  /(_)\ \   / /|  _ \ | \ | |__/\__
-   \    /  / / | | \ \ / / | |_) ||  \| |\    /
-   /_  _\ / /_ | |  \ V /  |  __/ | |\  |/_  _\
-   \/  /____||_|   \_/   |_|    |_| \_|  \/ "
+echo -e "${GRAY}${RED}${GRAY}${RED} ██╗░░░██╗██████╗░░██████╗ ██║░░░██║██╔══██╗██╔════╝ ╚██╗░██╔╝██████╔╝╚█████╗░ ░╚████╔╝░██╔═══╝░░╚═══██╗ ░░╚██╔╝░░██║░░░░░██████╔╝ ░░╚═╝░░░╚═╝░░░░╚═════╝░
+ "
 echo -e "${GRAY}${RED}${GRAY}${RED} ┌──────────────── HAMZA TECH ────────────────┐ "
 echo -e "${YELLOW}      [${GREEN}1${YELLOW}] ${RED} . ${MAGENTA} INSTALL ZIVPN V1 (5666)
 ${YELLOW}      [${GREEN}2${YELLOW}] ${RED} . ${MAGENTA} INSTALL ZIVPN V2 AMD (5667)
