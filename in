@@ -1,27 +1,30 @@
 #!/bin/bash
 
-IP:${GREEN} $IP
+# IP
+ip=$(curl -s ifconfig.me)
+echo -e "\033[91mIP:\033[0m $ip"
+
 # OS
 os=$(cat /etc/os-release | grep PRETTY_NAME | cut -d "=" -f 2- | tr -d '"')
-echo "OS: $os"
+echo -e "\033[91mOS:\033[0m $os"
 
 # RAM
 ram_total=$(free -m | awk 'NR==2 {print $2}')
 ram_used=$(free -m | awk 'NR==2 {print $3}')
-echo "RAM: $ram_used MB / $ram_total MB"
+echo -e "\033[91mRAM:\033[0m $ram_used MB / $ram_total MB"
 
 # DATE
 date=$(date)
-echo "DATE: $date"
+echo -e "\033[91mDATE:\033[0m $date"
 
 # UPTIME
 uptime=$(uptime -p)
-echo "UPTIME: $uptime"
+echo -e "\033[91mUPTIME:\033[0m $uptime"
 
 # ISP
 isp=$(curl -s ip-api.com/json/$(curl -s ifconfig.me) | sed 's/.*"isp":"\([^"]*\).*/\1/')
-echo "ISP: $isp"
+echo -e "\033[91mISP:\033[0m $isp"
 
 # City
 city=$(curl -s ip-api.com/json/$(curl -s ifconfig.me) | sed 's/.*"city":"\([^"]*\).*/\1/')
-echo "City: $city"
+echo -e "\033[91mCITY:\033[0m $city"
