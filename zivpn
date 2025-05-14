@@ -28,7 +28,7 @@ echo -e "${RED} ────────────── /// ─────�
 echo -e "${YELLOW}This option will install ZIVPN version 1, UDP port range will be 20000:50000 redirected to 5666"
 echo -e "${YELLOW}Continue?"
 while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
-read -p "[S/N]: " yesno
+read -p "[Y/N]: " yesno
 tput cuu1 && tput dl1
 done
 if [[ ${yesno} = @(s|S|y|Y) ]]; then
@@ -42,7 +42,7 @@ echo -e "${RED} ────────────── /// ─────�
 echo -e "${YELLOW}This option will install ZIVPN version 2 AMD, UDP port range will be 6000:19999 redirected to 5667"
 echo -e "${YELLOW}Continue?"
 while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
-read -p "[S/N]: " yesno
+read -p "[Y/N]: " yesno
 tput cuu1 && tput dl1
 done
 if [[ ${yesno} = @(s|S|y|Y) ]]; then
@@ -56,7 +56,7 @@ echo -e "${RED} ────────────── /// ─────�
 echo -e "${YELLOW}This option will install ZIVPN version 2 ARM, UDP port range will be 6000:19999 redirected to 5667"
 echo -e "${YELLOW}Continue?"
 while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
-read -p "[S/N]: " yesno
+read -p "[Y/N]: " yesno
 tput cuu1 && tput dl1
 done
 if [[ ${yesno} = @(s|S|y|Y) ]]; then
@@ -67,10 +67,10 @@ fi
 #uninstall
 function uninstall(){
 echo -e "${RED} ────────────── /// ─────────────── "
-echo -e "${YELLOW}This option will uninstall the ZIVPN server in any of its versions"
+echo -e "${YELLOW}This option will uninstall the script ZIVPN server in any of its versions"
 echo -e "${YELLOW}Continue?"
 while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
-read -p "[S/N]: " yesno
+read -p "[Y/N]: " yesno
 tput cuu1 && tput dl1
 done
 if [[ ${yesno} = @(s|S|y|Y) ]]; then
@@ -81,10 +81,10 @@ fi
 #start
 function startzivpn(){
 echo -e "${RED} ────────────── /// ─────────────── "
-echo -e "${YELLOW}This option will start the ZiVPN server"
+echo -e "${YELLOW}This option will start the Accounts udp ZIVPN server"
 echo -e "${YELLOW}Continue?"
 while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
-read -p "[S/N]: " yesno
+read -p "[Y/N]: " yesno
 tput cuu1 && tput dl1
 done
 if [[ ${yesno} = @(s|S|y|Y) ]]; then
@@ -108,10 +108,10 @@ fi
 #stop
 function stopzivpn(){
 echo -e "${RED} ────────────── /// ─────────────── "
-echo -e "${YELLOW}This option will stop the ZiVPN server"
+echo -e "${YELLOW}This option will stop the Accounts udp zivpn server"
 echo -e "${YELLOW}Continue?"
 while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
-read -p "[S/N]: " yesno
+read -p "[Y/N]: " yesno
 tput cuu1 && tput dl1
 done
 if [[ ${yesno} = @(s|S|y|Y) ]]; then
@@ -135,7 +135,7 @@ fi
 #restart
 function restartzivpn(){
 echo -e "${RED} ────────────── /// ─────────────── "
-echo -e "${YELLOW}This option will restart the ZiVPN server"
+echo -e "${YELLOW}This option will restart the Accounts udp ZIVPN server"
 echo -e "${YELLOW}Continue?"
 while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
 read -p "[S/N]: " yesno
