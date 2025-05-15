@@ -164,7 +164,7 @@ fi
 echo -e "${GRAY}${RED}${GRAY}${RED} ┌─────────────────── ZIVPN ──────────────────┐ "
 echo -e "${YELLOW}  │ ${green}IP:${GREEN} $IP "
 # IP
-ip=$(curl -s ifconfig.me)
+ip= $IP
 echo -e "\033[38;5;208m│\033[0m \033[91mIP:\033[0m $ip"
 
 # OS
