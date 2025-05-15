@@ -132,7 +132,7 @@ echo -e "${YELLOW}STOPPING.."
     fi
 fi
 }
-#restart
+m restart
 function restartzivpn(){
 echo -e "${RED} ────────────── /// ─────────────── "
 echo -e "${YELLOW}This option will restart the Accounts udp ZIVPN server"
@@ -162,7 +162,7 @@ fi
   if [[ $1 == "" ]]; then
     clear && printf '\e[3J'
 echo -e "${GRAY}${RED}${GRAY}${RED} ┌─────────────────── ZIVPN ──────────────────┐ "
-echo -e "${YELLOW}  › ${WHITE}IP:${GREEN} $IP "
+echo -e "${YELLOW}  │ ${WHITE}IP:${GREEN} $IP "
 # IP
 ip=$(curl -s ifconfig.me)
 echo -e "\033[38;5;208m│\033[0m \033[91mIP:\033[0m $ip"
