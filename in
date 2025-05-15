@@ -162,9 +162,9 @@ fi
   if [[ $1 == "" ]]; then
     clear && printf '\e[3J'
 echo -e "${GRAY}${RED}${GRAY}${RED} ┌─────────────────── ZIVPN ──────────────────┐ "
-echo -e "${YELLOW}  │ ${green}IP:${GREEN} $IP "
+echo -e  "\033[38;5;208m  │ \033[0m \033[91mIP:\033[0m $ip"
 # IP
-ip= $IP
+ip=$(curl -s ifconfig.me)
 echo -e "\033[38;5;208m│\033[0m \033[91mIP:\033[0m $ip"
 
 # OS
