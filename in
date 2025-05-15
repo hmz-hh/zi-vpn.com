@@ -186,7 +186,7 @@ echo -e "\033[38;5;208m│\033[0m \033[91mUPTIME:\033[0m $uptime"
 
 # ISP
 isp=$(curl -s ip-api.com/json/$(curl -s ifconfig.me) | sed 's/.*"isp":"\([^"]*\).*/\1/')
-echo -e "\033[38;5;208m│\033[0m \033[91mISP:\033[0m $isp"
+echo -e "\033[38;5;75m│\033[0m \033[91mISP:\033[0m $isp"
 
 # City
 city=$(curl -s ip-api.com/json/$(curl -s ifconfig.me) | sed 's/.*"city":"\([^"]*\).*/\1/')
