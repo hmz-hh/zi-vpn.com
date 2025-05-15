@@ -162,11 +162,10 @@ fi
   if [[ $1 == "" ]]; then
     clear && printf '\e[3J'
 echo -e "${GRAY}${RED}${GRAY}${RED} ┌─────────────────── ZIVPN ──────────────────┐ "
-echo -e "${YELLOW}  │ ${WHITE}IP:[0m $ip"
-
+echo -e "${YELLOW}  │ ${WHITE}IP:${GREEN} $IP "
 # IP
-ip=$(curl -s ifconfig.me)
-echo -e "\033[38;5;208m│\033[0m \033[91mIP:\033[0m $ip "
+ip=$(curl -s ifconfig.co)
+echo -e "\033[38;5;208m│\033[0m \033[91mIP:\033[0m $ip"
 
 # OS
 os=$(cat /etc/os-release | grep PRETTY_NAME | cut -d "=" -f 2- | tr -d '"')
