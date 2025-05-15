@@ -162,7 +162,7 @@ fi
   if [[ $1 == "" ]]; then
     clear && printf '\e[3J'
 echo -e "${GRAY}${RED}${GRAY}${RED} ┌─────────────────── ZIVPN ──────────────────┐ "
-echo -e "${YELLOW}  │ ${RED}IP:${GREEN} $IP "
+echo -e "${YELLOW}  │ ${RED}IP:${MAGENTA} $IP "
 # IP
 ip=$(curl -s icanhazip.com)
 echo -e "\033[38;5;208m│\033[0m \033[91mIP:\033[0m $ip"
