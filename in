@@ -163,6 +163,7 @@ fi
     clear && printf '\e[3J'
 echo -e         " \e[41m            ● HAMZA VPN DEVELOPER  ●            \e[0m"
 
+
 echo -e "${YELLOW}  │ ${WHITE}IP:${GREEN} $IP "
 # IP
 ip=$(curl -s ifconfig.me)
