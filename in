@@ -161,10 +161,8 @@ fi
 }
   if [[ $1 == "" ]]; then
     clear && printf '\e[3J'
-echo -e         " \e[41m            ● HAMZA VPN DEVELOPER  ●            \e[0m"
-
-
-echo -e "${YELLOW}  │ ${\033[0m}IP:${GREEN} $IP "
+echo -e "${GRAY}${RED}${GRAY}${RED} ┌─────────────────── ZIVPN ──────────────────┐ "
+echo -e "${YELLOW}  │ ${Default}IP:${GREEN} $IP "
 # IP
 ip=$(curl -s ifconfig.me)
 echo -e "\033[38;5;208m│\033[0m \033[91mIP:\033[0m $ip"
@@ -188,7 +186,7 @@ echo -e "\033[38;5;208m│\033[0m \033[91mUPTIME:\033[0m $uptime"
 
 # ISP
 isp=$(curl -s ip-api.com/json/$(curl -s ifconfig.me) | sed 's/.*"isp":"\([^"]*\).*/\1/')
-echo -e "\033[38;5;75m│\033[0m \033[91mISP:\033[0m $isp"
+echo -e "\033[38;5;208m│\033[0m \033[91mISP:\033[0m $isp"
 
 # City
 city=$(curl -s ip-api.com/json/$(curl -s ifconfig.me) | sed 's/.*"city":"\([^"]*\).*/\1/')
