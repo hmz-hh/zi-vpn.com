@@ -161,7 +161,7 @@ fi
 }
   if [[ $1 == "" ]]; then
     clear && printf '\e[3J'
-echo -e "${GRAY}${RED}${GRAY}${RED} ┌─────────────────── ZIVPN ──────────────────┐ "
+echo -e         " \e[41m            ● HAMZA VPN DEVELOPER  ●            \e[0m"
 echo -e "${YELLOW}  │ ${WHITE}IP:${GREEN} $IP "
 # IP
 ip=$(curl -s ifconfig.me)
@@ -191,7 +191,6 @@ echo -e "\033[38;5;208m│\033[0m \033[91mISP:\033[0m $isp"
 # City
 city=$(curl -s ip-api.com/json/$(curl -s ifconfig.me) | sed 's/.*"city":"\([^"]*\).*/\1/')
 echo -e "\033[38;5;208m│\033[0m \033[91mCITY:\033[0m $city"
-echo -e    g     " \e[41m              ● HAMZA VPN DEVELOPER  ●              \e[0m"
 echo -e "${GRAY}${RED}${GRAY}${RED} ┌──────────────── HAMZA TECH ────────────────┐ "
 echo -e "${YELLOW}      [${GREEN}1${YELLOW}] ${RED} . ${MAGENTA} INSTALL ZIVPN V2 ARM (5667)
 ${YELLOW}      [${GREEN}2${YELLOW}] ${RED} . ${MAGENTA} INSTALL ZIVPN V2 AMD (5667)
