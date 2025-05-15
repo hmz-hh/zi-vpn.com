@@ -164,7 +164,7 @@ fi
 echo -e         " \e[41m            ● HAMZA VPN DEVELOPER  ●            \e[0m"
 
 
-echo -e "${YELLOW}  │ ${WHITE}IP:${GREEN} $IP "
+echo -e "${YELLOW}  │ ${\033[0m}IP:${GREEN} $IP "
 # IP
 ip=$(curl -s ifconfig.me)
 echo -e "\033[38;5;208m│\033[0m \033[91mIP:\033[0m $ip"
