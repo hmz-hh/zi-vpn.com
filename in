@@ -192,9 +192,9 @@ echo -e "\033[38;5;208m│\033[0m \033[91mISP:\033[0m $isp"
 city=$(curl -s ip-api.com/json/$(curl -s ifconfig.me) | sed 's/.*"city":"\([^"]*\).*/\1/')
 echo -e "\033[38;5;208m│\033[0m \033[91mCITY:\033[0m $city"
 echo -e "${GRAY}${RED}${GRAY}${RED} ┌──────────────── HAMZA TECH ────────────────┐ "
-echo -e "${YELLOW}      [${GREEN}1${YELLOW}] ${RED} . ${MAGENTA} INSTALL ZIVPN V1 (5666)
+echo -e "${YELLOW}      [${GREEN}1${YELLOW}] ${RED} . ${MAGENTA} INSTALL ZIVPN V2 ARM (5667)
 ${YELLOW}      [${GREEN}2${YELLOW}] ${RED} . ${MAGENTA} INSTALL ZIVPN V2 AMD (5667)
-${YELLOW}      [${GREEN}3${YELLOW}] ${RED} . ${MAGENTA} INSTALL ZIVPN V2 ARM (5667)
+${YELLOW}      [${GREEN}3${YELLOW}] ${RED} . ${MAGENTA} INSTALL ZIVPN V1 (5666)
 ${YELLOW}      [${GREEN}4${YELLOW}] ${RED} . ${MAGENTA} UNINSTALL SCRIPT ZIVPN
 ${YELLOW}      [${GREEN}5${YELLOW}] ${RED} . ${MAGENTA} START ACCOUNT ZIVPN
 ${YELLOW}      [${GREEN}6${YELLOW}] ${RED} . ${MAGENTA} STOP ACCOUNT ZIVPN
@@ -209,11 +209,11 @@ option=$1
 fi
 case $option in
   1 | 01 )
-   installv1;;
-  2 | 02 )
-   installv2;;
-  3 | 03 )
    installv3;;
+  2 | 02 )
+   installv1;;
+  3 | 03 )
+   installv2;;
   4 | 04)
    uninstall;;
   5 | 05)
