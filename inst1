@@ -56,6 +56,12 @@ new_config_str="\"config\": [$(printf "\"%s\"," "${config[@]}" | sed 's/,$//')]"
 
 sed -i -E "s/\"config\":?\[[[:space:]]*\"zi\"[[:space:]]*\]/${new_config_str}/g" /etc/zivpn/config.json
 
+# إضافة اختيار عدد الأيام للحساب
+read -p "أدخل عدد الأيام للحساب (افتراضي: 365): " account_days
+account_days=${account_days:-365}
+
+# يمكنك الآن استخدام $account_days داخل ملفات الإعداد أو التحكم في مدة الحساب هنا
+
 systemctl enable zivpn.service
 systemctl start zivpn.service
 iptables -t nat -A PREROUTING -i $(ip -4 route ls|grep default|grep -Po '(?<=dev)(\S+)'|head -1) -p udp --dport 20000:50000 -j DNAT --to-destination:5666
