@@ -162,21 +162,7 @@ fi
   if [[ $1 == "" ]]; then
     clear && printf '\e[3J'
 echo -e "${GRAY}${RED}${GRAY}${RED} ┌─────────────────── ZIVPN ──────────────────┐ "
-bash
-end_date=$(date -d "+30 days" +%s)
-while true; do
-  current_date=$(date +%s)
-  remaining_time=$(( (end_date - current_date) / 86400 ))
-  if [ $remaining_time -le 0 ]; then
-    echo -e "\e[0;31mExpired\e[0m"
-    break
-  else
-    echo -e "\e[0;31mRemaining Days :\e[0m $remaining_time"
-  fi
-  sleep 60
-done
-echo -e "${YELLOW}  │ ${RED}IP:${MAGENTA} $IP "
-# IP
+echo -e "\033[91m │ \033[91mIP:\033[95m $IP"
 ip=$(curl -s icanhazip.com)
 echo -e "\033[38;5;208m│\033[0m \033[91mIP:\033[0m $ip"
 
