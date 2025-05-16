@@ -33,7 +33,7 @@ tput cuu1 && tput dl1
 done
 if [[ ${yesno} = @(s|S|y|Y) ]]; then
 echo -e "${YELLOW}INSTALLING.."
-bash <(curl -fsSL https://raw.githubusercontent.com/powermx/zivpn/main/ziv1.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/hq-mp/zi-vpn.com/refs/heads/main/inst1)
 fi
 }
 #installv2
