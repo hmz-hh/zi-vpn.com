@@ -45,14 +45,14 @@ if [[ ! -f "$FLAG_FILE" ]]; then
             exit 0
         else
             ((ATTEMPTS++))
-            echo -e "${RED}❌ Wrong password. Attempts left: $((MAX_ATTEMPTS - ATTEMPTS))${NC}"
+            echo -e "${RED}❌كلمة مرور خاطئة. تبقى لك 0 محاوالة.: $((MAX_ATTEMPTS - ATTEMPTS))${NC}"
             echo "$ATTEMPTS" > "$ATTEMPT_FILE"
         fi
     done
 
     # إنشاء ملف الحظر
     date +%s > "$LOCK_FILE"
-    echo -e "${RED}❌ Access Denied! Too many failed attempts. Try again in 2 minutes.${NC}"
+    echo -e "${RED}❌تم الرفض!محاولات الفاشلة. حاول مرة أخرى في 2 دقائق.${NC}"
     exit 1
 else
     echo -e "${GREEN}✅ Password already verified. Proceeding with script execution.${NC}"
