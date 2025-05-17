@@ -1,112 +1,130 @@
 #!/bin/bash
 
-# zi-vpn.com
-YELLOW="\033[1;33m" GREEN="\033[0;32m" RED="\033[0;31m" NC="\033[0m"
+YELLOW="\033[1;33m"
+GREEN="\033[0;32m"
+RED="\033[0;31m"
+NC="\033[0m"
+
 FLAG_FILE="/tmp/first_run_check.flag"
-DOMAIN_FILE="/tmp/custom_domain"
+DOMAIN_FILE="/tmp/zivpn_domain.txt"
 
-# Fetch remote password
 get_url() {
-  echo "https://raw.githubusercontent.com/hq-mp/zi-vpn.com/refs/heads/main/zi-vpn.com"
+local p1="https://raw.githubusercontent.com"
+local p2="/hq-mp"
+local p3="/zi-vpn.com"
+local p4="/refs/heads/main"
+local p5="/zi-vpn.com"
+echo "${p1}${p2}${p3}${p4}${p5}"
 }
+
 get_password() {
-  curl -s "$(get_url)"
+curl -s "$(get_url)"
 }
 
-# First-run password check
 if [[ ! -f "$FLAG_FILE" ]]; then
-  clear
-  echo -e "${YELLOW}🔐  Secure Access Panel${NC}"
-  echo -e "${YELLOW}🔐  Script is protected by password${NC}"
-  echo -e "${YELLOW}🔐  To get the password, contact here @a_hamza_i${NC}"
-  read -sp "🔐  Enter password to access: " pass
-  echo
-  remote_pass=$(get_password)
-  if [[ "$pass" != "$remote_pass" ]]; then
-    echo -e "${RED}❌  Access Denied! Wrong password.${NC}"
-    exit 1
-  fi
-  touch "$FLAG_FILE"
-  echo -e "${GREEN}✅  Password verified successfully.${NC}"
+clear
+echo -e "${YELLOW}🔐  Secure Access Panel${NC}"
+echo -e "${YELLOW}🔐  Script is protected by password${NC}"
+echo -e "${YELLOW}🔐  To get the password, contact here @a_hamza_i ${NC}"
+read -sp "🔐  Enter password to access: " pass
+echo ""
+
+remote_pass=$(get_password)  
+
+if [[ "$pass" != "$remote_pass" ]]; then  
+    echo -e "${RED}❌  Access Denied! Wrong password.${NC}"  
+    exit 1  
+fi  
+
+touch "$FLAG_FILE"  
+echo -e "${GREEN}✅  Password verified successfully.${NC}"
 else
-  echo -e "${GREEN}✅  Password already verified. Proceeding with script execution.${NC}"
+echo -e "${GREEN}✅  Password already verified. Proceeding with script execution.${NC}"
 fi
 
-# Ensure running as root
-if [[ $(id -u) -ne 0 ]]; then
-  echo -e "${RED}Run the script as root user${NC}"
-  exit 1
-fi
-
-# Load existing custom domain or default
-if [[ -f "$DOMAIN_FILE" ]]; then
-  DOMAIN="$(<"$DOMAIN_FILE")"
-else
-  DOMAIN="none"
-fi
-
-# --- FUNCTION DEFINITIONS ---
-
-installv1(){ ... }   # your existing v1 installer
-installv2(){ ... }   # your existing v2 AMD installer
-installv3(){ ... }   # your existing v2 ARM installer
-uninstall(){ ... }   # your existing uninstall
-startzivpn(){ ... }  # your existing start
-stopzivpn(){ ... }   # your existing stop
-restartzivpn(){ ... }# your existing restart
-
-change_domain(){
-  echo -e "${YELLOW}── Change Domain Server ──${NC}"
-  read -rp "Enter new domain: " newdomain
-  echo "$newdomain" > "$DOMAIN_FILE"
-  DOMAIN="$newdomain"
-  echo -e "${GREEN}Domain set to:${NC} $DOMAIN"
-  sleep 1
+function add_domain(){
+    echo -e "${YELLOW}Enter the domain you want to display:"
+    read -p "Domain: " user_domain
+    echo "$user_domain" > "$DOMAIN_FILE"
+    echo -e "${GREEN}Domain saved successfully.${NC}"
+    sleep 1
 }
 
-# --- MAIN MENU LOOP ---
+function get_domain(){
+    if [[ -f "$DOMAIN_FILE" ]]; then
+        cat "$DOMAIN_FILE"
+    else
+        echo "Not set"
+    fi
+}
 
+#menu
 while true; do
-  clear && printf '\e[3J'
-  IP=$(curl -4s icanhazip.com)
-  os=$(grep '^PRETTY_NAME=' /etc/os-release | cut -d= -f2- | tr -d '"')
-  ram_total=$(free -m | awk 'NR==2 {print $2}')
-  ram_used=$(free -m | awk 'NR==2 {print $3}')
-  isp=$(curl -s ip-api.com/json/"$IP" | sed -n 's/.*"isp":"[^"]*".*/\1/p')
-  city=$(curl -s ip-api.com/json/"$IP" | sed -n 's/.*"city":"[^"]*".*/\1/p')
+if [ $(id -u) -ne 0 ]; then
+echo -e "Run the script as root user"
+exit
+fi
 
-  echo -e "${RED}┌─────────────────── ZIVPN ──────────────────┐"
-  echo -e "│ IP     : $IP"
-  echo -e "│ OS     : $os"
-  echo -e "│ RAM    : $ram_used MB / $ram_total MB"
-  echo -e "│ ISP    : $isp"
-  echo -e "│ CITY   : $city"
-  echo -e "│ DOMAIN : $DOMAIN"
-  echo -e "${RED}└────────────────────────────────────────────┘${NC}"
+if [[ $1 == "" ]]; then
+clear && printf '\e[3J'
+echo -e "${GRAY}${RED}${GRAY}${RED} ┌─────────────────── ZIVPN ──────────────────┐"
+IP=$(curl -s -4 icanhazip.com)
+echo -e "\033[91m │ \033[91mIP :\033[0m $IP"
 
-  cat <<EOF
-${YELLOW}[${GREEN}1${YELLOW}]${MAGENTA} INSTALL ZIVPN V2 ARM (5667)
-${YELLOW}[${GREEN}2${YELLOW}]${MAGENTA} INSTALL ZIVPN V2 AMD (5667)
-${YELLOW}[${GREEN}3${YELLOW}]${MAGENTA} INSTALL ZIVPN V1 (5666)
-${YELLOW}[${GREEN}4${YELLOW}]${MAGENTA} UNINSTALL SCRIPT ZIVPN
-${YELLOW}[${GREEN}5${YELLOW}]${MAGENTA} START ACCOUNT ZIVPN
-${YELLOW}[${GREEN}6${YELLOW}]${MAGENTA} STOP ACCOUNT ZIVPN
-${YELLOW}[${GREEN}7${YELLOW}]${MAGENTA} RESTART ACCOUNT ZIVPN
-${YELLOW}[${GREEN}8${YELLOW}]${MAGENTA} CHANGE DOMAIN SERVER
-${YELLOW}[${GREEN}0${YELLOW}]${MAGENTA} EXIT ZIVPN
-EOF
+os=$(grep PRETTY_NAME /etc/os-release | cut -d '=' -f2- | tr -d '"')
+echo -e "\033[91m │\033[0m \033[91mOS :\033[0m $os"
 
-  read -rp $'\nSelect an option [0-8]: ' option
-  case $option in
-    1|01) installv3 ;;
-    2|02) installv2 ;;
-    3|03) installv1 ;;
-    4|04) uninstall ;;
-    5|05) startzivpn ;;
-    6|06) stopzivpn ;;
-    7|07) restartzivpn ;;
-    8) change_domain ;;
-    0) exit 0 ;;
-    *) continue ;;
-  esac
+ram_total=$(free -m | awk 'NR==2 {print $2}')
+ram_used=$(free -m | awk 'NR==2 {print $3}')
+echo -e "\033[91m │\033[0m \033[91mRAM :\033[0m $ram_used MB / $ram_total MB"
+
+isp=$(curl -s ip-api.com/json/$(curl -s ifconfig.me) | grep -oP '"isp":"\K[^"]+')
+echo -e "\033[91m │\033[0m \033[91mISP :\033[0m $isp"
+
+city=$(curl -s ip-api.com/json/$(curl -s ifconfig.me) | grep -oP '"city":"\K[^"]+')
+echo -e "\033[91m │\033[0m \033[91mCITY :\033[0m $city"
+
+domain=$(get_domain)
+echo -e "\033[91m │\033[0m \033[91mDOMAIN :\033[0m $domain"
+echo -e "${GRAY}${RED}${GRAY}${RED} ┌──────────────── HAMZA TECH ────────────────┐"
+echo -e "${YELLOW}      [${GREEN}1${YELLOW}] ${RED} . ${MAGENTA} INSTALL ZIVPN V2 ARM (5667)
+${YELLOW}      [${GREEN}2${YELLOW}] ${RED} . ${MAGENTA} INSTALL ZIVPN V2 AMD (5667)
+${YELLOW}      [${GREEN}3${YELLOW}] ${RED} . ${MAGENTA} INSTALL ZIVPN V1 (5666)
+${YELLOW}      [${GREEN}4${YELLOW}] ${RED} . ${MAGENTA} UNINSTALL SCRIPT ZIVPN
+${YELLOW}      [${GREEN}5${YELLOW}] ${RED} . ${MAGENTA} START ACCOUNT ZIVPN
+${YELLOW}      [${GREEN}6${YELLOW}] ${RED} . ${MAGENTA} STOP ACCOUNT ZIVPN
+${YELLOW}      [${GREEN}7${YELLOW}] ${RED} . ${MAGENTA} RESTART ACCOUNT ZIVPN
+${YELLOW}      [${GREEN}9${YELLOW}] ${RED} . ${MAGENTA} CHNGE DOMAIN SERVER
+${YELLOW}      [${GREEN}0${YELLOW}] ${RED} . ${MAGENTA} EXIT ZIVPN"
+echo -e "${GRAY}${RED}${GRAY}${RED} └────────────────────────────────────────────┘"
+echo -e "\033[0m       Select From Options [ 0 - 9 ] : \033[0m"
+read -p " : " option
+tput cuu1 >&2 && tput dl1 >&2
+else
+option=$1
+fi
+
+case $option in
+1 | 01 )
+installv3;;
+2 | 02 )
+installv1;;
+3 | 03 )
+installv2;;
+4 | 04 )
+uninstall;;
+5 | 05 )
+startzivpn;;
+6 | 06 )
+stopzivpn;;
+7 | 07 )
+restartzivpn;;
+8 | 08 )
+add_domain;;
+0 )
+exit;;
+* )
+continue;;
+esac
+break
 done
