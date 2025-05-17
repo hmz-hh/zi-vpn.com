@@ -182,9 +182,11 @@ while true; do
   isp=$(curl -s ip-api.com/json/$(curl -s ifconfig.me) | grep -oP '(?<="isp":")[^"]+')
   city=$(curl -s ip-api.com/json/$(curl -s ifconfig.me) | grep -oP '(?<="city":")[^"]+')
   domain=""
-  if [[ -f /tmp/zivpn_domain.txt ]]; then
-    domain=$(cat /tmp/zivpn_domain.txt)
-  fi
+if [[ -f /tmp/zivpn_domain.txt ]] && [[ -s /tmp/zivpn_domain.txt ]]; then
+  domain=$(cat /tmp/zivpn_domain.txt)
+else
+  domain="not added"
+fi
 
   clear && printf '\e[3J'
   echo -e "${RED} ┌─────────────────── ZIVPN ──────────────────┐"
