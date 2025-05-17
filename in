@@ -57,6 +57,42 @@ else
     echo -e "${GREEN}✅ Password already verified. Proceeding with script execution.${NC}"
 fi
 
+# إعادة تعيين الألوان
+tput sgr0
+
+# باقي السكريبت كيتنفذ هنا
+
+    if [[ -f "$ATTEMPT_FILE" ]]; then
+        ATTEMPTS=$(cat "$ATTEMPT_FILE")
+    else
+        ATTEMPTS=0
+    fi
+
+    while (( ATTEMPTS < MAX_ATTEMPTS )); do
+        clear
+        echo -e "${YELLOW}🔐 Secure Access Panel${NC}"
+        read -sp "🔒 Enter password to access: " pass
+        echo ""
+        if [[ "$pass" == "HAMZAZIDANE200" ]]; then
+            echo -e "${GREEN}✅ Password verified successfully.${NC}"
+            touch "$FLAG_FILE"
+            rm -f "$ATTEMPT_FILE"
+            exit 0
+        else
+            ((ATTEMPTS++))
+            echo -e "${RED}❌ Wrong password. Attempts left: $((MAX_ATTEMPTS - ATTEMPTS))${NC}"
+            echo "$ATTEMPTS" > "$ATTEMPT_FILE"
+        fi
+    done
+
+    # إنشاء ملف الحظر
+    date +%s > "$LOCK_FILE"
+    echo -e "${RED}❌ Access Denied! Too many failed attempts. Try again in 2 minutes.${NC}"
+    exit 1
+else
+    echo -e "${GREEN}✅ Password already verified. Proceeding with script execution.${NC}"
+fi
+
 #installv1
 function installv1(){
 echo -e "${RED} ────────────── /// ─────────────── "
