@@ -1,46 +1,62 @@
 #!/bin/bash
 #hamza - PowerMX
 
-#!/bin/bash
+# مسار الملف اللي غادي يخزن فيه حالة التحقق
+FLAG_FILE="/tmp/first_run_check.flag"
+ATTEMPT_FILE="/tmp/login_attempts.flag"
+LOCK_FILE="/tmp/login_lock.flag"
 
-# تحقق واش السكريبت راه كيشتغل فـ وضع تفاعلي
-if [[ $- != *i* ]]; then
-  echo -e "${RED}❌ This script must be run interactively.${NC}"
-  exit 1
+# عدد المحاولات المسموحة
+MAX_ATTEMPTS=3
+LOCK_TIME=120  # مدة الحظر بالثواني (2 دقايق)
+
+# تحقق واش السكريبت راه تدار فيه التحقق من قبل
+if [[ ! -f "$FLAG_FILE" ]]; then
+    # أول مرة كيتنفذ فيها السكريبت
+    if [[ -f "$LOCK_FILE" ]]; then
+        LAST_LOCK_TIME=$(cat "$LOCK_FILE")
+        CURRENT_TIME=$(date +%s)
+        DIFF=$((CURRENT_TIME - LAST_LOCK_TIME))
+        if (( DIFF < LOCK_TIME )); then
+            REMAINING_TIME=$((LOCK_TIME - DIFF))
+            echo -e "${RED}❌ تم حظر المحاولات. حاول من بعد ${REMAINING_TIME} ثانية.${NC}"
+            exit 1
+        else
+            rm -f "$LOCK_FILE"
+        fi
+    fi
+
+    if [[ -f "$ATTEMPT_FILE" ]]; then
+        ATTEMPTS=$(cat "$ATTEMPT_FILE")
+    else
+        ATTEMPTS=0
+    fi
+
+    while (( ATTEMPTS < MAX_ATTEMPTS )); do
+        clear
+        echo -e "${YELLOW}🔐 Secure Access Panel${NC}"
+        read -sp "🔒 Enter password to access: " pass
+        echo ""
+        if [[ "$pass" == "HAMZAZIDANE200" ]]; then
+            echo -e "${GREEN}✅ Password verified successfully.${NC}"
+            touch "$FLAG_FILE"
+            rm -f "$ATTEMPT_FILE"
+            exit 0
+        else
+            ((ATTEMPTS++))
+            echo -e "${RED}❌ Wrong password. Attempts left: $((MAX_ATTEMPTS - ATTEMPTS))${NC}"
+            echo "$ATTEMPTS" > "$ATTEMPT_FILE"
+        fi
+    done
+
+    # إنشاء ملف الحظر
+    date +%s > "$LOCK_FILE"
+    echo -e "${RED}❌ Access Denied! Too many failed attempts. Try again in 2 minutes.${NC}"
+    exit 1
+else
+    echo -e "${GREEN}✅ Password already verified. Proceeding with script execution.${NC}"
 fi
 
-# تحقق من كلمة السر
-clear
-echo -e "${YELLOW}🔐 Secure Access Panel${NC}"
-read -sp "🔒 Enter password to access: " pass
-echo ""
-if [[ "$pass" != "HAMZAZIDANE200" ]]; then
-  echo -e "${RED}❌ Access Denied! Wrong password.${NC}"
-  exit 1
-fi
-
-IP=`curl -4 icanhazip.com`;
-distribution=`( lsb_release -ds || cat /etc/*release || uname -om ) 2>/dev/null | head -n1`;
-Network=`ip -4 route ls|grep default|grep -Po '(?<=dev )(\S+)'|head -1`;
-ports=`netstat -tunlp | grep zivpn | grep ::: | awk '{print substr($4,4); }' > /tmp/udpzivpn.txt && echo | cat /tmp/udpzivpn.txt | tr '\n' ' ' > /tmp/udpzivpnports.txt && cat /tmp/udpzivpnports.txt`;
-#colors
-RED='\033[1;31m'
-GREEN='\033[1;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[1;34m'
-PURPLE='\033[1;35m'
-CYAN='\033[1;36m'
-GRAY='\033[1;37m'
-WHITE='\033[1;37m'
-RESET='\033[0m'
-#menu
-while true; do
-  if [ $(id -u) -eq 0 ]; then
-    clear
-  else
-    echo -e "Run the script as root user"
-    exit
-  fi
 #installv1
 function installv1(){
 echo -e "${RED} ────────────── /// ─────────────── "
