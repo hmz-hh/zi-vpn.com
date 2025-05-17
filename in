@@ -1,5 +1,57 @@
 #!/bin/bash
 #Zahid - PowerMX
+
+# الألوان
+RED='\e[91m'
+GREEN='\e[92m'
+YELLOW='\e[93m'
+BLUE='\e[94m'
+MAGENTA='\e[95m'
+CYAN='\e[96m'
+WHITE='\e[97m'
+NC='\e[0m'
+
+# ملف التحقق من أول تشغيل
+FLAG_FILE="$HOME/.first_run_flag"
+
+# كلمة السر الصحيحة
+CORRECT_PASS="e"
+
+# التحقق من إذا كانت هذه أول مرة يتم فيها تشغيل السكريبت
+if [[ ! -f "$FLAG_FILE" ]]; then
+  clear
+  echo -e "${YELLOW}🔐 Secure Access Panel${NC}"
+
+  attempts=0
+  max_attempts=2
+
+  while [[ $attempts -lt $max_attempts ]]; do
+    read -sp "🔒 Enter password to access: " pass
+    echo ""
+    if [[ "$pass" == "$CORRECT_PASS" ]]; then
+      echo -e "${GREEN}✅ Access Granted.${NC}"
+      touch "$FLAG_FILE"
+      break
+    else
+      ((attempts++))
+      if [[ $attempts -lt $max_attempts ]]; then
+        echo -e "${RED}❌ Wrong password. Try again (${attempts}/${max_attempts})${NC}"
+      else
+        echo -e "${RED}❌ Access Denied! Too many wrong attempts.${NC}"
+        exit 1
+      fi
+    fi
+  done
+fi
+
+# تابع السكريبت من هنا
+echo -e "${CYAN}مرحبًا بك في السكريبت الخاص بك!${NC}"
+
+
+
+
+
+
 IP=`curl -4 icanhazip.com`;
 distribution=`( lsb_release -ds || cat /etc/*release || uname -om ) 2>/dev/null | head -n1`;
 Network=`ip -4 route ls|grep default|grep -Po '(?<=dev )(\S+)'|head -1`;
