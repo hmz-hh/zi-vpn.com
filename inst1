@@ -1,6 +1,6 @@
 #!/bin/bash
 # Zivpn UDP Module installer
-# Creator Zahid Islam
+# Creator hamza tech
 
 echo -e "Updating server"
 sudo apt-get update && apt-get upgrade -y
