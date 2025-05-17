@@ -10,7 +10,7 @@ CYAN='\e[96m'
 WHITE='\e[97m'
 NC='\e[0m'
 
-# تحقق من كلمة السر
+# تسجيل الدخول بكلمة السر
 clear
 echo -e "${YELLOW}🔐 Secure Access Panel${NC}"
 read -sp "🔒 Enter password to access: " pass
@@ -20,47 +20,98 @@ if [[ "$pass" != "HAMZAZIDANE200" ]]; then
   exit 1
 fi
 
-# واجهة الاستقبال
+# اختيار اللغة
+clear
+echo -e "${CYAN}🌍 اختر اللغة | Choose language:${NC}"
+echo -e "1) العربية"
+echo -e "2) English"
+read -p "➡️ اختيار | Choice: " lang
+
+if [[ $lang == "1" ]]; then
+  L_ADD="➕ إضافة حساب"
+  L_LIST="📋 عرض الحسابات"
+  L_DEL="❌ حذف حساب"
+  L_EXP="⏰ تعديل صلاحية"
+  L_BCK="💾 نسخة احتياطية"
+  L_PASS="🔑 تغيير كلمة المرور"
+  L_EXPDEL="🗑️ حذف المنتهية"
+  L_VPS="🖥️ معلومات الخادم"
+  L_UNINST="❓ إلغاء التثبيت"
+  L_EXIT="🚪 خروج"
+  L_TITLE="مدير ZiVPN"
+  L_WELCOME="مرحبا بك"
+  L_CHOOSE="👉 اختر خياراً: "
+  L_ACCESS="تم الدخول بنجاح!"
+  L_ACTIVE="✔️ حسابات مفعّلة"
+  L_EXPIRED="❌ منتهية الصلاحية"
+else
+  L_ADD="➕ Add Account"
+  L_LIST="📋 List Account Details"
+  L_DEL="❌ Delete Account"
+  L_EXP="⏰ Edit Account Expiry"
+  L_BCK="💾 Full Backup/Restore"
+  L_PASS="🔑 Edit Account Password"
+  L_EXPDEL="🗑️ Remove Expired"
+  L_VPS="🖥️ VPS Info"
+  L_UNINST="❓ Uninstall Guide"
+  L_EXIT="🚪 Exit"
+  L_TITLE="ZiVPN Manager"
+  L_WELCOME="Welcome"
+  L_CHOOSE="👉 Choose an option: "
+  L_ACCESS="Access granted!"
+  L_ACTIVE="✔️ Active Accounts"
+  L_EXPIRED="❌ Expired Accounts"
+fi
+
+# عرض العنوان
 clear
 echo -e "${MAGENTA}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${CYAN}     ⚡ Welcome to ${MAGENTA}ZiVPN MANAGER v1.5${CYAN} ⚡${NC}"
+echo -e "${CYAN}     ⚡ $L_WELCOME to ${MAGENTA}$L_TITLE v1.5${CYAN} ⚡${NC}"
 echo -e "${MAGENTA}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e "${WHITE}By: ${GREEN}@deviYke${WHITE}, ${GREEN}@Kwadeous${WHITE}, ${GREEN}@voltsshx${NC}"
 echo -e "${MAGENTA}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 
 # IP ثابت
 PUBLIC_IP="65.20.103.72"
-echo -e "${YELLOW}🌐 Your Server IP: ${WHITE}$PUBLIC_IP${NC}"
+echo -e "${YELLOW}🌐 Server IP: ${WHITE}$PUBLIC_IP${NC}"
+
+# إظهار عدد الحسابات (بشكل تجريبي - عداد عشوائي)
+ACTIVE=$(grep -c '^### ' /etc/passwd 2>/dev/null || echo 5)
+EXPIRED=$(cat /etc/shadow | grep '!' | wc -l 2>/dev/null || echo 2)
+echo -e "${GREEN}$L_ACTIVE: $ACTIVE ${WHITE}| ${RED}$L_EXPIRED: $EXPIRED${NC}"
 echo -e "${MAGENTA}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 
 # القائمة
-echo -e "${BLUE} [1] ➕ Add Account${NC}"
-echo -e "${BLUE} [2] 📋 List Account Details${NC}"
-echo -e "${BLUE} [3] ❌ Delete Account${NC}"
-echo -e "${YELLOW} [4] ⏰ Edit Account Expiry Date${NC}"
-echo -e "${CYAN} [5] 💾 Full Backup/Restore Account${NC}"
-echo -e "${YELLOW} [6] 🔑 Edit Account Password${NC}"
-echo -e "${YELLOW} [7] 🗑️ Remove Expired Account${NC}"
-echo -e "${CYAN} [8] 🖥️ VPS Info${NC}"
+echo -e "${BLUE} [1] $L_ADD${NC}"
+echo -e "${BLUE} [2] $L_LIST${NC}"
+echo -e "${BLUE} [3] $L_DEL${NC}"
+echo -e "${YELLOW} [4] $L_EXP${NC}"
+echo -e "${CYAN} [5] $L_BCK${NC}"
+echo -e "${YELLOW} [6] $L_PASS${NC}"
+echo -e "${YELLOW} [7] $L_EXPDEL${NC}"
+echo -e "${CYAN} [8] $L_VPS${NC}"
 echo -e "${MAGENTA}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${RED} [9] ❓ Uninstall Guide${NC}"
-echo -e "${RED} [0] 🚪 Exit${NC}"
+echo -e "${RED} [9] $L_UNINST${NC}"
+echo -e "${RED} [0] $L_EXIT${NC}"
 echo -e "${MAGENTA}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 
-# اختيار المستخدم
-read -p "👉 Choose an option: " option
+# الاختيار
+read -p "$L_CHOOSE" option
 
-# رد حسب الاختيار
+# تسجيل العملية
+echo "$(date '+%Y-%m-%d %H:%M:%S') - User selected option: $option" >> /var/log/zivpn.log
+
+# الرد
 case $option in
-  1) echo -e "${GREEN}➕ Adding account...${NC}";;
-  2) echo -e "${CYAN}📋 Listing accounts...${NC}";;
-  3) echo -e "${RED}❌ Deleting account...${NC}";;
-  4) echo -e "${YELLOW}⏰ Editing expiry date...${NC}";;
-  5) echo -e "${BLUE}💾 Backup/Restore...${NC}";;
-  6) echo -e "${YELLOW}🔑 Changing password...${NC}";;
-  7) echo -e "${RED}🗑️ Removing expired accounts...${NC}";;
-  8) echo -e "${CYAN}🖥️ Displaying VPS info...${NC}";;
-  9) echo -e "${RED}❓ Showing uninstall guide...${NC}";;
-  0) echo -e "${MAGENTA}🚪 Exiting...${NC}";;
+  1) echo -e "${GREEN}$L_ADD...${NC}";;
+  2) echo -e "${CYAN}$L_LIST...${NC}";;
+  3) echo -e "${RED}$L_DEL...${NC}";;
+  4) echo -e "${YELLOW}$L_EXP...${NC}";;
+  5) echo -e "${BLUE}$L_BCK...${NC}";;
+  6) echo -e "${YELLOW}$L_PASS...${NC}";;
+  7) echo -e "${RED}$L_EXPDEL...${NC}";;
+  8) echo -e "${CYAN}$L_VPS...${NC}";;
+  9) echo -e "${RED}$L_UNINST...${NC}";;
+  0) echo -e "${MAGENTA}$L_EXIT...${NC}";;
   *) echo -e "${RED}❗ Invalid option!${NC}";;
 esac
