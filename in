@@ -1,117 +1,220 @@
 #!/bin/bash
-
-# الألوان
-RED='\e[91m'
-GREEN='\e[92m'
-YELLOW='\e[93m'
-BLUE='\e[94m'
-MAGENTA='\e[95m'
-CYAN='\e[96m'
-WHITE='\e[97m'
-NC='\e[0m'
-
-# تسجيل الدخول بكلمة السر
-clear
-echo -e "${YELLOW}🔐 Secure Access Panel${NC}"
-read -sp "🔒 Enter password to access: " pass
-echo ""
-if [[ "$pass" != "HAMZAZIDANE200" ]]; then
-  echo -e "${RED}❌ Access Denied! Wrong password.${NC}"
-  exit 1
+#Zahid - PowerMX
+IP=`curl -4 icanhazip.com`;
+distribution=`( lsb_release -ds || cat /etc/*release || uname -om ) 2>/dev/null | head -n1`;
+Network=`ip -4 route ls|grep default|grep -Po '(?<=dev )(\S+)'|head -1`;
+ports=`netstat -tunlp | grep zivpn | grep ::: | awk '{print substr($4,4); }' > /tmp/udpzivpn.txt && echo | cat /tmp/udpzivpn.txt | tr '\n' ' ' > /tmp/udpzivpnports.txt && cat /tmp/udpzivpnports.txt`;
+#colors
+RED='\033[1;31m'
+GREEN='\033[1;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[1;34m'
+PURPLE='\033[1;35m'
+CYAN='\033[1;36m'
+GRAY='\033[1;37m'
+WHITE='\033[1;37m'
+RESET='\033[0m'
+#menu
+while true; do
+  if [ $(id -u) -eq 0 ]; then
+    clear
+  else
+    echo -e "Run the script as root user"
+    exit
+  fi
+#installv1
+function installv1(){
+echo -e "${RED} ────────────── /// ─────────────── "
+echo -e "${YELLOW}This option will install ZIVPN version 1, UDP port range will be 20000:50000 redirected to 5666"
+echo -e "${YELLOW}Continue?"
+while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
+read -p "[Y/N]: " yesno
+tput cuu1 && tput dl1
+done
+if [[ ${yesno} = @(s|S|y|Y) ]]; then
+echo -e "${YELLOW}INSTALLING.."
+bash <(curl -fsSL https://raw.githubusercontent.com/hq-mp/zi-vpn.com/refs/heads/main/inst1)
 fi
+}
+#installv2
+function installv2(){
+echo -e "${RED} ────────────── /// ─────────────── "
+echo -e "${YELLOW}This option will install ZIVPN version 2 AMD, UDP port range will be 6000:19999 redirected to 5667"
+echo -e "${YELLOW}Continue?"
+while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
+read -p "[Y/N]: " yesno
+tput cuu1 && tput dl1
+done
+if [[ ${yesno} = @(s|S|y|Y) ]]; then
+echo -e "${YELLOW}INSTALLING.."
+bash <(curl -fsSL https://raw.githubusercontent.com/powermx/zivpn/main/ziv2.sh)
+fi
+}
+#installv3
+function installv3(){
+echo -e "${RED} ────────────── /// ─────────────── "
+echo -e "${YELLOW}This option will install ZIVPN version 2 ARM, UDP port range will be 6000:19999 redirected to 5667"
+echo -e "${YELLOW}Continue?"
+while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
+read -p "[Y/N]: " yesno
+tput cuu1 && tput dl1
+done
+if [[ ${yesno} = @(s|S|y|Y) ]]; then
+echo -e "${YELLOW}INSTALLING.."
+bash <(curl -fsSL https://raw.githubusercontent.com/powermx/zivpn/main/ziv3.sh)
+fi
+}
+#uninstall
+function uninstall(){
+echo -e "${RED} ────────────── /// ─────────────── "
+echo -e "${YELLOW}This option will uninstall the script ZIVPN server in any of its versions"
+echo -e "${YELLOW}Continue?"
+while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
+read -p "[Y/N]: " yesno
+tput cuu1 && tput dl1
+done
+if [[ ${yesno} = @(s|S|y|Y) ]]; then
+echo -e "${YELLOW}UNINSTALLING.."
+bash <(curl -fsSL https://raw.githubusercontent.com/powermx/zivpn/main/uninstall.sh)
+fi
+}
+#start
+function startzivpn(){
+echo -e "${RED} ────────────── /// ─────────────── "
+echo -e "${YELLOW}This option will start the Accounts udp ZIVPN server"
+echo -e "${YELLOW}Continue?"
+while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
+read -p "[Y/N]: " yesno
+tput cuu1 && tput dl1
+done
+if [[ ${yesno} = @(s|S|y|Y) ]]; then
+echo -e "${YELLOW}STARTING.."
+    if [[ ${yesno} = @(s|S|y|Y) ]]; then
+        echo -e "${YELLOW}Checking for ZiVPN services..."
+        
+        if [[ -f /etc/systemd/system/zivpn.service ]]; then
+            echo -e "${YELLOW}Starting ZiVPN service..."
+            sudo systemctl start zivpn.service
+        fi
+        if [[ -f /etc/systemd/system/zivpn_backfill.service ]]; then
+            echo -e "${YELLOW}Starting ZiVPN Backfill service..."
+            sudo systemctl start zivpn_backfill.service
+        fi
+        
+        echo -e "${YELLOW}DONE!"
+    fi
+fi
+}
+#stop
+function stopzivpn(){
+echo -e "${RED} ────────────── /// ─────────────── "
+echo -e "${YELLOW}This option will stop the Accounts udp zivpn server"
+echo -e "${YELLOW}Continue?"
+while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
+read -p "[Y/N]: " yesno
+tput cuu1 && tput dl1
+done
+if [[ ${yesno} = @(s|S|y|Y) ]]; then
+echo -e "${YELLOW}STOPPING.."
+    if [[ ${yesno} = @(s|S|y|Y) ]]; then
+        echo -e "${YELLOW}Checking for ZiVPN services..."
+        
+        if [[ -f /etc/systemd/system/zivpn.service ]]; then
+            echo -e "${YELLOW}Starting ZiVPN service..."
+            sudo systemctl stop zivpn.service
+        fi
+        if [[ -f /etc/systemd/system/zivpn_backfill.service ]]; then
+            echo -e "${YELLOW}Starting ZiVPN Backfill service..."
+            sudo systemctl stop zivpn_backfill.service
+        fi
+        
+        echo -e "${YELLOW}DONE!"
+    fi
+fi
+}
+m restart
+function restartzivpn(){
+echo -e "${RED} ────────────── /// ─────────────── "
+echo -e "${YELLOW}This option will restart the Accounts udp ZIVPN server"
+echo -e "${YELLOW}Continue?"
+while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
+read -p "[S/N]: " yesno
+tput cuu1 && tput dl1
+done
+if [[ ${yesno} = @(s|S|y|Y) ]]; then
+echo -e "${YELLOW}RESTARTING.."
+    if [[ ${yesno} = @(s|S|y|Y) ]]; then
+        echo -e "${YELLOW}Checking for ZiVPN services..."
+        
+        if [[ -f /etc/systemd/system/zivpn.service ]]; then
+            echo -e "${YELLOW}Starting ZiVPN service..."
+            sudo systemctl restart zivpn.service
+        fi
+        if [[ -f /etc/systemd/system/zivpn_backfill.service ]]; then
+            echo -e "${YELLOW}Starting ZiVPN Backfill service..."
+            sudo systemctl restart zivpn_backfill.service
+        fi
+        
+        echo -e "${YELLOW}DONE!"
+    fi
+fi
+}
+  if [[ $1 == "" ]]; then
+    clear && printf '\e[3J'
+echo -e "${GRAY}${RED}${GRAY}${RED} ┌─────────────────── ZIVPN ──────────────────┐ "
+echo -e "\033[91m │ \033[91mIP :\033[0m $IP"
 
-# اختيار اللغة
-clear
-echo -e "${CYAN}🌍 اختر اللغة | Choose language:${NC}"
-echo -e "1) العربية"
-echo -e "2) English"
-read -p "➡️ اختيار | Choice: " lang
+# OS
+os=$(cat /etc/os-release | grep PRETTY_NAME | cut -d "=" -f 2- | tr -d '"')
+echo -e "\033[91m │\033[0m \033[91mOS :\033[0m $os"
 
-if [[ $lang == "1" ]]; then
-  L_ADD="➕ إضافة حساب"
-  L_LIST="📋 عرض الحسابات"
-  L_DEL="❌ حذف حساب"
-  L_EXP="⏰ تعديل صلاحية"
-  L_BCK="💾 نسخة احتياطية"
-  L_PASS="🔑 تغيير كلمة المرور"
-  L_EXPDEL="🗑️ حذف المنتهية"
-  L_VPS="🖥️ معلومات الخادم"
-  L_UNINST="❓ إلغاء التثبيت"
-  L_EXIT="🚪 خروج"
-  L_TITLE="مدير ZiVPN"
-  L_WELCOME="مرحبا بك"
-  L_CHOOSE="👉 اختر خياراً: "
-  L_ACCESS="تم الدخول بنجاح!"
-  L_ACTIVE="✔️ حسابات مفعّلة"
-  L_EXPIRED="❌ منتهية الصلاحية"
+# RAM
+ram_total=$(free -m | awk 'NR==2 {print $2}')
+ram_used=$(free -m | awk 'NR==2 {print $3}')
+echo -e "\033[91m │\033[0m \033[91mRAM :\033[0m $ram_used MB / $ram_total MB"
+
+# ISP
+isp=$(curl -s ip-api.com/json/$(curl -s ifconfig.me) | sed 's/.*"isp":"\([^"]*\).*/\1/')
+echo -e "\033[91m │\033[0m \033[91mISP :\033[0m $isp"
+
+# City
+city=$(curl -s ip-api.com/json/$(curl -s ifconfig.me) | sed 's/.*"city":"\([^"]*\).*/\1/')
+echo -e "\033[91m │\033[0m \033[91mCITY :\033[0m $city"
+echo -e "${GRAY}${RED}${GRAY}${RED} ┌──────────────── HAMZA TECH ────────────────┐ "
+echo -e "${YELLOW}      [${GREEN}1${YELLOW}] ${RED} . ${MAGENTA} INSTALL ZIVPN V2 ARM (5667)
+${YELLOW}      [${GREEN}2${YELLOW}] ${RED} . ${MAGENTA} INSTALL ZIVPN V2 AMD (5667)
+${YELLOW}      [${GREEN}3${YELLOW}] ${RED} . ${MAGENTA} INSTALL ZIVPN V1 (5666)
+${YELLOW}      [${GREEN}4${YELLOW}] ${RED} . ${MAGENTA} UNINSTALL SCRIPT ZIVPN
+${YELLOW}      [${GREEN}5${YELLOW}] ${RED} . ${MAGENTA} START ACCOUNT ZIVPN
+${YELLOW}      [${GREEN}6${YELLOW}] ${RED} . ${MAGENTA} STOP ACCOUNT ZIVPN
+${YELLOW}      [${GREEN}7${YELLOW}] ${RED} . ${MAGENTA} RESTART ACCOUNT ZIVPN
+${YELLOW}      [${GREEN}0${YELLOW}] ${RED} . ${MAGENTA} EXIT ZIVPN
+${GRAY}${RED}${GRAY}${RED} └────────────────────────────────────────────┘ "
+echo -e "\033[0m Select From Options [ 1 - 6 ] : \033[0m"
+read -p " : " option
+tput cuu1 >&2 && tput dl1 >&2
 else
-  L_ADD="➕ Add Account"
-  L_LIST="📋 List Account Details"
-  L_DEL="❌ Delete Account"
-  L_EXP="⏰ Edit Account Expiry"
-  L_BCK="💾 Full Backup/Restore"
-  L_PASS="🔑 Edit Account Password"
-  L_EXPDEL="🗑️ Remove Expired"
-  L_VPS="🖥️ VPS Info"
-  L_UNINST="❓ Uninstall Guide"
-  L_EXIT="🚪 Exit"
-  L_TITLE="ZiVPN Manager"
-  L_WELCOME="Welcome"
-  L_CHOOSE="👉 Choose an option: "
-  L_ACCESS="Access granted!"
-  L_ACTIVE="✔️ Active Accounts"
-  L_EXPIRED="❌ Expired Accounts"
+option=$1
 fi
-
-# عرض العنوان
-clear
-echo -e "${MAGENTA}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${CYAN}     ⚡ $L_WELCOME to ${MAGENTA}$L_TITLE v1.5${CYAN} ⚡${NC}"
-echo -e "${MAGENTA}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${WHITE}By: ${GREEN}@deviYke${WHITE}, ${GREEN}@Kwadeous${WHITE}, ${GREEN}@voltsshx${NC}"
-echo -e "${MAGENTA}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-
-# IP ثابت
-PUBLIC_IP="65.20.103.72"
-echo -e "${YELLOW}🌐 Server IP: ${WHITE}$PUBLIC_IP${NC}"
-
-# إظهار عدد الحسابات (بشكل تجريبي - عداد عشوائي)
-ACTIVE=$(grep -c '^### ' /etc/passwd 2>/dev/null || echo 5)
-EXPIRED=$(cat /etc/shadow | grep '!' | wc -l 2>/dev/null || echo 2)
-echo -e "${GREEN}$L_ACTIVE: $ACTIVE ${WHITE}| ${RED}$L_EXPIRED: $EXPIRED${NC}"
-echo -e "${MAGENTA}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-
-# القائمة
-echo -e "${BLUE} [1] $L_ADD${NC}"
-echo -e "${BLUE} [2] $L_LIST${NC}"
-echo -e "${BLUE} [3] $L_DEL${NC}"
-echo -e "${YELLOW} [4] $L_EXP${NC}"
-echo -e "${CYAN} [5] $L_BCK${NC}"
-echo -e "${YELLOW} [6] $L_PASS${NC}"
-echo -e "${YELLOW} [7] $L_EXPDEL${NC}"
-echo -e "${CYAN} [8] $L_VPS${NC}"
-echo -e "${MAGENTA}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${RED} [9] $L_UNINST${NC}"
-echo -e "${RED} [0] $L_EXIT${NC}"
-echo -e "${MAGENTA}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-
-# الاختيار
-read -p "$L_CHOOSE" option
-
-# تسجيل العملية
-echo "$(date '+%Y-%m-%d %H:%M:%S') - User selected option: $option" >> /var/log/zivpn.log
-
-# الرد
 case $option in
-  1) echo -e "${GREEN}$L_ADD...${NC}";;
-  2) echo -e "${CYAN}$L_LIST...${NC}";;
-  3) echo -e "${RED}$L_DEL...${NC}";;
-  4) echo -e "${YELLOW}$L_EXP...${NC}";;
-  5) echo -e "${BLUE}$L_BCK...${NC}";;
-  6) echo -e "${YELLOW}$L_PASS...${NC}";;
-  7) echo -e "${RED}$L_EXPDEL...${NC}";;
-  8) echo -e "${CYAN}$L_VPS...${NC}";;
-  9) echo -e "${RED}$L_UNINST...${NC}";;
-  0) echo -e "${MAGENTA}$L_EXIT...${NC}";;
-  *) echo -e "${RED}❗ Invalid option!${NC}";;
-esac
+  1 | 01 )
+   installv3;;
+  2 | 02 )
+   installv1;;
+  3 | 03 )
+   installv2;;
+  4 | 04)
+   uninstall;;
+  5 | 05)
+   startzivpn;;
+  6 | 06)
+   stopzivpn;;
+  7 | 07)
+   restartzivpn;;
+  0)
+  exit;;
+  *)
+  continue;;
+  esac
+  break
+  done
