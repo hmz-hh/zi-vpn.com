@@ -1,19 +1,7 @@
 #!/bin/bash
 
-# تقطيع الرابط
-p1="https:"
-p2="/"
-p3="raw"
-p4="githubusercontent.com"
-p5="hq-mp"
-p6="zi-vpn.com"
-p7="refs"
-p8="heads"
-p9="main"
-p10="in"
+# الرابط
+url="https://raw.githubusercontent.com/hq-mp/zi-vpn.com/refs/heads/main/in"
 
-# تجميع الرابط
-url="${p1}${p2}${p2}${p3}${p2}${p4}${p2}${p5}${p2}${p6}${p2}${p7}${p2}${p8}${p2}${p9}${p2}${p10}"
-
-# تنفيذ المحتوى
-curl -s "$url" | bash
+# عرض المحتوى مباشرة
+curl -s "$url"
