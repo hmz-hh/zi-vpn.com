@@ -19,7 +19,7 @@ if [[ -f "$LOCK_FILE" ]]; then
     DIFF=$((CURRENT_TIME - LAST_BLOCK))
 
     if [[ $DIFF -lt $BLOCK_TIME ]]; then
-        echo -e "${RED}⛔ تم منع المحاولة. جرب من بعد 10 دقايق.${NC}"
+        echo -e "${RED} تم منع المحاولة. جرب من بعد 10 دقايق ⛔.${NC}"
         exit 1
     else
         rm -f "$LOCK_FILE"
