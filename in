@@ -1,5 +1,68 @@
 #!/bin/bash
-#hamza - PowerMX
+
+#!/bin/bash
+
+# مسار الملف اللي غادي يخزن فيه حالة التحقق
+FLAG_FILE="/tmp/first_run_check.flag"
+ATTEMPT_FILE="/tmp/login_attempts.flag"
+LOCK_FILE="/tmp/login_lock.flag"
+
+# عدد المحاولات المسموحة
+MAX_ATTEMPTS=3
+LOCK_TIME=120  # مدة الحظر بالثواني (2 دقايق)
+
+# تحقق واش السكريبت راه تدار فيه التحقق من قبل
+if [[ ! -f "$FLAG_FILE" ]]; then
+    # أول مرة كيتنفذ فيها السكريبت
+    if [[ -f "$LOCK_FILE" ]]; then
+        LAST_LOCK_TIME=$(cat "$LOCK_FILE")
+        CURRENT_TIME=$(date +%s)
+        DIFF=$((CURRENT_TIME - LAST_LOCK_TIME))
+        if (( DIFF < LOCK_TIME )); then
+            REMAINING_TIME=$((LOCK_TIME - DIFF))
+            echo -e "${RED}❌ تم حظر المحاولات. حاول من بعد ${REMAINING_TIME} ثانية.${NC}"
+            exit 1
+        else
+            rm -f "$LOCK_FILE"
+        fi
+    fi
+
+    if [[ -f "$ATTEMPT_FILE" ]]; then
+        ATTEMPTS=$(cat "$ATTEMPT_FILE")
+    else
+        ATTEMPTS=0
+    fi
+
+    while (( ATTEMPTS < MAX_ATTEMPTS )); do
+        clear
+        echo -e "${YELLOW}🔐 Secure Access Panel${NC}"
+        read -sp "🔒 Enter password to access: " pass
+        echo ""
+        if [[ "$pass" == "HAMZAZIDANE200" ]]; then
+            echo -e "${GREEN}✅ Password verified successfully.${NC}"
+            touch "$FLAG_FILE"
+            rm -f "$ATTEMPT_FILE"
+            exit 0
+        else
+            ((ATTEMPTS++))
+            echo -e "${RED}❌ Wrong password. Attempts left: $((MAX_ATTEMPTS - ATTEMPTS))${NC}"
+            echo "$ATTEMPTS" > "$ATTEMPT_FILE"
+        fi
+    done
+
+    # إنشاء ملف الحظر
+    date +%s > "$LOCK_FILE"
+    echo -e "${RED}❌ Access Denied! Too many failed attempts. Try again in 2 minutes.${NC}"
+    exit 1
+else
+    echo -e "${GREEN}✅ Password already verified. Proceeding with script execution.${NC}"
+fi
+
+# باقي السكريبت كيتنفذ هنا
+
+
+
+#hamza -PowerMX
 IP=`curl -4 icanhazip.com`;
 distribution=`( lsb_release -ds || cat /etc/*release || uname -om ) 2>/dev/null | head -n1`;
 Network=`ip -4 route ls|grep default|grep -Po '(?<=dev )(\S+)'|head -1`;
