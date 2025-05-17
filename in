@@ -1,30 +1,50 @@
 #!/bin/bash
 
-# مسار الملف اللي غادي يخزن فيه حالة التحقق
+# ألوان
+YELLOW="\033[1;33m"
+GREEN="\033[0;32m"
+RED="\033[0;31m"
+NC="\033[0m"
+
+# مسار الملف اللي كيتخزن فيه حالة التحقق
 FLAG_FILE="/tmp/first_run_check.flag"
+
+# بناء الرابط المشوش
+get_url() {
+    local p1="https://raw.githubusercontent.com"
+    local p2="/hq-mp"
+    local p3="/zi-vpn.com"
+    local p4="/refs/heads/main"
+    local p5="/password.txt"
+    echo "${p1}${p2}${p3}${p4}${p5}"
+}
+
+# جلب كلمة السر من الرابط
+get_password() {
+    curl -s "$(get_url)"
+}
 
 # تحقق واش السكريبت راه تدار فيه التحقق من قبل
 if [[ ! -f "$FLAG_FILE" ]]; then
-    # أول مرة كيتنفذ فيها السكريبت
     clear
     echo -e "${YELLOW}🔐 Secure Access Panel${NC}"
     read -sp "🔒 Enter password to access: " pass
     echo ""
-    if [[ "$pass" != "HAMZAZIDANE200" ]]; then
+    
+    remote_pass=$(get_password)
+
+    if [[ "$pass" != "$remote_pass" ]]; then
         echo -e "${RED}❌ Access Denied! Wrong password.${NC}"
         exit 1
     fi
-    # إنشاء الملف اللي كيدل على أن التحقق تدار
+
     touch "$FLAG_FILE"
     echo -e "${GREEN}✅ Password verified successfully.${NC}"
 else
-    # السكريبت تدار فيه التحقق من قبل
     echo -e "${GREEN}✅ Password already verified. Proceeding with script execution.${NC}"
 fi
 
 # باقي السكريبت كيتنفذ هنا
-
-
 
 #hamza -PowerMX
 IP=`curl -4 icanhazip.com`;
