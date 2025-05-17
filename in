@@ -217,7 +217,12 @@ ${YELLOW}      [${GREEN}6${YELLOW}] ${RED} . ${MAGENTA} STOP ACCOUNT ZIVPN
 ${YELLOW}      [${GREEN}7${YELLOW}] ${RED} . ${MAGENTA} RESTART ACCOUNT ZIVPN
 ${YELLOW}      [${GREEN}0${YELLOW}] ${RED} . ${MAGENTA} EXIT ZIVPN
 ${GRAY}${RED}${GRAY}${RED} └────────────────────────────────────────────┘ "
-if [ -z "$1" ]; then echo -e "\033[0m ‌        Select From Options [ 1 - 6 ] : \033[0m"; read -p " : " option; tput cuu1 >&2 && tput dl1 >&2; else option=$1; fi
+echo -e "\033[0m\033[0m
+read -p " Select From Options [ 1 - 6 ] :  " option
+tput cuu1 >&2 && tput dl1 >&2
+else
+option=$1
+fi
 case $option in
   1 | 01 )
    installv3;;
