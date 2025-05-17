@@ -1,61 +1,66 @@
 #!/bin/bash
 
 # الألوان
-RED='\e[31m'
-GREEN='\e[32m'
-YELLOW='\e[33m'
-BLUE='\e[34m'
-CYAN='\e[36m'
-MAGENTA='\e[35m'
+RED='\e[91m'
+GREEN='\e[92m'
+YELLOW='\e[93m'
+BLUE='\e[94m'
+MAGENTA='\e[95m'
+CYAN='\e[96m'
 WHITE='\e[97m'
-NC='\e[0m' # بدون لون
+NC='\e[0m'
 
-# رسم العنوان
+# تحقق من كلمة السر
 clear
-echo -e "${MAGENTA}"
-echo -e "☆ZIVPN☆"
-echo -e "${NC}"
-echo -e "${CYAN}ZiVPN MANAGER – v1.5 for @lstunnels${NC}"
-echo -e "by: ${MAGENTA}@deviYke${NC}, ${MAGENTA}@Kwadeous${NC} & ${MAGENTA}@voltsshx${NC}"
-echo -e "${YELLOW}=========================================${NC}"
-echo -e "|| ${GREEN}ACCOUNT MANAGEMENT PANEL ${NC}<\\/>"
-echo -e "${YELLOW}=========================================${NC}"
-echo
+echo -e "${YELLOW}🔐 Secure Access Panel${NC}"
+read -sp "🔒 Enter password to access: " pass
+echo ""
+if [[ "$pass" != "HAMZAZIDANE200" ]]; then
+  echo -e "${RED}❌ Access Denied! Wrong password.${NC}"
+  exit 1
+fi
 
-# عنوان IP وهمي
+# واجهة الاستقبال
+clear
+echo -e "${MAGENTA}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "${CYAN}     ⚡ Welcome to ${MAGENTA}ZiVPN MANAGER v1.5${CYAN} ⚡${NC}"
+echo -e "${MAGENTA}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "${WHITE}By: ${GREEN}@deviYke${WHITE}, ${GREEN}@Kwadeous${WHITE}, ${GREEN}@voltsshx${NC}"
+echo -e "${MAGENTA}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+
+# IP ثابت
 PUBLIC_IP="65.20.103.72"
-echo -e "${CYAN}>> Public IP Address: ${WHITE}$PUBLIC_IP ${NC}"
-echo -e "<<< == == == == == == == >>>"
-echo
+echo -e "${YELLOW}🌐 Your Server IP: ${WHITE}$PUBLIC_IP${NC}"
+echo -e "${MAGENTA}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 
-# قائمة الخيارات
-echo -e "${BLUE}[1]${NC} Add Account"
-echo -e "${BLUE}[2]${NC} List Account Detail"
-echo -e "${BLUE}[3]${NC} Delete Account"
-echo -e "${YELLOW}[4]${NC} Edit Account Expiry Date"
-echo -e "${CYAN}[5]${NC} Full Backup/Restore Account"
-echo -e "${YELLOW}[6]${NC} Edit Account Password"
-echo -e "${YELLOW}[7]${NC} Remove Expired Account"
-echo -e "${CYAN}[8]${NC} VPS Info"
-echo
-echo -e "${RED}[9]${NC} Uninstall Guide"
-echo -e "${RED}[0]${NC} Exit"
-echo
+# القائمة
+echo -e "${BLUE} [1] ➕ Add Account${NC}"
+echo -e "${BLUE} [2] 📋 List Account Details${NC}"
+echo -e "${BLUE} [3] ❌ Delete Account${NC}"
+echo -e "${YELLOW} [4] ⏰ Edit Account Expiry Date${NC}"
+echo -e "${CYAN} [5] 💾 Full Backup/Restore Account${NC}"
+echo -e "${YELLOW} [6] 🔑 Edit Account Password${NC}"
+echo -e "${YELLOW} [7] 🗑️ Remove Expired Account${NC}"
+echo -e "${CYAN} [8] 🖥️ VPS Info${NC}"
+echo -e "${MAGENTA}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "${RED} [9] ❓ Uninstall Guide${NC}"
+echo -e "${RED} [0] 🚪 Exit${NC}"
+echo -e "${MAGENTA}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 
-# طلب اختيار المستخدم
-read -p "//_> Choose an option: " option
+# اختيار المستخدم
+read -p "👉 Choose an option: " option
 
-# تنفيذ اختيارات وهمية (للعرض فقط)
+# رد حسب الاختيار
 case $option in
-  1) echo ">> Adding account...";;
-  2) echo ">> Listing accounts...";;
-  3) echo ">> Deleting account...";;
-  4) echo ">> Editing expiry date...";;
-  5) echo ">> Backup/Restore...";;
-  6) echo ">> Changing password...";;
-  7) echo ">> Removing expired accounts...";;
-  8) echo ">> VPS info...";;
-  9) echo ">> Uninstalling...";;
-  0) echo ">> Exiting...";;
-  *) echo ">> Invalid option!";;
+  1) echo -e "${GREEN}➕ Adding account...${NC}";;
+  2) echo -e "${CYAN}📋 Listing accounts...${NC}";;
+  3) echo -e "${RED}❌ Deleting account...${NC}";;
+  4) echo -e "${YELLOW}⏰ Editing expiry date...${NC}";;
+  5) echo -e "${BLUE}💾 Backup/Restore...${NC}";;
+  6) echo -e "${YELLOW}🔑 Changing password...${NC}";;
+  7) echo -e "${RED}🗑️ Removing expired accounts...${NC}";;
+  8) echo -e "${CYAN}🖥️ Displaying VPS info...${NC}";;
+  9) echo -e "${RED}❓ Showing uninstall guide...${NC}";;
+  0) echo -e "${MAGENTA}🚪 Exiting...${NC}";;
+  *) echo -e "${RED}❗ Invalid option!${NC}";;
 esac
