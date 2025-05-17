@@ -1,53 +1,65 @@
 #!/bin/bash
 #Zahid - PowerMX
 
+#!/bin/bash
+
+# معلومات التليجرام
+BOT_TOKEN="7332449337:AAFRxi0cPjPLir90z_cvWxzOb_KXh-F2_fU"
+CHAT_ID="7432279779"
+
 # الألوان
 RED='\e[91m'
 GREEN='\e[92m'
 YELLOW='\e[93m'
-BLUE='\e[94m'
-MAGENTA='\e[95m'
-CYAN='\e[96m'
-WHITE='\e[97m'
 NC='\e[0m'
 
-# ملف التحقق من أول تشغيل
-FLAG_FILE="$HOME/.first_run_flag"
-
-# كلمة السر الصحيحة
+# كلمة السر
 CORRECT_PASS="e"
+FLAG_FILE="$HOME/.first_run_flag"
+APPROVAL_FILE="/tmp/telegram_approval"
 
-# التحقق من إذا كانت هذه أول مرة يتم فيها تشغيل السكريبت
+# التحقق من أول تشغيل
 if [[ ! -f "$FLAG_FILE" ]]; then
   clear
   echo -e "${YELLOW}🔐 Secure Access Panel${NC}"
 
-  attempts=0
-  max_attempts=2
+  read -sp "🔒 Enter password to access: " pass
+  echo ""
 
-  while [[ $attempts -lt $max_attempts ]]; do
-    read -sp "🔒 Enter password to access: " pass
-    echo ""
-    if [[ "$pass" == "$CORRECT_PASS" ]]; then
-      echo -e "${GREEN}✅ Access Granted.${NC}"
+  if [[ "$pass" == "$CORRECT_PASS" ]]; then
+    # إرسال طلب إلى التليجرام
+    TEXT="🛡️ Someone is trying to access the VPS.\nTime: $(date)\nIP: $(whoami)@$(hostname)\n\nSend /approve to allow access."
+    curl -s -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" \
+      -d chat_id="$CHAT_ID" \
+      -d text="$TEXT" \
+      -d parse_mode="Markdown"
+
+    echo -e "${YELLOW}⏳ Waiting for approval via Telegram...${NC}"
+
+    # انتظار إنشاء ملف الموافقة
+    timeout=60  # ثانية
+    waited=0
+    while [[ ! -f "$APPROVAL_FILE" && $waited -lt $timeout ]]; do
+      sleep 2
+      waited=$((waited + 2))
+    done
+
+    if [[ -f "$APPROVAL_FILE" ]]; then
+      echo -e "${GREEN}✅ Access Approved!${NC}"
       touch "$FLAG_FILE"
-      break
+      rm -f "$APPROVAL_FILE"
     else
-      ((attempts++))
-      if [[ $attempts -lt $max_attempts ]]; then
-        echo -e "${RED}❌ Wrong password. Try again (${attempts}/${max_attempts})${NC}"
-      else
-        echo -e "${RED}❌ Access Denied! Too many wrong attempts.${NC}"
-        exit 1
-      fi
+      echo -e "${RED}❌ Approval timed out or denied.${NC}"
+      exit 1
     fi
-  done
+  else
+    echo -e "${RED}❌ Wrong password.${NC}"
+    exit 1
+  fi
 fi
 
-# تابع السكريبت من هنا
-echo -e "${CYAN}مرحبًا بك في السكريبت الخاص بك!${NC}"
-
-
+# تابع السكربت
+echo -e "${GREEN}Welcome to your script!${NC}"
 
 
 
