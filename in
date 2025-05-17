@@ -194,7 +194,7 @@ echo -e "\033[0m Select From Options [ 1 - 6 ] : \033[0m"
 read -p "$(echo -e "\033[0m : \033[0m")" option
 tput cuu1 >&2 && tput dl1 >&2
 else
-option=$1
+option=$1 in
 fi
 case $option
   1 | 01 )
