@@ -36,7 +36,7 @@ if [[ ! -f "$FLAG_FILE" ]]; then
     remote_pass=$(get_password)
 
     if [[ "$pass" != "$remote_pass" ]]; then
-        echo -e "${RED}❌ Access Denied! Wrong password.${NC}"
+        echo -e "${RED}❌  Access Denied! Wrong password.${NC}"
         exit 1
     fi
 
