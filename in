@@ -1,7 +1,14 @@
 #!/bin/bash
 #hamza - PowerMX
 
-LOCK_FILE="/tmp/script_auth.lock"
+#!/bin/bash
+
+# تحقق واش السكريبت راه كيشتغل فـ وضع تفاعلي
+if [[ $- != *i* ]]; then
+  echo -e "${RED}❌ This script must be run interactively.${NC}"
+  exit 1
+fi
+
 # تحقق من كلمة السر
 clear
 echo -e "${YELLOW}🔐 Secure Access Panel${NC}"
