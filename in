@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#!/bin/bash
+
 #zi-vpn.com
 YELLOW="\033[1;33m"
 GREEN="\033[0;32m"
@@ -28,6 +30,8 @@ get_password() {
 if [[ ! -f "$FLAG_FILE" ]]; then
     clear
     echo -e "${YELLOW}🔐 Secure Access Panel${NC}"
+    echo -e "${YELLOW}🔑 Script is protected by password${NC}"
+    echo -e "${YELLOW}To get the password, contact here @a_hamza_i 🔑${NC}"
     read -sp "🔒 Enter password to access: " pass
     echo ""
     
@@ -44,6 +48,7 @@ else
     echo -e "${GREEN}✅ Password already verified. Proceeding with script execution.${NC}"
 fi
 
+#zi-vpn.com
 
 #hamza -PowerMX
 IP=`curl -4 icanhazip.com`;
