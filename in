@@ -191,7 +191,7 @@ ${YELLOW}      [${GREEN}7${YELLOW}] ${MAGENTA} . ${MAGENTA} RESTART ACCOUNT ZIVP
 ${YELLOW}      [${GREEN}0${YELLOW}] ${RED} . ${MAGENTA} EXIT ZIVPN
 ${GRAY}${RED}${GRAY}${RED} └────────────────────────────────────────────┘ "
 echo -e "\033[93m Select From Options [ 1 - 6 ] : \033[0m"
-read -p " : " option
+read -p "$(echo -e "\033[91m : \033[0m")" option
 tput cuu1 >&2 && tput dl1 >&2
 else
 option=$1
