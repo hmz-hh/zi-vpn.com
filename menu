@@ -69,23 +69,17 @@ if [[ $1 == "" ]]; then
 clear && printf '\e[3J'
 echo -e "${GRAY}${RED}${GRAY}${RED} ┌─────────────────── ZIVPN ──────────────────┐"
 IP=$(curl -s -4 icanhazip.com)
-echo -e "\033[91m │ \033[91mIP :\033[0m $IP"
-
-os=$(grep PRETTY_NAME /etc/os-release | cut -d '=' -f2- | tr -d '"')
-echo -e "\033[91m │\033[0m \033[91mOS :\033[0m $os"
-
-ram_total=$(free -m | awk 'NR==2 {print $2}')
-ram_used=$(free -m | awk 'NR==2 {print $3}')
-echo -e "\033[91m │\033[0m \033[91mRAM :\033[0m $ram_used MB / $ram_total MB"
-
-isp=$(curl -s ip-api.com/json/$(curl -s ifconfig.me) | grep -oP '"isp":"\K[^"]+')
-echo -e "\033[91m │\033[0m \033[91mISP :\033[0m $isp"
-
-city=$(curl -s ip-api.com/json/$(curl -s ifconfig.me) | grep -oP '"city":"\K[^"]+')
-echo -e "\033[91m │\033[0m \033[91mCITY :\033[0m $city"
-
-domain=$(get_domain)
-echo -e "\033[91m │\033[0m \033[91mDOMAIN :\033[0m $domain"
+echo -e "${RED} │ ${RED}IP :${NC} $IP"
+...
+echo -e "${RED} │${NC} ${RED}OS :${NC} $os"
+...
+echo -e "${RED} │${NC} ${RED}RAM :${NC} $ram_used MB / $ram_total MB"
+...
+echo -e "${RED} │${NC} ${RED}ISP :${NC} $isp"
+...
+echo -e "${RED} │${NC} ${RED}CITY :${NC} $city"
+...
+echo -e "${RED} │${NC} ${RED}DOMAIN :${NC} $domain"
 echo -e "${GRAY}${RED}${GRAY}${RED} ┌──────────────── HAMZA TECH ────────────────┐"
 echo -e "${YELLOW}      [${GREEN}1${YELLOW}] ${RED} . ${MAGENTA} INSTALL ZIVPN V2 ARM (5667)
 ${YELLOW}      [${GREEN}2${YELLOW}] ${RED} . ${MAGENTA} INSTALL ZIVPN V2 AMD (5667)
