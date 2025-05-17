@@ -1,7 +1,0 @@
-#!/bin/bash
-
-# الرابط
-url="https://raw.githubusercontent.com/hq-mp/zi-vpn.com/refs/heads/main/in"
-
-# عرض المحتوى مباشرة
-curl -s "$url"
