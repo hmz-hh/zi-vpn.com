@@ -6,154 +6,196 @@ RED="\033[0;31m"
 NC="\033[0m"
 
 FLAG_FILE="/tmp/first_run_check.flag"
+ACCOUNTS_FILE="/tmp/zivpn_udp_accounts.txt"
 
 get_url() {
-  local p1="https://raw.githubusercontent.com"
-  local p2="/hq-mp"
-  local p3="/zi-vpn.com"
-  local p4="/refs/heads/main"
-  local p5="/zi-vpn.com"
-  echo "${p1}${p2}${p3}${p4}${p5}"
+local p1="https://raw.githubusercontent.com"
+local p2="/hq-mp"
+local p3="/zi-vpn.com"
+local p4="/refs/heads/main"
+local p5="/zi-vpn.com"
+echo "${p1}${p2}${p3}${p4}${p5}"
 }
 
 get_password() {
-  curl -s "$(get_url)"
+curl -s "$(get_url)"
 }
 
 if [[ ! -f "$FLAG_FILE" ]]; then
-  clear
-  echo -e "${YELLOW}🔐  Secure Access Panel${NC}"
-  echo -e "${YELLOW}🔐  Script is protected by password${NC}"
-  echo -e "${YELLOW}🔐  To get the password, contact here @a_hamza_i ${NC}"
-  read -sp "🔐  Enter password to access: " pass
-  echo ""
+clear
+echo -e "${YELLOW}🔐  Secure Access Panel${NC}"
+echo -e "${YELLOW}🔐  Script is protected by password${NC}"
+echo -e "${YELLOW}🔐  To get the password, contact here @a_hamza_i ${NC}"
+read -sp "🔐  Enter password to access: " pass
+echo ""
 
-  remote_pass=$(get_password)
+remote_pass=$(get_password)
 
-  if [[ "$pass" != "$remote_pass" ]]; then
-    echo -e "${RED}❌  Access Denied! Wrong password.${NC}"
-    exit 1
-  fi
+if [[ "$pass" != "$remote_pass" ]]; then
+echo -e "${RED}❌  Access Denied! Wrong password.${NC}"
+exit 1
+fi
 
-  touch "$FLAG_FILE"
-  echo -e "${GREEN}✅  Password verified successfully.${NC}"
+touch "$FLAG_FILE"
+echo -e "${GREEN}✅  Password verified successfully.${NC}"
 else
-  echo -e "${GREEN}✅  Password already verified. Proceeding with script execution.${NC}"
+echo -e "${GREEN}✅  Password already verified. Proceeding with script execution.${NC}"
 fi
 
 install_all(){
-  echo -e "${RED} ────────────── /// ─────────────── "
-  echo -e "${YELLOW}This will install all ZIVPN versions (V2 ARM, V1, V2 AMD)"
-  echo -e "${YELLOW}Continue?"
-  while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
-    read -p "[Y/N]: " yesno
-    tput cuu1 && tput dl1
-  done
-  if [[ ${yesno} = @(s|S|y|Y) ]]; then
-    echo -e "${YELLOW}INSTALLING ZIVPN V2 ARM.."
-    bash <(curl -fsSL https://raw.githubusercontent.com/powermx/zivpn/main/ziv3.sh)
-    echo -e "${YELLOW}INSTALLING ZIVPN V1.."
-    bash <(curl -fsSL https://raw.githubusercontent.com/hq-mp/zi-vpn.com/refs/heads/main/inst1)
-    echo -e "${YELLOW}INSTALLING ZIVPN V2 AMD.."
-    bash <(curl -fsSL https://raw.githubusercontent.com/powermx/zivpn/main/ziv2.sh)
-  fi
+echo -e "${RED} ────────────── /// ─────────────── "
+echo -e "${YELLOW}This will install all ZIVPN versions (V2 ARM, V1, V2 AMD)"
+echo -e "${YELLOW}Continue?"
+while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
+read -p "[Y/N]: " yesno
+tput cuu1 && tput dl1
+done
+if [[ ${yesno} = @(s|S|y|Y) ]]; then
+echo -e "${YELLOW}INSTALLING ZIVPN V2 ARM.."
+bash <(curl -fsSL https://raw.githubusercontent.com/powermx/zivpn/main/ziv3.sh)
+echo -e "${YELLOW}INSTALLING ZIVPN V1.."
+bash <(curl -fsSL https://raw.githubusercontent.com/hq-mp/zi-vpn.com/refs/heads/main/inst1)
+echo -e "${YELLOW}INSTALLING ZIVPN V2 AMD.."
+bash <(curl -fsSL https://raw.githubusercontent.com/powermx/zivpn/main/ziv2.sh)
+fi
 }
 
 uninstall(){
-  echo -e "${RED} ────────────── /// ─────────────── "
-  echo -e "${YELLOW}This will uninstall all ZIVPN versions"
-  echo -e "${YELLOW}Continue?"
-  while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
-    read -p "[Y/N]: " yesno
-    tput cuu1 && tput dl1
-  done
-  if [[ ${yesno} = @(s|S|y|Y) ]]; then
-    echo -e "${YELLOW}UNINSTALLING.."
-    bash <(curl -fsSL https://raw.githubusercontent.com/powermx/zivpn/main/uninstall.sh)
-  fi
+echo -e "${RED} ────────────── /// ─────────────── "
+echo -e "${YELLOW}This will uninstall all ZIVPN versions"
+echo -e "${YELLOW}Continue?"
+while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
+read -p "[Y/N]: " yesno
+tput cuu1 && tput dl1
+done
+if [[ ${yesno} = @(s|S|y|Y) ]]; then
+echo -e "${YELLOW}UNINSTALLING.."
+bash <(curl -fsSL https://raw.githubusercontent.com/powermx/zivpn/main/uninstall.sh)
+fi
 }
 
 startzivpn(){
-  echo -e "${YELLOW}STARTING ZIVPN SERVICES.."
-  if [[ -f /etc/systemd/system/zivpn.service ]]; then
-    sudo systemctl start zivpn.service
-  fi
-  if [[ -f /etc/systemd/system/zivpn_backfill.service ]]; then
-    sudo systemctl start zivpn_backfill.service
-  fi
-  echo -e "${GREEN}✅ DONE!"
+echo -e "${YELLOW}STARTING ZIVPN SERVICES.."
+if [[ -f /etc/systemd/system/zivpn.service ]]; then
+sudo systemctl start zivpn.service
+fi
+if [[ -f /etc/systemd/system/zivpn_backfill.service ]]; then
+sudo systemctl start zivpn_backfill.service
+fi
+echo -e "${GREEN}✅ DONE!"
 }
 
 stopzivpn(){
-  echo -e "${YELLOW}STOPPING ZIVPN SERVICES.."
-  if [[ -f /etc/systemd/system/zivpn.service ]]; then
-    sudo systemctl stop zivpn.service
-  fi
-  if [[ -f /etc/systemd/system/zivpn_backfill.service ]]; then
-    sudo systemctl stop zivpn_backfill.service
-  fi
-  echo -e "${GREEN}✅ DONE!"
+echo -e "${YELLOW}STOPPING ZIVPN SERVICES.."
+if [[ -f /etc/systemd/system/zivpn.service ]]; then
+sudo systemctl stop zivpn.service
+fi
+if [[ -f /etc/systemd/system/zivpn_backfill.service ]]; then
+sudo systemctl stop zivpn_backfill.service
+fi
+echo -e "${GREEN}✅ DONE!"
 }
 
 restartzivpn(){
-  echo -e "${YELLOW}RESTARTING ZIVPN SERVICES.."
-  if [[ -f /etc/systemd/system/zivpn.service ]]; then
-    sudo systemctl restart zivpn.service
-  fi
-  if [[ -f /etc/systemd/system/zivpn_backfill.service ]]; then
-    sudo systemctl restart zivpn_backfill.service
-  fi
-  echo -e "${GREEN}✅ DONE!"
+echo -e "${YELLOW}RESTARTING ZIVPN SERVICES.."
+if [[ -f /etc/systemd/system/zivpn.service ]]; then
+sudo systemctl restart zivpn.service
+fi
+if [[ -f /etc/systemd/system/zivpn_backfill.service ]]; then
+sudo systemctl restart zivpn_backfill.service
+fi
+echo -e "${GREEN}✅ DONE!"
 }
 
 changedomain(){
-  echo -e "${YELLOW}Enter domain:"
-  read -p "Domain: " custom_domain
-  echo "$custom_domain" > /tmp/zivpn_domain.txt
-  echo -e "${GREEN}✅ Domain saved: $custom_domain${NC}"
+echo -e "${YELLOW}Enter domain:"
+read -p "Domain: " custom_domain
+echo "$custom_domain" > /tmp/zivpn_domain.txt
+echo -e "${GREEN}✅ Domain saved: $custom_domain${NC}"
+}
+
+create_udp_accounts(){
+echo -e "${YELLOW}ZIVPN UDP Passwords"
+echo -e "Enter passwords separated by commas, example: passwd1,passwd2"
+echo -e "(Press enter for default 'zi')"
+read -p "Passwords: " input
+input=${input:-zi}
+IFS=',' read -ra passwords <<< "$input"
+
+for pass in "${passwords[@]}"; do
+    trimmed=$(echo "$pass" | xargs)
+    echo "$trimmed" >> "$ACCOUNTS_FILE"
+    echo -e "${GREEN}✅ Account created: $trimmed"
+done
+}
+
+manage_udp_accounts(){
+if [[ ! -s "$ACCOUNTS_FILE" ]]; then
+    echo -e "${RED}No UDP accounts found.${NC}"
+    return
+fi
+
+echo -e "${YELLOW}Stored UDP Accounts:${NC}"
+mapfile -t accounts < "$ACCOUNTS_FILE"
+
+for i in "${!accounts[@]}"; do
+    echo -e "${GREEN}[$i]${NC} ${accounts[$i]}"
+done
+
+echo -e "${YELLOW}Enter the number of the account to delete (or press Enter to cancel):${NC}"
+read -p "Delete #: " del
+
+if [[ "$del" =~ ^[0-9]+$ ]] && [[ $del -ge 0 ]] && [[ $del -lt ${#accounts[@]} ]]; then
+    unset 'accounts[del]'
+    printf "%s\n" "${accounts[@]}" > "$ACCOUNTS_FILE"
+    echo -e "${GREEN}✅ Account deleted.${NC}"
+else
+    echo -e "${YELLOW}No account deleted.${NC}"
+fi
 }
 
 while true; do
-  [[ $(id -u) -ne 0 ]] && echo -e "${RED}Run as root!${NC}" && exit 1
+[[ $(id -u) -ne 0 ]] && echo -e "${RED}Run as root!${NC}" && exit 1
 
-  IP=$(curl -s -4 icanhazip.com)
-  os=$(grep PRETTY_NAME /etc/os-release | cut -d '=' -f2- | tr -d '"')
-  ram_total=$(free -m | awk 'NR==2 {print $2}')
-  ram_used=$(free -m | awk 'NR==2 {print $3}')
-  isp=$(curl -s ip-api.com/json/$(curl -s ifconfig.me) | grep -oP '(?<="isp":")[^"]+')
-  city=$(curl -s ip-api.com/json/$(curl -s ifconfig.me) | grep -oP '(?<="city":")[^"]+')
-  domain="not added"
-  [[ -s /tmp/zivpn_domain.txt ]] && domain=$(cat /tmp/zivpn_domain.txt)
+IP=$(curl -s -4 icanhazip.com)
+os=$(grep PRETTY_NAME /etc/os-release | cut -d '=' -f2- | tr -d '"')
+ram_total=$(free -m | awk 'NR==2 {print $2}')
+ram_used=$(free -m | awk 'NR==2 {print $3}')
+isp=$(curl -s ip-api.com/json/$(curl -s ifconfig.me) | grep -oP '(?<="isp":")[^"]+')
+city=$(curl -s ip-api.com/json/$(curl -s ifconfig.me) | grep -oP '(?<="city":")[^"]+')
+domain="not added"
+[[ -s /tmp/zivpn_domain.txt ]] && domain=$(cat /tmp/zivpn_domain.txt)
 
-  clear && printf '\e[3J'
-  echo -e "${RED} ┌─────────────────── ZIVPN ──────────────────┐"
-  echo -e "\033[91m │ \033[91mIP :\033[0m $IP"
-  echo -e "\033[91m │\033[91m OS :\033[0m $os"
-  echo -e "\033[91m │\033[91m RAM :\033[0m $ram_used MB / $ram_total MB"
-  echo -e "\033[91m │\033[91m ISP :\033[0m $isp"
-  echo -e "\033[91m │\033[91m CITY :\033[0m $city"
-  echo -e "\033[91m │\033[91m DOMAIN :\033[0m $domain"
-  echo -e "${RED} ┌──────────────── HAMZA TECH ────────────────┐"
-echo -e "${YELLOW}      [${GREEN}1${YELLOW}] ${RED} . ${MAGENTA} CREATE ACCOUNT UDP ZIVPN"
-  echo -e "${YELLOW}      [${GREEN}2${YELLOW}] ${RED} . ${MAGENTA} UNINSTALL SCRIPT ZIVPN"
-  echo -e "${YELLOW}      [${GREEN}3${YELLOW}] ${RED} . ${MAGENTA} START ACCOUNT ZIVPN"
-  echo -e "${YELLOW}      [${GREEN}4${YELLOW}] ${RED} . ${MAGENTA} STOP ACCOUNT ZIVPN"
-  echo -e "${YELLOW}      [${GREEN}5${YELLOW}] ${RED} . ${MAGENTA} RESTART ACCOUNT ZIVPN"
-  echo -e "${YELLOW}      [${GREEN}6${YELLOW}] ${RED} . ${MAGENTA} CHANGE DOMAIN SERVER"
-  echo -e "${YELLOW}      [${GREEN}0${YELLOW}] ${RED} . ${MAGENTA} EXIT ZIVPN"
-  echo -e "${RED} └────────────────────────────────────────────┘"
-    echo -e "\033[0m       Select From Options [ 1 - 8 ] : \033[0m"
-  read -p " : " option
-  tput cuu1 >&2 && tput dl1 >&2
-  case $option in
-    1 ) install_all ;;
-    2 ) uninstall ;;
-    3 ) startzivpn ;;
-    4 ) stopzivpn ;;
-    5 ) restartzivpn ;;
-    6 ) changedomain ;;
-    0 ) exit ;;
-    * ) continue ;;
-  esac
-  break
+clear && printf '\e[3J'
+echo -e "${RED} ┌─────────────────── ZIVPN ──────────────────┐"
+echo -e "\033[91m │ \033[91mIP :\033[0m $IP"
+echo -e "\033[91m │\033[91m OS :\033[0m $os"
+echo -e "\033[91m │\033[91m RAM :\033[0m $ram_used MB / $ram_total MB"
+echo -e "\033[91m │\033[91m ISP :\033[0m $isp"
+echo -e "\033[91m │\033[91m CITY :\033[0m $city"
+echo -e "\033[91m │\033[91m DOMAIN :\033[0m $domain"
+echo -e "${RED} ┌──────────────── HAMZA TECH ────────────────┐"
+echo -e "${YELLOW}      [${GREEN}1${YELLOW}] ${RED} . CREATE ACCOUNT UDP ZIVPN"
+echo -e "${YELLOW}      [${GREEN}2${YELLOW}] ${RED} . UNINSTALL SCRIPT ZIVPN"
+echo -e "${YELLOW}      [${GREEN}3${YELLOW}] ${RED} . START ACCOUNT ZIVPN"
+echo -e "${YELLOW}      [${GREEN}4${YELLOW}] ${RED} . STOP ACCOUNT ZIVPN"
+echo -e "${YELLOW}      [${GREEN}5${YELLOW}] ${RED} . RESTART ACCOUNT ZIVPN"
+echo -e "${YELLOW}      [${GREEN}6${YELLOW}] ${RED} . CHANGE DOMAIN SERVER"
+echo -e "${YELLOW}      [${GREEN}7${YELLOW}] ${RED} . MANAGE UDP ACCOUNTS"
+echo -e "${YELLOW}      [${GREEN}0${YELLOW}] ${RED} . EXIT ZIVPN"
+echo -e "${RED} └────────────────────────────────────────────┘"
+echo -e "\033[0m       Select From Options [ 0 - 7 ] : \033[0m"
+read -p " : " option
+tput cuu1 >&2 && tput dl1 >&2
+case $option in
+1 ) create_udp_accounts ;;
+2 ) uninstall ;;
+3 ) startzivpn ;;
+4 ) stopzivpn ;;
+5 ) restartzivpn ;;
+6 ) changedomain ;;
+7 ) manage_udp_accounts ;;
+0 ) exit ;;
+* ) continue ;;
+esac
 done
