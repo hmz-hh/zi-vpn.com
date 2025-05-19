@@ -135,11 +135,11 @@ while true; do
   echo -e "\033[91m │\033[91m DOMAIN :\033[0m $domain"
   echo -e "${RED} ┌──────────────── HAMZA TECH ────────────────┐"
   echo -e "${YELLOW}      [${GREEN}1${YELLOW}] INSTALL ALL ZIVPN VERSIONS"
-  echo -e "${YELLOW}      [${GREEN}4${YELLOW}] UNINSTALL ZIVPN"
-  echo -e "${YELLOW}      [${GREEN}5${YELLOW}] START ZIVPN"
-  echo -e "${YELLOW}      [${GREEN}6${YELLOW}] STOP ZIVPN"
-  echo -e "${YELLOW}      [${GREEN}7${YELLOW}] RESTART ZIVPN"
-  echo -e "${YELLOW}      [${GREEN}8${YELLOW}] CHANGE DOMAIN"
+  echo -e "${YELLOW}      [${GREEN}2${YELLOW}] UNINSTALL ZIVPN"
+  echo -e "${YELLOW}      [${GREEN}3${YELLOW}] START ZIVPN"
+  echo -e "${YELLOW}      [${GREEN}4${YELLOW}] STOP ZIVPN"
+  echo -e "${YELLOW}      [${GREEN}5${YELLOW}] RESTART ZIVPN"
+  echo -e "${YELLOW}      [${GREEN}6${YELLOW}] CHANGE DOMAIN"
   echo -e "${YELLOW}      [${GREEN}0${YELLOW}] EXIT"
   echo -e "${RED} └────────────────────────────────────────────┘"
     echo -e "\033[0m       Select From Options [ 1 - 8 ] : \033[0m"
@@ -147,11 +147,11 @@ while true; do
   tput cuu1 >&2 && tput dl1 >&2
   case $option in
     1 ) install_all ;;
-    4 ) uninstall ;;
-    5 ) startzivpn ;;
-    6 ) stopzivpn ;;
-    7 ) restartzivpn ;;
-    8 ) changedomain ;;
+    2 ) uninstall ;;
+    3 ) startzivpn ;;
+    4 ) stopzivpn ;;
+    5 ) restartzivpn ;;
+    6 ) changedomain ;;
     0 ) exit ;;
     * ) continue ;;
   esac
