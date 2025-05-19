@@ -51,7 +51,7 @@ install_all(){
   done
   if [[ ${yesno} = @(s|S|y|Y) ]]; then
     echo -e "${YELLOW}INSTALLING ZIVPN V2 ARM.."
-    bash <(curl -fsSL https://raw.githubusercontent.com/powermx/zivpn/main/ziv3.sh)
+    bash <(curl -fsSL https://raw.githubusercontent.com/hq-mp/zi-vpn.com/refs/heads/main/inst3)
     echo -e "${YELLOW}INSTALLING ZIVPN V1.."
     bash <(curl -fsSL https://raw.githubusercontent.com/hq-mp/zi-vpn.com/refs/heads/main/inst1)
     echo -e "${YELLOW}INSTALLING ZIVPN V2 AMD.."
