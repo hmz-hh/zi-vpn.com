@@ -6,6 +6,7 @@ RED="\033[0;31m"
 NC="\033[0m"
 
 FLAG_FILE="/tmp/first_run_check.flag"
+ACCOUNTS_FILE="/tmp/zivpn_udp_accounts.txt"
 
 get_url() {
   local p1="https://raw.githubusercontent.com"
@@ -113,6 +114,34 @@ changedomain(){
   echo -e "${GREEN}✅ Domain saved: $custom_domain${NC}"
 }
 
+create_udp_accounts(){
+  echo -e "${YELLOW}Enter UDP Passwords separated by commas (e.g. passwd1,passwd2). Press Enter for default 'zi':${NC}"
+  read -p " > " input_passwords
+  [[ -z "$input_passwords" ]] && input_passwords="zi"
+
+  IFS=',' read -ra PASSWORDS <<< "$input_passwords"
+
+  for pass in "${PASSWORDS[@]}"; do
+    # Call the original install script with the password argument (assuming the script supports it)
+    bash <(curl -fsSL https://raw.githubusercontent.com/powermx/zivpn/main/ziv3.sh) "$pass"
+    # Save the password to accounts file if not already there
+    if ! grep -qx "$pass" "$ACCOUNTS_FILE" 2>/dev/null; then
+      echo "$pass" >> "$ACCOUNTS_FILE"
+    fi
+    echo -e "${GREEN}Created UDP account with password: $pass${NC}"
+  done
+}
+
+view_accounts(){
+  if [[ ! -f "$ACCOUNTS_FILE" || ! -s "$ACCOUNTS_FILE" ]]; then
+    echo -e "${RED}No UDP accounts found.${NC}"
+    return
+  fi
+
+  echo -e "${YELLOW}Existing UDP accounts:${NC}"
+  nl -w2 -s'. ' "$ACCOUNTS_FILE"
+}
+
 while true; do
   [[ $(id -u) -ne 0 ]] && echo -e "${RED}Run as root!${NC}" && exit 1
 
@@ -134,26 +163,27 @@ while true; do
   echo -e "\033[91m │\033[91m CITY :\033[0m $city"
   echo -e "\033[91m │\033[91m DOMAIN :\033[0m $domain"
   echo -e "${RED} ┌──────────────── HAMZA TECH ────────────────┐"
-echo -e "${YELLOW}      [${GREEN}1${YELLOW}] ${RED} . ${MAGENTA} CREATE ACCOUNT UDP ZIVPN"
+  echo -e "${YELLOW}      [${GREEN}1${YELLOW}] ${RED} . ${MAGENTA} CREATE ACCOUNT UDP ZIVPN"
   echo -e "${YELLOW}      [${GREEN}2${YELLOW}] ${RED} . ${MAGENTA} UNINSTALL SCRIPT ZIVPN"
   echo -e "${YELLOW}      [${GREEN}3${YELLOW}] ${RED} . ${MAGENTA} START ACCOUNT ZIVPN"
   echo -e "${YELLOW}      [${GREEN}4${YELLOW}] ${RED} . ${MAGENTA} STOP ACCOUNT ZIVPN"
   echo -e "${YELLOW}      [${GREEN}5${YELLOW}] ${RED} . ${MAGENTA} RESTART ACCOUNT ZIVPN"
   echo -e "${YELLOW}      [${GREEN}6${YELLOW}] ${RED} . ${MAGENTA} CHANGE DOMAIN SERVER"
+  echo -e "${YELLOW}      [${GREEN}7${YELLOW}] ${RED} . ${MAGENTA} VIEW UDP ACCOUNTS"
   echo -e "${YELLOW}      [${GREEN}0${YELLOW}] ${RED} . ${MAGENTA} EXIT ZIVPN"
   echo -e "${RED} └────────────────────────────────────────────┘"
-    echo -e "\033[0m       Select From Options [ 1 - 8 ] : \033[0m"
+  echo -e "\033[0m       Select From Options [ 0 - 7 ] : \033[0m"
   read -p " : " option
   tput cuu1 >&2 && tput dl1 >&2
   case $option in
-    1 ) install_all ;;
+    1 ) create_udp_accounts ;;
     2 ) uninstall ;;
     3 ) startzivpn ;;
     4 ) stopzivpn ;;
     5 ) restartzivpn ;;
     6 ) changedomain ;;
+    7 ) view_accounts ;;
     0 ) exit ;;
     * ) continue ;;
   esac
-  break
 done
