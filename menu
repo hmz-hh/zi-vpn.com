@@ -121,9 +121,19 @@ manage_accounts() {
     echo -e "${YELLOW}Enter number to delete an account, or press ENTER to go back:${NC}"
     read -p "Choice: " del_index
     if [[ "$del_index" =~ ^[0-9]+$ ]] && (( del_index >= 1 && del_index <= ${#lines[@]} )); then
+        removed_account="${lines[del_index-1]}"
         unset 'lines[del_index-1]'
         printf "%s\n" "${lines[@]}" > "$ACCOUNTS_FILE"
-        echo -e "${GREEN}✅ Account deleted.${NC}"
+        
+        # إيقاف الخدمة المرتبطة بالحساب المحذوف
+        if systemctl list-units --type=service | grep -q "zivpn@${removed_account}.service"; then
+            sudo systemctl stop "zivpn@${removed_account}.service"
+            echo -e "${GREEN}✅ Service zivpn@${removed_account}.service stopped.${NC}"
+        else
+            echo -e "${YELLOW}⚠️  No running service found for ${removed_account}.${NC}"
+        fi
+
+        echo -e "${GREEN}✅ Account deleted: ${removed_account}${NC}"
     else
         echo -e "${YELLOW}No deletion performed.${NC}"
     fi
@@ -150,14 +160,14 @@ while true; do
     echo -e "\033[91m │\033[91m CITY :\033[0m $city"
     echo -e "\033[91m │\033[91m DOMAIN :\033[0m $domain"
     echo -e "${RED} ┌──────────────── HAMZA TECH ────────────────┐"
-    echo -e "${YELLOW}      [${GREEN}1${YELLOW}] ${RED} . ${MAGENTA} CREATE ACCOUNT UDP ZIVPN"
-    echo -e "${YELLOW}      [${GREEN}2${YELLOW}] ${RED} . ${MAGENTA} UNINSTALL SCRIPT ZIVPN"
-    echo -e "${YELLOW}      [${GREEN}3${YELLOW}] ${RED} . ${MAGENTA} START ACCOUNT ZIVPN"
-    echo -e "${YELLOW}      [${GREEN}4${YELLOW}] ${RED} . ${MAGENTA} STOP ACCOUNT ZIVPN"
-    echo -e "${YELLOW}      [${GREEN}5${YELLOW}] ${RED} . ${MAGENTA} RESTART ACCOUNT ZIVPN"
-    echo -e "${YELLOW}      [${GREEN}6${YELLOW}] ${RED} . ${MAGENTA} CHANGE DOMAIN SERVER"
-    echo -e "${YELLOW}      [${GREEN}7${YELLOW}] ${RED} . ${MAGENTA} MANAGE SAVED ACCOUNTS"
-    echo -e "${YELLOW}      [${GREEN}0${YELLOW}] ${RED} . ${MAGENTA} EXIT ZIVPN"
+    echo -e "${YELLOW}      [${GREEN}1${YELLOW}] ${RED} . CREATE ACCOUNT UDP ZIVPN"
+    echo -e "${YELLOW}      [${GREEN}2${YELLOW}] ${RED} . UNINSTALL SCRIPT ZIVPN"
+    echo -e "${YELLOW}      [${GREEN}3${YELLOW}] ${RED} . START ACCOUNT ZIVPN"
+    echo -e "${YELLOW}      [${GREEN}4${YELLOW}] ${RED} . STOP ACCOUNT ZIVPN"
+    echo -e "${YELLOW}      [${GREEN}5${YELLOW}] ${RED} . RESTART ACCOUNT ZIVPN"
+    echo -e "${YELLOW}      [${GREEN}6${YELLOW}] ${RED} . CHANGE DOMAIN SERVER"
+    echo -e "${YELLOW}      [${GREEN}7${YELLOW}] ${RED} . MANAGE SAVED ACCOUNTS"
+    echo -e "${YELLOW}      [${GREEN}0${YELLOW}] ${RED} . EXIT ZIVPN"
     echo -e "${RED} └────────────────────────────────────────────┘"
     echo -e "\033[0m       Select From Options [ 0 - 7 ] : \033[0m"
     read -p " : " option
