@@ -69,6 +69,9 @@ install_all(){
       bash <(curl -fsSL https://raw.githubusercontent.com/powermx/zivpn/main/ziv2.sh)
       touch /tmp/zivpn_v2_amd_installed.flag
     } || echo -e "${GREEN}ZIVPN V2 AMD already installed."
+
+    # نحيد ملف الباس باش المرة الجاية يطلبو
+    rm -f "$FLAG_FILE"
   fi
 }
 
