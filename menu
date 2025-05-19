@@ -142,9 +142,9 @@ while true; do
   echo -e "${YELLOW}      [${GREEN}8${YELLOW}] CHANGE DOMAIN"
   echo -e "${YELLOW}      [${GREEN}0${YELLOW}] EXIT"
   echo -e "${RED} └────────────────────────────────────────────┘"
+    echo -e "\033[0m       Select From Options [ 1 - 8 ] : \033[0m"
   read -p " : " option
   tput cuu1 >&2 && tput dl1 >&2
-
   case $option in
     1 ) install_all ;;
     4 ) uninstall ;;
