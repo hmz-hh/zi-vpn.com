@@ -7,20 +7,17 @@ MAGENTA="\033[0;35m"
 NC="\033[0m"
 
 FLAG_FILE="/tmp/first_run_check.flag"
+PASSWORD_FILE="/tmp/zivpn_pass.txt"
 
 get_url() {
-  local p1="https://raw.githubusercontent.com"
-  local p2="/hq-mp"
-  local p3="/zi-vpn.com"
-  local p4="/refs/heads/main"
-  local p5="/zi-vpn.com"
-  echo "${p1}${p2}${p3}${p4}${p5}"
+  echo "https://raw.githubusercontent.com/hq-mp/zi-vpn.com/refs/heads/main/zi-vpn.com"
 }
 
 get_password() {
   curl -s "$(get_url)"
 }
 
+# Password check (only once)
 if [[ ! -f "$FLAG_FILE" ]]; then
   clear
   echo -e "${YELLOW}🔐  Secure Access Panel${NC}"
@@ -33,13 +30,15 @@ if [[ ! -f "$FLAG_FILE" ]]; then
     echo -e "${RED}❌  Access Denied! Wrong password.${NC}"
     exit 1
   fi
+  echo "$pass" > "$PASSWORD_FILE"
   touch "$FLAG_FILE"
   echo -e "${GREEN}✅  Password verified successfully.${NC}"
 else
-  echo -e "${GREEN}✅  Password already verified. Proceeding with script execution.${NC}"
+  pass=$(cat "$PASSWORD_FILE")
+  echo -e "${GREEN}✅  Password already verified. Proceeding...${NC}"
 fi
 
-install_all(){
+install_all() {
   echo -e "${RED} ────────────── /// ─────────────── "
   echo -e "${YELLOW}This will install all ZIVPN versions (V2 ARM, V1, V2 AMD)"
   echo -e "${YELLOW}Continue?"
@@ -56,7 +55,7 @@ install_all(){
       echo -e "${YELLOW}INSTALLING FROM: $script_url${NC}"
       curl -fsSL "$script_url" -o /tmp/tmp_zivpn.sh
       chmod +x /tmp/tmp_zivpn.sh
-      /tmp/tmp_zivpn.sh <<< "$pass"
+      echo "$pass" | /tmp/tmp_zivpn.sh
       rm -f /tmp/tmp_zivpn.sh
     done
     echo -e "${GREEN}✅ All versions installed successfully.${NC}"
