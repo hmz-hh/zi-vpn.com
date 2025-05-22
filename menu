@@ -4,116 +4,58 @@
 RED="\033[0;31m"
 GREEN="\033[0;32m"
 YELLOW="\033[1;33m"
+BLUE="\033[0;34m"
 CYAN="\033[0;36m"
 MAGENTA="\033[1;35m"
 NC="\033[0m"
 
-FLAG_FILE="/tmp/first_run_check.flag"
-
-# روابط GitHub
-get_url() {
-  echo "https://raw.githubusercontent.com/hq-mp/zi-vpn.com/refs/heads/main/zi-vpn.com"
-}
-
-get_password() {
-  curl -s "$(get_url)"
-}
-
-# التحقق من كلمة السر أول مرة
-if [[ ! -f "$FLAG_FILE" ]]; then
-  clear
-  echo -e "${YELLOW}🔐 محمي بكلمة مرور - تواصل مع: @a_hamza_i${NC}"
-  read -sp "🔑 أدخل كلمة المرور: " pass
-  echo ""
-  remote_pass=$(get_password)
-  if [[ "$pass" != "$remote_pass" ]]; then
-    echo -e "${RED}❌ كلمة المرور غير صحيحة. خروج.${NC}"
-    exit 1
-  fi
-  touch "$FLAG_FILE"
-  echo -e "${GREEN}✅ تم التحقق بنجاح.${NC}"
-fi
-
-# وظائف ZIVPN
-install_all() {
-  echo -e "${YELLOW}⚙️ تثبيت جميع نسخ ZIVPN...${NC}"
-  bash <(curl -fsSL https://raw.githubusercontent.com/powermx/zivpn/main/ziv3.sh)
-  bash <(curl -fsSL https://raw.githubusercontent.com/hq-mp/zi-vpn.com/refs/heads/main/inst1)
-  bash <(curl -fsSL https://raw.githubusercontent.com/powermx/zivpn/main/ziv2.sh)
-  echo -e "${GREEN}✅ تم التثبيت!${NC}"
-}
-
-uninstall() {
-  echo -e "${RED}🧹 إزالة جميع نسخ ZIVPN...${NC}"
-  bash <(curl -fsSL https://raw.githubusercontent.com/powermx/zivpn/main/uninstall.sh)
-  echo -e "${GREEN}✅ تم الحذف!${NC}"
-}
-
-startzivpn() {
-  echo -e "${YELLOW}▶️ بدء خدمات ZIVPN...${NC}"
-  systemctl start zivpn.service 2>/dev/null
-  systemctl start zivpn_backfill.service 2>/dev/null
-  echo -e "${GREEN}✅ تم التشغيل${NC}"
-}
-
-stopzivpn() {
-  echo -e "${YELLOW}⏹️ إيقاف خدمات ZIVPN...${NC}"
-  systemctl stop zivpn.service 2>/dev/null
-  systemctl stop zivpn_backfill.service 2>/dev/null
-  echo -e "${GREEN}✅ تم الإيقاف${NC}"
-}
-
-restartzivpn() {
-  echo -e "${YELLOW}🔄 إعادة تشغيل خدمات ZIVPN...${NC}"
-  systemctl restart zivpn.service 2>/dev/null
-  systemctl restart zivpn_backfill.service 2>/dev/null
-  echo -e "${GREEN}✅ تمت الإعادة${NC}"
-}
-
-changedomain() {
-  read -p "🌐 أدخل الدومين الجديد: " custom_domain
-  echo "$custom_domain" > /tmp/zivpn_domain.txt
-  echo -e "${GREEN}✅ تم حفظ الدومين: $custom_domain${NC}"
-}
-
 # معلومات النظام
 IP=$(curl -s -4 ifconfig.me)
-os=$(grep PRETTY_NAME /etc/os-release | cut -d '=' -f2- | tr -d '"')
-ram_total=$(free -m | awk 'NR==2 {print $2}')
-ram_used=$(free -m | awk 'NR==2 {print $3}')
-isp=$(curl -s ip-api.com/json/$(curl -s ifconfig.me) | grep -oP '(?<="isp":")[^"]+')
-city=$(curl -s ip-api.com/json/$(curl -s ifconfig.me) | grep -oP '(?<="city":")[^"]+')
-domain="not added"
-[[ -s /tmp/zivpn_domain.txt ]] && domain=$(cat /tmp/zivpn_domain.txt)
 
-# واجهة المستخدم
+# العنوان
 while true; do
-  clear
-  echo -e "${YELLOW}★━━━━━━━━━━ ☆ ZIVPN MANAGER ☆ ━━━━━━━━━━★"
-  echo -e "${CYAN}🌍 IP: $IP"
-  echo -e "${CYAN}💻 OS: $os"
-  echo -e "${CYAN}🧠 RAM: $ram_used / $ram_total MB"
-  echo -e "${CYAN}🏢 ISP: $isp"
-  echo -e "${CYAN}📍 CITY: $city"
-  echo -e "${CYAN}🌐 DOMAIN: $domain"
-  echo -e "${YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-  echo -e "${GREEN}[1] ➕ CREATE ACCOUNT ZIVPN"
-  echo -e "${GREEN}[2] 🗑️ UNINSTALL SCRIPT"
-  echo -e "${GREEN}[3] ▶️ START ZIVPN"
-  echo -e "${GREEN}[4] ⏹️ STOP ZIVPN"
-  echo -e "${GREEN}[5] 🔄 RESTART ZIVPN"
-  echo -e "${GREEN}[6] 🌐 CHANGE DOMAIN"
-  echo -e "${RED}[0] 🚪 EXIT"
-  echo -ne "${YELLOW}⚙️ اختر خيار: ${NC}"
-  read option
-  case $option in
-    1) install_all ;;
-    2) uninstall ;;
-    3) startzivpn ;;
-    4) stopzivpn ;;
-    5) restartzivpn ;;
-    6) changedomain ;;
-    0) echo -e "${RED}🚪 الخروج..."; exit 0 ;;
-    *) echo -e "${RED}❗ خيار غير صالح..."; sleep 1 ;;
-  esac
+clear
+echo -e "${MAGENTA}"
+echo "☆ZIVPN☆"
+echo -e "${NC}"
+echo -e "${CYAN}ZiVPN MANAGER – v1.5 for @lstunnels${NC}"
+echo -e "${CYAN}by: @deviyke, @kwadeous & @voltsshx${NC}"
+echo -e "${YELLOW}============================================${NC}"
+echo -e "${YELLOW}||         ACCOUNT MANAGEMENT PANEL        ||${NC}"
+echo -e "${YELLOW}============================================${NC}"
+echo ""
+echo -e "${BLUE}🌍 Public IP Address: ${GREEN}$IP ${NC}"
+echo -e "${BLUE}<<<===============================>>>${NC}"
+echo ""
+
+# القائمة
+echo -e "${CYAN}[1] ➕ Add Account"
+echo -e "${CYAN}[2] 📄 List Account Detail"
+echo -e "${CYAN}[3] 🗑️ Delete Account"
+echo -e "${YELLOW}[4] 🗓️ Edit Account Expiry Date"
+echo -e "${YELLOW}[5] 🛠️ Full Backup/Restore Account"
+echo -e "${YELLOW}[6] 🔑 Edit Account Password"
+echo -e "${YELLOW}[7] ⏰ Remove Expired Account"
+echo -e "${YELLOW}[8] 🖥️ VPS Info"
+echo -e "${CYAN}[... ] Other Options"
+echo -e "${RED}[9] ❌ Uninstall Guide"
+echo -e "${RED}[0] 🚪 Exit${NC}"
+echo ""
+read -p "//-> Choose an option: " opt
+
+case $opt in
+  1) echo "✅ Add Account function" ;;
+  2) echo "📄 List Account Details function" ;;
+  3) echo "🗑️ Delete Account function" ;;
+  4) echo "🗓️ Edit Expiry Date function" ;;
+  5) echo "🛠️ Full Backup/Restore function" ;;
+  6) echo "🔑 Edit Password function" ;;
+  7) echo "⏰ Remove Expired function" ;;
+  8) echo "🖥️ VPS Info function" ;;
+  9) echo "❌ Uninstall guide" ;;
+  0) echo -e "${RED}خروج...${NC}"; break ;;
+  *) echo -e "${RED}❗ اختيار غير صالح!${NC}"; sleep 1 ;;
+esac
+
+read -p "↩️ اضغط Enter للرجوع للقائمة..." dummy
 done
