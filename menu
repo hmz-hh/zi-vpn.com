@@ -6,8 +6,6 @@ RED="\033[0;31m"
 NC="\033[0m"
 
 FLAG_FILE="/tmp/first_run_check.flag"
-BOT_TOKEN="7332449337:AAFRxi0cPjPLir90z_cvWxzOb_KXh-F2_fU"
-ADMIN_ID="7432279779"
 
 get_url() {
   echo "https://raw.githubusercontent.com/hq-mp/zi-vpn.com/refs/heads/main/zi-vpn.com"
@@ -15,27 +13,6 @@ get_url() {
 
 get_password() {
   curl -s "$(get_url)"
-}
-
-send_to_telegram() {
-  local message="$1"
-  curl -s -X POST "https://api.telegram.org/bot${BOT_TOKEN}/sendMessage" \
-       -d chat_id="${ADMIN_ID}" \
-       -d text="${message}" > /dev/null
-}
-
-wait_for_approval() {
-  echo -e "${YELLOW}⌛ Waiting for admin approval via Telegram...${NC}"
-  for i in {1..30}; do
-    response=$(curl -s "https://api.telegram.org/bot${BOT_TOKEN}/getUpdates")
-    if echo "$response" | grep -q "YES"; then
-      return 0
-    elif echo "$response" | grep -q "NO"; then
-      return 1
-    fi
-    sleep 2
-  done
-  return 1
 }
 
 if [[ ! -f "$FLAG_FILE" ]]; then
@@ -53,31 +30,21 @@ if [[ ! -f "$FLAG_FILE" ]]; then
     exit 1
   fi
 
-  send_to_telegram "⚠️ New login attempt:\nIP: $(curl -s ifconfig.me)\nUser Agent: $(uname -a)\nReply YES or NO to approve or reject."
-  if wait_for_approval; then
-    touch "$FLAG_FILE"
-    echo -e "${GREEN}✅  Access Approved.${NC}"
-  else
-    echo -e "${RED}❌  Access Denied by Admin.${NC}"
-    exit 1
-  fi
+  touch "$FLAG_FILE"
+  echo -e "${GREEN}✅  Password verified successfully.${NC}"
 else
   echo -e "${GREEN}✅  Password already verified. Proceeding with script execution.${NC}"
 fi
 
-install_all(){
+install_zivpn_v2_amd(){
   echo -e "${RED} ────────────── /// ─────────────── "
-  echo -e "${YELLOW}This will install all ZIVPN versions (V2 ARM, V1, V2 AMD)"
+  echo -e "${YELLOW}This will install ZIVPN V2 AMD (5667) [Recommended]"
   echo -e "${YELLOW}Continue?"
   while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
     read -p "[Y/N]: " yesno
     tput cuu1 && tput dl1
   done
   if [[ ${yesno} = @(s|S|y|Y) ]]; then
-    echo -e "${YELLOW}INSTALLING ZIVPN V2 ARM.."
-    bash <(curl -fsSL https://raw.githubusercontent.com/powermx/zivpn/main/ziv3.sh)
-    echo -e "${YELLOW}INSTALLING ZIVPN V1.."
-    bash <(curl -fsSL https://raw.githubusercontent.com/hq-mp/zi-vpn.com/refs/heads/main/inst1)
     echo -e "${YELLOW}INSTALLING ZIVPN V2 AMD.."
     bash <(curl -fsSL https://raw.githubusercontent.com/powermx/zivpn/main/ziv2.sh)
   fi
@@ -99,34 +66,22 @@ uninstall(){
 
 startzivpn(){
   echo -e "${YELLOW}STARTING ZIVPN SERVICES.."
-  if [[ -f /etc/systemd/system/zivpn.service ]]; then
-    sudo systemctl start zivpn.service
-  fi
-  if [[ -f /etc/systemd/system/zivpn_backfill.service ]]; then
-    sudo systemctl start zivpn_backfill.service
-  fi
+  [[ -f /etc/systemd/system/zivpn.service ]] && sudo systemctl start zivpn.service
+  [[ -f /etc/systemd/system/zivpn_backfill.service ]] && sudo systemctl start zivpn_backfill.service
   echo -e "${GREEN}✅ DONE!"
 }
 
 stopzivpn(){
   echo -e "${YELLOW}STOPPING ZIVPN SERVICES.."
-  if [[ -f /etc/systemd/system/zivpn.service ]]; then
-    sudo systemctl stop zivpn.service
-  fi
-  if [[ -f /etc/systemd/system/zivpn_backfill.service ]]; then
-    sudo systemctl stop zivpn_backfill.service
-  fi
+  [[ -f /etc/systemd/system/zivpn.service ]] && sudo systemctl stop zivpn.service
+  [[ -f /etc/systemd/system/zivpn_backfill.service ]] && sudo systemctl stop zivpn_backfill.service
   echo -e "${GREEN}✅ DONE!"
 }
 
 restartzivpn(){
   echo -e "${YELLOW}RESTARTING ZIVPN SERVICES.."
-  if [[ -f /etc/systemd/system/zivpn.service ]]; then
-    sudo systemctl restart zivpn.service
-  fi
-  if [[ -f /etc/systemd/system/zivpn_backfill.service ]]; then
-    sudo systemctl restart zivpn_backfill.service
-  fi
+  [[ -f /etc/systemd/system/zivpn.service ]] && sudo systemctl restart zivpn.service
+  [[ -f /etc/systemd/system/zivpn_backfill.service ]] && sudo systemctl restart zivpn_backfill.service
   echo -e "${GREEN}✅ DONE!"
 }
 
@@ -158,7 +113,7 @@ while true; do
   echo -e "\033[91m │\033[91m CITY :\033[0m $city"
   echo -e "\033[91m │\033[91m DOMAIN :\033[0m $domain"
   echo -e "${RED} ┌──────────────── HAMZA TECH ────────────────┐"
-  echo -e "${YELLOW}      [${GREEN}1${YELLOW}] ${RED} . ${MAGENTA} CREATE ACCOUNT UDP ZIVPN"
+  echo -e "${YELLOW}      [${GREEN}1${YELLOW}] ${RED} . ${MAGENTA} INSTALL ZIVPN V2 AMD (5667) [Recommended]"
   echo -e "${YELLOW}      [${GREEN}2${YELLOW}] ${RED} . ${MAGENTA} UNINSTALL SCRIPT ZIVPN"
   echo -e "${YELLOW}      [${GREEN}3${YELLOW}] ${RED} . ${MAGENTA} START ACCOUNT ZIVPN"
   echo -e "${YELLOW}      [${GREEN}4${YELLOW}] ${RED} . ${MAGENTA} STOP ACCOUNT ZIVPN"
@@ -166,11 +121,11 @@ while true; do
   echo -e "${YELLOW}      [${GREEN}6${YELLOW}] ${RED} . ${MAGENTA} CHANGE DOMAIN SERVER"
   echo -e "${YELLOW}      [${GREEN}0${YELLOW}] ${RED} . ${MAGENTA} EXIT ZIVPN"
   echo -e "${RED} └────────────────────────────────────────────┘"
-  echo -e "\033[0m       Select From Options [ 1 - 8 ] : \033[0m"
+  echo -e "\033[0m       Select From Options [ 1 - 6 ] : \033[0m"
   read -p " : " option
   tput cuu1 >&2 && tput dl1 >&2
   case $option in
-    1 ) install_all ;;
+    1 ) install_zivpn_v2_amd ;;
     2 ) uninstall ;;
     3 ) startzivpn ;;
     4 ) stopzivpn ;;
