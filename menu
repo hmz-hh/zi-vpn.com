@@ -38,7 +38,7 @@ fi
 
 install_zivpn_v2_amd(){
   echo -e "${RED} ────────────── /// ─────────────── "
-  echo -e "${YELLOW}This will install ZIVPN V2 AMD (5667) [Recommended]"
+  echo -e "${YELLOW}This is the create a new account. You may lose previous accounts"
   echo -e "${YELLOW}Continue?"
   while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
     read -p "[Y/N]: " yesno
