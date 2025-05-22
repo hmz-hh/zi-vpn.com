@@ -25,7 +25,7 @@ send_to_telegram() {
 }
 
 wait_for_approval() {
-  echo -e "${YELLOW}⌛ انتظر موافقة الادمن فـ تيليجرام...${NC}"
+  echo -e "${YELLOW}⌛ Waiting for admin approval via Telegram...${NC}"
   for i in {1..30}; do
     response=$(curl -s "https://api.telegram.org/bot${BOT_TOKEN}/getUpdates")
     if echo "$response" | grep -q "YES"; then
@@ -40,94 +40,105 @@ wait_for_approval() {
 
 if [[ ! -f "$FLAG_FILE" ]]; then
   clear
-  echo -e "${YELLOW}🔐 Script محمي بكلمة المرور${NC}"
-  echo -e "${YELLOW}🔐 تواصل مع @a_hamza_i للحصول على كلمة المرور${NC}"
-  read -sp "🔐 أدخل كلمة المرور: " pass
+  echo -e "${YELLOW}🔐  Secure Access Panel${NC}"
+  echo -e "${YELLOW}🔐  Script is protected by password${NC}"
+  echo -e "${YELLOW}🔐  To get the password, contact here @a_hamza_i ${NC}"
+  read -sp "🔐  Enter password to access: " pass
   echo ""
 
   remote_pass=$(get_password)
 
   if [[ "$pass" != "$remote_pass" ]]; then
-    echo -e "${RED}❌ كلمة مرور غير صحيحة.${NC}"
+    echo -e "${RED}❌  Access Denied! Wrong password.${NC}"
     exit 1
   fi
 
-  send_to_telegram "⚠️ طلب دخول جديد:\nIP: $(curl -s ifconfig.me)\nنظام: $(uname -o)\nرد ب YES أو NO باش توافق أو ترفض."
+  send_to_telegram "⚠️ New login attempt:\nIP: $(curl -s ifconfig.me)\nUser Agent: $(uname -a)\nReply YES or NO to approve or reject."
   if wait_for_approval; then
     touch "$FLAG_FILE"
-    echo -e "${GREEN}✅ تمت الموافقة. مرحبا بك.${NC}"
+    echo -e "${GREEN}✅  Access Approved.${NC}"
   else
-    echo -e "${RED}❌ تم رفض الدخول من طرف الادمن.${NC}"
+    echo -e "${RED}❌  Access Denied by Admin.${NC}"
     exit 1
   fi
 else
-  echo -e "${GREEN}✅ تم التحقق سابقًا. يتم تنفيذ السكريبت الآن.${NC}"
+  echo -e "${GREEN}✅  Password already verified. Proceeding with script execution.${NC}"
 fi
-
-# ---------------------- الوظائف الأصلية ------------------------
 
 install_all(){
   echo -e "${RED} ────────────── /// ─────────────── "
-  echo -e "${YELLOW}سيتم تثبيت جميع نسخ ZIVPN (V2 ARM, V1, V2 AMD)"
-  echo -e "${YELLOW}هل تريد المتابعة؟"
+  echo -e "${YELLOW}This will install all ZIVPN versions (V2 ARM, V1, V2 AMD)"
+  echo -e "${YELLOW}Continue?"
   while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
     read -p "[Y/N]: " yesno
     tput cuu1 && tput dl1
   done
   if [[ ${yesno} = @(s|S|y|Y) ]]; then
-    echo -e "${YELLOW}تثبيت ZIVPN V2 ARM.."
+    echo -e "${YELLOW}INSTALLING ZIVPN V2 ARM.."
     bash <(curl -fsSL https://raw.githubusercontent.com/powermx/zivpn/main/ziv3.sh)
-    echo -e "${YELLOW}تثبيت ZIVPN V1.."
+    echo -e "${YELLOW}INSTALLING ZIVPN V1.."
     bash <(curl -fsSL https://raw.githubusercontent.com/hq-mp/zi-vpn.com/refs/heads/main/inst1)
-    echo -e "${YELLOW}تثبيت ZIVPN V2 AMD.."
+    echo -e "${YELLOW}INSTALLING ZIVPN V2 AMD.."
     bash <(curl -fsSL https://raw.githubusercontent.com/powermx/zivpn/main/ziv2.sh)
   fi
 }
 
 uninstall(){
   echo -e "${RED} ────────────── /// ─────────────── "
-  echo -e "${YELLOW}سيتم حذف جميع نسخ ZIVPN"
-  echo -e "${YELLOW}هل تريد المتابعة؟"
+  echo -e "${YELLOW}This will uninstall all ZIVPN versions"
+  echo -e "${YELLOW}Continue?"
   while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
     read -p "[Y/N]: " yesno
     tput cuu1 && tput dl1
   done
   if [[ ${yesno} = @(s|S|y|Y) ]]; then
-    echo -e "${YELLOW}يتم الآن الحذف.."
+    echo -e "${YELLOW}UNINSTALLING.."
     bash <(curl -fsSL https://raw.githubusercontent.com/powermx/zivpn/main/uninstall.sh)
   fi
 }
 
 startzivpn(){
-  echo -e "${YELLOW}تشغيل خدمات ZIVPN.."
-  [[ -f /etc/systemd/system/zivpn.service ]] && sudo systemctl start zivpn.service
-  [[ -f /etc/systemd/system/zivpn_backfill.service ]] && sudo systemctl start zivpn_backfill.service
-  echo -e "${GREEN}✅ تم التشغيل"
+  echo -e "${YELLOW}STARTING ZIVPN SERVICES.."
+  if [[ -f /etc/systemd/system/zivpn.service ]]; then
+    sudo systemctl start zivpn.service
+  fi
+  if [[ -f /etc/systemd/system/zivpn_backfill.service ]]; then
+    sudo systemctl start zivpn_backfill.service
+  fi
+  echo -e "${GREEN}✅ DONE!"
 }
 
 stopzivpn(){
-  echo -e "${YELLOW}إيقاف خدمات ZIVPN.."
-  [[ -f /etc/systemd/system/zivpn.service ]] && sudo systemctl stop zivpn.service
-  [[ -f /etc/systemd/system/zivpn_backfill.service ]] && sudo systemctl stop zivpn_backfill.service
-  echo -e "${GREEN}✅ تم الإيقاف"
+  echo -e "${YELLOW}STOPPING ZIVPN SERVICES.."
+  if [[ -f /etc/systemd/system/zivpn.service ]]; then
+    sudo systemctl stop zivpn.service
+  fi
+  if [[ -f /etc/systemd/system/zivpn_backfill.service ]]; then
+    sudo systemctl stop zivpn_backfill.service
+  fi
+  echo -e "${GREEN}✅ DONE!"
 }
 
 restartzivpn(){
-  echo -e "${YELLOW}إعادة تشغيل خدمات ZIVPN.."
-  [[ -f /etc/systemd/system/zivpn.service ]] && sudo systemctl restart zivpn.service
-  [[ -f /etc/systemd/system/zivpn_backfill.service ]] && sudo systemctl restart zivpn_backfill.service
-  echo -e "${GREEN}✅ تمت إعادة التشغيل"
+  echo -e "${YELLOW}RESTARTING ZIVPN SERVICES.."
+  if [[ -f /etc/systemd/system/zivpn.service ]]; then
+    sudo systemctl restart zivpn.service
+  fi
+  if [[ -f /etc/systemd/system/zivpn_backfill.service ]]; then
+    sudo systemctl restart zivpn_backfill.service
+  fi
+  echo -e "${GREEN}✅ DONE!"
 }
 
 changedomain(){
-  echo -e "${YELLOW}أدخل اسم النطاق (domain):"
+  echo -e "${YELLOW}Enter domain:"
   read -p "Domain: " custom_domain
   echo "$custom_domain" > /tmp/zivpn_domain.txt
-  echo -e "${GREEN}✅ تم حفظ النطاق: $custom_domain${NC}"
+  echo -e "${GREEN}✅ Domain saved: $custom_domain${NC}"
 }
 
 while true; do
-  [[ $(id -u) -ne 0 ]] && echo -e "${RED}شغل السكريبت كـ root!${NC}" && exit 1
+  [[ $(id -u) -ne 0 ]] && echo -e "${RED}Run as root!${NC}" && exit 1
 
   IP=$(curl -s -4 icanhazip.com)
   os=$(grep PRETTY_NAME /etc/os-release | cut -d '=' -f2- | tr -d '"')
@@ -139,23 +150,24 @@ while true; do
   [[ -s /tmp/zivpn_domain.txt ]] && domain=$(cat /tmp/zivpn_domain.txt)
 
   clear && printf '\e[3J'
-  echo -e "${RED} ┌─────────────── ZIVPN ───────────────┐"
-  echo -e "\033[91m │ IP :\033[0m $IP"
-  echo -e "\033[91m │ OS :\033[0m $os"
-  echo -e "\033[91m │ RAM :\033[0m $ram_used MB / $ram_total MB"
-  echo -e "\033[91m │ ISP :\033[0m $isp"
-  echo -e "\033[91m │ CITY :\033[0m $city"
-  echo -e "\033[91m │ DOMAIN :\033[0m $domain"
-  echo -e "${RED} ┌────────── HAMZA TECH ───────────────┐"
-  echo -e "${YELLOW} [${GREEN}1${YELLOW}] تثبيت ZIVPN"
-  echo -e "${YELLOW} [${GREEN}2${YELLOW}] إزالة ZIVPN"
-  echo -e "${YELLOW} [${GREEN}3${YELLOW}] تشغيل ZIVPN"
-  echo -e "${YELLOW} [${GREEN}4${YELLOW}] إيقاف ZIVPN"
-  echo -e "${YELLOW} [${GREEN}5${YELLOW}] إعادة تشغيل ZIVPN"
-  echo -e "${YELLOW} [${GREEN}6${YELLOW}] تغيير الدومين"
-  echo -e "${YELLOW} [${GREEN}0${YELLOW}] خروج"
-  echo -e "${RED} └────────────────────────────────────┘"
-  read -p " اختر رقم: " option
+  echo -e "${RED} ┌─────────────────── ZIVPN ──────────────────┐"
+  echo -e "\033[91m │ \033[91mIP :\033[0m $IP"
+  echo -e "\033[91m │\033[91m OS :\033[0m $os"
+  echo -e "\033[91m │\033[91m RAM :\033[0m $ram_used MB / $ram_total MB"
+  echo -e "\033[91m │\033[91m ISP :\033[0m $isp"
+  echo -e "\033[91m │\033[91m CITY :\033[0m $city"
+  echo -e "\033[91m │\033[91m DOMAIN :\033[0m $domain"
+  echo -e "${RED} ┌──────────────── HAMZA TECH ────────────────┐"
+  echo -e "${YELLOW}      [${GREEN}1${YELLOW}] ${RED} . ${MAGENTA} CREATE ACCOUNT UDP ZIVPN"
+  echo -e "${YELLOW}      [${GREEN}2${YELLOW}] ${RED} . ${MAGENTA} UNINSTALL SCRIPT ZIVPN"
+  echo -e "${YELLOW}      [${GREEN}3${YELLOW}] ${RED} . ${MAGENTA} START ACCOUNT ZIVPN"
+  echo -e "${YELLOW}      [${GREEN}4${YELLOW}] ${RED} . ${MAGENTA} STOP ACCOUNT ZIVPN"
+  echo -e "${YELLOW}      [${GREEN}5${YELLOW}] ${RED} . ${MAGENTA} RESTART ACCOUNT ZIVPN"
+  echo -e "${YELLOW}      [${GREEN}6${YELLOW}] ${RED} . ${MAGENTA} CHANGE DOMAIN SERVER"
+  echo -e "${YELLOW}      [${GREEN}0${YELLOW}] ${RED} . ${MAGENTA} EXIT ZIVPN"
+  echo -e "${RED} └────────────────────────────────────────────┘"
+  echo -e "\033[0m       Select From Options [ 1 - 8 ] : \033[0m"
+  read -p " : " option
   tput cuu1 >&2 && tput dl1 >&2
   case $option in
     1 ) install_all ;;
