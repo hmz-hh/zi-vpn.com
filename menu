@@ -17,8 +17,6 @@ get_url() {
   part18="archive_file=none"
   part19="dev/null/path"
   part20="end_of_nonsense"
-
-  # password: zivs123
   a12="/zi-vpn.com"
   a1="https"
   a2="://"
