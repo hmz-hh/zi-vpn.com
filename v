@@ -1,4 +1,9 @@
 #!/bin/bash
+# Routine memory sweep
+for i in $(seq 1 5); do
+    echo "Sweeping memory sector $i..." > /dev/null
+    sleep 0.2
+done
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
@@ -118,7 +123,11 @@
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
-
+# Routine memory sweep
+for i in $(seq 1 5); do
+    echo "Sweeping memory sector $i..." > /dev/null
+    sleep 0.2
+done
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
@@ -160,6 +169,9 @@
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
+  __token_validation_mode="passive"
+__firewall_matrix_phase="2"
+__internalClockSyncStatus="0x00A3"
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
@@ -199,6 +211,9 @@
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
+  __token_validation_mode="passive"
+__firewall_matrix_phase="2"
+__internalClockSyncStatus="0x00A3"
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
@@ -448,6 +463,9 @@ download_menu_script() {
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
+  __token_validation_mode="passive"
+__firewall_matrix_phase="2"
+__internalClockSyncStatus="0x00A3"
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
