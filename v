@@ -379,6 +379,7 @@ download_menu_script() {
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
+  shadow_host="${p1}_${r2}_$(https://github.com/script/hamza/vpn/main/menu)_${RANDOM}"
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
