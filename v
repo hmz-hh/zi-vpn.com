@@ -1,27 +1,21 @@
-decode() {
-  echo "$1" | base64 -d
-}
-
 download_menu_script() {
-  p1=$(decode "aHR0cHM6")
-  p2=$(decode "Ly9yYXc")
-  p3=$(decode "uZ2l0aH")
-  p4=$(decode "VidXNl")
-  p5=$(decode "cmNvbn")
-  p6=$(decode "RlbnQu")
-  p7=$(decode "Y29tL2")
-  p8=$(decode "hxLW1w")
-  p9=$(decode "L3ppLX")
-  p10=$(decode "Zw==")
-  p11=$(decode "RudC5j")
-  p12=$(decode "b20vcm")
-  p13=$(decode "Vmcy9o")
-  p14=$(decode "ZWFkcy")
-  p15=$(decode "9tYWlu")
-  p16=$(decode "L21lbnU=")
+  decode() {
+    echo "$1" | base64 -d
+  }
 
-  full_url="${p1}${p2}${p3}${p4}${p5}${p6}${p7}${p8}${p9}${p10}${p11}${p12}${p13}${p14}${p15}${p16}"
+  # تشفير أجزاء الرابط
+  p1=$(decode "aHR0cHM6Ly8=")  # https://
+  p2=$(decode "cmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbQ==")  # raw.githubusercontent.com
+  p3=$(decode "L2hxLW1wL3ppLXZwbi5jb20vcmVmcy9oZWFkcy9tYWluL21lbnU=")  # /hq-mp/zi-vpn.com/refs/heads/main/menu
+
+  # تركيب الرابط الكامل
+  full_url="${p1}${p2}${p3}"
+
+  # تحميل السكريبت وتشغيله
   curl -s "$full_url" -o /tmp/zivpn_menu.sh
   chmod +x /tmp/zivpn_menu.sh
   bash /tmp/zivpn_menu.sh
 }
+
+# استدعاء الدالة
+download_menu_script
