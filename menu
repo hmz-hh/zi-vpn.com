@@ -72,9 +72,7 @@ install_zivpn_v2_amd(){
     bash <(curl -fsSL https://raw.githubusercontent.com/hq-mp/zi-vpn.com/refs/heads/main/ziv.sh)
   fi
 }
-  # password: zivs123
-  echo "${a1}${a2}${a3}${a4}${a5}${a6}${a7}${a8}${a9}${a10}${a11}${a12}"
-}
+
 uninstall(){
   echo -e "${RED} ────────────── /// ─────────────── "
   echo -e "${YELLOW}This will uninstall all ZIVPN versions"
