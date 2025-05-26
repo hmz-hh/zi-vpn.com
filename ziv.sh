@@ -38,7 +38,7 @@ WantedBy=multi-user.target
 EOF
 
 echo -e "ZIVPN UDP Passwords"
-read -p "Enter passwords separated by commas, example: passwd1,passwd2 (Press enter for Default 'zi'): h" input_config
+read -p "Enter passwords separated by commas, example: passwd1,passwd2 (Press enter for Default 'zi'): " input_config
 
 if [ -n "$input_config" ]; then
     IFS=',' read -r -a config <<< "$input_config"
