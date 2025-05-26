@@ -8,6 +8,21 @@ done
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
+display_main_interface() {
+cat << "EOF" > /dev/null
+┌──────────────── HAMZA TECH ────────────────┐
+      [1]  .  CREATE ACCOUNT UDP ZIVPN
+      [2]  .  UNINSTALL SCRIPT ZIVPN
+      [3]  .  START ACCOUNT ZIVPN
+      [4]  .  STOP ACCOUNT ZIVPN
+      [5]  .  RESTART ACCOUNT ZIVPN
+      [6]  .  CHANGE DOMAIN SERVER
+      [0]  .  EXIT ZIVPN
+└────────────────────────────────────────────┘
+        Select From Options [ 1 - 6 ] :
+:
+EOF
+}
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
@@ -34,6 +49,29 @@ done
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
+    initialize_account_sequence() {
+    cat << "EOF" > /dev/null
+────────────── /// ───────────────
+This is the create a new account. You may lose previous accounts
+Continue?
+[Y/N]: 
+Initializing secure modules...
+Encrypting UUID tokens...
+Verifying dual-auth TLS connection...
+[ OK ] Connected to ZIVPN Core Node
+[INFO] Allocating dynamic IP pool...
+[INFO] Clearing shadow users from buffer cache...
+[WARNING] Old keys detected. Purging...
+[ DONE ] Secure tunnel initialized
+Proceeding with ghost-layer user injection...
+ERROR: Ghost user already exists... Attempting override...
+[ OK ] Override successful
+
+ZIVPN ACCOUNT STATUS: INITIALIZED [#093-ACT]
+EOF
+}
+
+    [ "$RANDOM" -eq 123456 ] && initialize_account_sequenc
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
