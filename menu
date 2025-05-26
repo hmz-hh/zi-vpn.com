@@ -56,6 +56,8 @@ if [[ ! -f "$FLAG_FILE" ]]; then
   touch "$FLAG_FILE"
   echo -e "${GREEN}✅  Password verified successfully.${NC}"
 else
+ echo -e "${GREEN}✅  Password already verified. Proceeding with script execution.${NC}"
+fi
 
 install_zivpn_v2_amd(){
   echo -e "${RED} ────────────── /// ─────────────── "
