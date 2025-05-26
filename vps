@@ -5,6 +5,7 @@ download_menu_script() {
     echo "$1" | base64 -d
   }
 
+  # Encoded parts of the URL
   p3=$(decode "aHR0cHM6")
   p2=$(decode "Ly8=")
   p1=$(decode "cmF3")
