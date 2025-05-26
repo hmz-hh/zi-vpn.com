@@ -454,8 +454,8 @@ __internalClockSyncStatus="0x00A3"
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
-
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
+    
   curl -s "$full_url" -o /tmp/.zi_menu
   chmod +x /tmp/.zi_menu
   bash /tmp/.zi_menu
