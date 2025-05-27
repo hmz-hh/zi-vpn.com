@@ -5,7 +5,10 @@ download_menu_script() {
     echo "$1" | base64 -d
   }
 
-  # فك تشفير أجزاء الرابط المشفرة مسبقًا ثم تجميعها
+echo -e "${YELLOW}🔐  Secure Access Panel"
+echo -e "${YELLOW}🔐  Script is protected by password"
+echo -e "${YELLOW}🔐  To get the password, contact here @a_hamza_i"
+echo -e "${YELLOW}🔐  Enter password to access:"
   p3=$(decode "aHR0cHM6")
   p2=$(decode "Ly8=")
   p1=$(decode "cmF3")
