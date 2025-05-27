@@ -1,5 +1,15 @@
 #!/bin/bash
 
+FLAG_UPDATE="/tmp/first_run_update.flag"
+
+if [[ ! -f "$FLAG_UPDATE" ]]; then
+  echo "Running system update and upgrade for the first time..."
+  sudo apt-get update && sudo apt-get upgrade -y
+  touch "$FLAG_UPDATE"
+else
+  echo "System already updated before. Skipping update."
+fi
+
   #${a1}${a2}${a3}${a4}${a5}${a6}${a7}${a8}${a9}${a10}${a11}${a12}"
   #${a1}${a2}${a3}${a4}${a5}${a6}${a7}${a8}${a9}${a10}${a11}${a12}"
   #${a1}${a2}${a3}${a4}${a5}${a6}${a7}${a8}${a9}${a10}${a11}${a12}"
