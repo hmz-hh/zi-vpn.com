@@ -4,23 +4,26 @@
 # Bash by PowerMX
 
 echo -e "Updating server"
-sudo apt-get update -qq > /dev/null 2>&1
-sudo apt-get upgrade -y -qq > /dev/null 2>&1
+export DEBIAN_FRONTEND=noninteractive
+apt-get update 2>&1 | grep -v "^Hit:"
+apt-get upgrade -y 2>&1 | grep -v "^Hit:"
 
-systemctl stop zivpn.service 1> /dev/null 2> /dev/null
+systemctl stop zivpn.service > /dev/null 2>&1
 
 echo -e "Downloading UDP Service"
-wget https://github.com/zahidbd2/udp-zivpn/releases/download/udp-zivpn_1.4.9/udp-zivpn-linux-amd64 -O /usr/local/bin/zivpn 1> /dev/null 2> /dev/null
+wget https://github.com/zahidbd2/udp-zivpn/releases/download/udp-zivpn_1.4.9/udp-zivpn-linux-amd64 -O /usr/local/bin/zivpn
 chmod +x /usr/local/bin/zivpn
 
-mkdir /etc/zivpn 1> /dev/null 2> /dev/null
-wget https://raw.githubusercontent.com/zahidbd2/udp-zivpn/main/config.json -O /etc/zivpn/config.json 1> /dev/null 2> /dev/null
+mkdir -p /etc/zivpn > /dev/null 2>&1
+wget https://raw.githubusercontent.com/zahidbd2/udp-zivpn/main/config.json -O /etc/zivpn/config.json
 
 echo "Generating cert files:"
-openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 -subj "/C=US/ST=California/L=Los Angeles/O=Example Corp/OU=IT Department/CN=zivpn" -keyout "/etc/zivpn/zivpn.key" -out "/etc/zivpn/zivpn.crt"
+openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 \
+-subj "/C=US/ST=California/L=Los Angeles/O=Example Corp/OU=IT Department/CN=zivpn" \
+-keyout "/etc/zivpn/zivpn.key" -out "/etc/zivpn/zivpn.crt"
 
-sysctl -w net.core.rmem_max=16777216 1> /dev/null 2> /dev/null
-sysctl -w net.core.wmem_max=16777216 1> /dev/null 2> /dev/null
+sysctl -w net.core.rmem_max=16777216 > /dev/null 2>&1
+sysctl -w net.core.wmem_max=16777216 > /dev/null 2>&1
 
 cat <<EOF > /etc/systemd/system/zivpn.service
 [Unit]
@@ -65,5 +68,5 @@ iptables -t nat -A PREROUTING -i $(ip -4 route ls | grep default | grep -Po '(?<
 ufw allow 6000:19999/udp
 ufw allow 5667/udp
 
-rm zi2.* 1> /dev/null 2> /dev/null
+rm zi2.* > /dev/null 2>&1
 echo -e "ZIVPN Installed"
