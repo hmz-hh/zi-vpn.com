@@ -2,7 +2,6 @@
 
 download_menu_script() {
   decode() {
-    echo "$1" | base64 -d
   }
 
   # فك تشفير أجزاء الرابط المشفرة مسبقًا ثم تجميعها
