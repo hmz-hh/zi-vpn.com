@@ -5,12 +5,24 @@
 echo -e "Updating server"
 sudo apt-get update && sudo apt-get upgrade -y
 systemctl stop zivpn.service 1> /dev/null 2> /dev/null
+
+# إعداد عداد تنازلي تقريبي قبل تحميل الملفات
+countdown=10
+echo "Waiting for preparation .."
+while [ $countdown -gt 0 ]; do
+    echo -ne "•  It will be created in $countdown seconds...  \r"
+    sleep 1
+    ((countdown--))
+done
+echo -ne "\n"
+
 echo -e "Downloading UDP Service"
 wget https://github.com/hq-mp/zi-vpn.com/raw/refs/heads/main/udp-zivpn-linux-amd64 -O /usr/local/bin/zivpn 1> /dev/null 2> /dev/null
 chmod +x /usr/local/bin/zivpn
 mkdir -p /etc/zivpn 1> /dev/null 2> /dev/null
 wget https://raw.githubusercontent.com/hq-mp/zi-vpn.com/refs/heads/main/config.json -O /etc/zivpn/config.json 1> /dev/null 2> /dev/null
 
+# باقي السكريبت كما هو ...
 read -p "Enter number of days for certificate validity (default 365): " cert_days
 cert_days=${cert_days:-365}
 
@@ -60,7 +72,7 @@ fi
 new_config_str="\"config\": [$(printf '"%s",' "${config[@]}" | sed 's/,$//')]"
 new_config_str="${new_config_str}]"
 
-sed -i -E "s/\"config\": ?[[:space:]]*\"zi\"[[:space:]]*/${new_config_str}/g" /etc/zivpn/config.json
+sed -i -E "s/\"config\": ?\[[:space:]]*\"zi\"[[:space:]]*\/${new_config_str}/g" /etc/zivpn/config.json
 
 systemctl enable zivpn.service
 systemctl start zivpn.service
