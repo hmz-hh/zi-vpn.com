@@ -1,10 +1,11 @@
 #!/bin/bash
 # Zivpn UDP Module installer - AMD x64
 # Creator hamza
-# Bash by Power-hhamza
+# Bash by PowerMX
 
 echo -e "Updating server"
-sudo apt-get update -qq > /dev/null && sudo apt-get upgrade -y -qq > /dev/null
+sudo apt-get update 2>&1 | grep -v "Hit:" | grep -v "Reading package"
+sudo apt-get upgrade -y 2>&1 | grep -v "Hit:" | grep -v "Reading package"
 
 systemctl stop zivpn.service 1> /dev/null 2> /dev/null
 echo -e "Downloading UDP Service"
@@ -58,7 +59,7 @@ sed -i -E "s/\"config\": ?[[:space:]]*\"zi\"[[:space:]]*/${new_config_str}
 systemctl enable zivpn.service
 systemctl start zivpn.service
 
-iptables -t nat -A PREROUTING -i $(ip -4 route ls|grep default|grep -Po '(?<=dev )(\S+)'|head -1) -p udp --dport 6000:19999 -j DNAT --to-destination :5667
+iptables -t nat -A PREROUTING -i $(ip -4 route ls | grep default | grep -Po '(?<=dev )(\S+)' | head -1) -p udp --dport 6000:19999 -j DNAT --to-destination :5667
 ufw allow 6000:19999/udp
 ufw allow 5667/udp
 
