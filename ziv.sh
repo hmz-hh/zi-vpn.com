@@ -46,14 +46,18 @@ read -p "Enter passwords separated by commas, example: passwd1,passwd2 (Press en
 
 if [ -n "$input_config" ]; then
     IFS=',' read -r -a config <<< "$input_config"
+    for i in "${!config[@]}"; do
+        config[$i]=$(echo "${config[$i]}" | xargs)
+    done
     if [ ${#config[@]} -eq 1 ]; then
-        config+=(${config[0]})
+        config+=("${config[0]}")
     fi
 else
     config=("zi")
 fi
 
-new_config_str="\"config\": [$(printf "\"%s\"," "${config[@]}" | sed 's/,$//')]"
+new_config_str="\"config\": [$(printf '"%s",' "${config[@]}" | sed 's/,$//')]"
+new_config_str="${new_config_str}]"
 
 sed -i -E "s/\"config\": ?[[:space:]]*\"zi\"[[:space:]]*/${new_config_str}/g" /etc/zivpn/config.json
 
