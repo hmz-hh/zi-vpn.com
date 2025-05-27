@@ -1,41 +1,21 @@
 #!/bin/bash
 # Zivpn UDP Module installer - AMD x64
-# Modified by ChatGPT for better performance and persistence
+# Creator Zahid Islam
+# Bash by PowerMX
 
-echo -e "Preparing ZIVPN installation..."
+echo -e "Updating server"
+sudo apt-get update && apt-get upgrade -y
+systemctl stop zivpn.service 1> /dev/null 2> /dev/null
+echo -e "Downloading UDP Service"
+wget https://github.com/zahidbd2/udp-zivpn/releases/download/udp-zivpn_1.4.9/udp-zivpn-linux-amd64 -O /usr/local/bin/zivpn 1> /dev/null 2> /dev/null
+chmod +x /usr/local/bin/zivpn
+mkdir /etc/zivpn 1> /dev/null 2> /dev/null
+wget https://raw.githubusercontent.com/zahidbd2/udp-zivpn/main/config.json -O /etc/zivpn/config.json 1> /dev/null 2> /dev/null
 
-# تحديث خفيف بدون ترقية
-sudo apt-get update -y
-
-# تحميل البرنامج فقط إذا لم يكن موجود
-if [ ! -f /usr/local/bin/zivpn ]; then
-    echo -e "Downloading UDP Service..."
-    wget https://github.com/zahidbd2/udp-zivpn/releases/download/udp-zivpn_1.4.9/udp-zivpn-linux-amd64 -O /usr/local/bin/zivpn
-    chmod +x /usr/local/bin/zivpn
-fi
-
-# إنشاء مجلد الإعداد فقط إذا لم يكن موجود
-mkdir -p /etc/zivpn
-
-# تحميل ملف الإعداد فقط إذا لم يكن موجود
-if [ ! -f /etc/zivpn/config.json ]; then
-    wget https://raw.githubusercontent.com/zahidbd2/udp-zivpn/main/config.json -O /etc/zivpn/config.json
-fi
-
-# توليد الشهادة فقط إذا لم تكن موجودة
-if [ ! -f /etc/zivpn/zivpn.key ]; then
-    echo "Generating cert files..."
-    openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 \
-        -subj "/C=US/ST=California/L=Los Angeles/O=Example Corp/OU=IT Department/CN=zivpn" \
-        -keyout "/etc/zivpn/zivpn.key" -out "/etc/zivpn/zivpn.crt"
-fi
-
-# تحسين الشبكة
-sysctl -w net.core.rmem_max=16777216 > /dev/null 2>&1
-sysctl -w net.core.wmem_max=16777216 > /dev/null 2>&1
-
-# إعداد خدمة systemd فقط إذا لم تكن موجودة
-if [ ! -f /etc/systemd/system/zivpn.service ]; then
+echo "Generating cert files:"
+openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 -subj "/C=US/ST=California/L=Los Angeles/O=Example Corp/OU=IT Department/CN=zivpn" -keyout "/etc/zivpn/zivpn.key" -out "/etc/zivpn/zivpn.crt"
+sysctl -w net.core.rmem_max=16777216 1> /dev/null 2> /dev/null
+sysctl -w net.core.wmem_max=16777216 1> /dev/null 2> /dev/null
 cat <<EOF > /etc/systemd/system/zivpn.service
 [Unit]
 Description=zivpn VPN Server
@@ -56,9 +36,7 @@ NoNewPrivileges=true
 [Install]
 WantedBy=multi-user.target
 EOF
-fi
 
-# إدخال كلمات المرور
 echo -e "ZIVPN UDP Passwords"
 read -p "Enter passwords separated by commas, example: passwd1,passwd2 (Press enter for Default 'zi'): " input_config
 
@@ -68,26 +46,24 @@ else
     config=("zi")
 fi
 
-# إدراج كلمات السر الجديدة بدون حذف القديمة
+# تثبيت jq إذا لم يكن موجودًا
+if ! command -v jq &> /dev/null; then
+    sudo apt-get install jq -y
+fi
+
+# إضافة كلمات المرور الجديدة إلى القائمة الموجودة (بدون تكرار)
+temp_file=$(mktemp)
+current_config=$(jq '.config' /etc/zivpn/config.json)
 for pass in "${config[@]}"; do
-  if ! grep -q "\"$pass\"" /etc/zivpn/config.json; then
-    sed -i -E "s/\"config\": ([^]*)/\"config\": [\1, \"$pass\"]/" /etc/zivpn/config.json
-  fi
+    current_config=$(echo "$current_config" | jq --arg pass "$pass" '. + [$pass] | unique')
 done
+jq --argjson new_config "$current_config" '.config = $new_config' /etc/zivpn/config.json > "$temp_file"
+mv "$temp_file" /etc/zivpn/config.json
 
-# تشغيل الخدمة
 systemctl enable zivpn.service
-systemctl restart zivpn.service
-
-# إعداد الجدار الناري وiptables
-IFACE=$(ip -4 route ls | grep default | grep -Po '(?<=dev )(\S+)' | head -1)
-iptables -t nat -C PREROUTING -i $IFACE -p udp --dport 6000:19999 -j DNAT --to-destination :5667 2>/dev/null || \
-iptables -t nat -A PREROUTING -i $IFACE -p udp --dport 6000:19999 -j DNAT --to-destination :5667
-
+systemctl restart zivpn.service  # إعادة التشغيل بدلًا من البدء فقط
+iptables -t nat -A PREROUTING -i $(ip -4 route ls|grep default|grep -Po '(?<=dev )(\S+)'|head -1) -p udp --dport 6000:19999 -j DNAT --to-destination :5667
 ufw allow 6000:19999/udp
 ufw allow 5667/udp
-
-# حذف ملفات مؤقتة إن وُجدت
-rm -f zi2.* 2> /dev/null
-
-echo -e "ZIVPN Installed and ready!"
+rm zi2.* 1> /dev/null 2> /dev/null
+echo -e "ZIVPN Installed"
