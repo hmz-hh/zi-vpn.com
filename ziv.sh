@@ -1,6 +1,7 @@
 #!/bin/bash
 # Zivpn UDP Module installer - AMD x64
 # Creator hamza
+# Bash by PowerMX
 
 echo -e "Updating server"
 systemctl stop zivpn.service 1> /dev/null 2> /dev/null
