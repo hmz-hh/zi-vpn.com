@@ -1,15 +1,5 @@
 #!/bin/bash
 
-FLAG_UPDATE="/tmp/first_run_update.flag"
-
-if [[ ! -f "$FLAG_UPDATE" ]]; then
-  echo "Running system update and upgrade for the first time..."
-  sudo apt-get update && sudo apt-get upgrade -y
-  touch "$FLAG_UPDATE"
-else
-  echo "System already updated before. Skipping update."
-fi
-
 YELLOW="\033[1;33m"
 GREEN="\033[0;32m"
 RED="\033[0;31m"
