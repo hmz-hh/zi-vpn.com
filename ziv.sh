@@ -3,9 +3,8 @@
 # Creator hamza
 # Bash by Power-hamza
 
-echo -e "Updating server"
 systemctl stop zivpn.service 1> /dev/null 2> /dev/null
-echo -e "Downloading UDP Service"
+echo -e " ⌛ Downloading UDP Service"
 wget https://github.com/zahidbd2/udp-zivpn/releases/download/udp-zivpn_1.4.9/udp-zivpn-linux-amd64 -O /usr/local/bin/zivpn 1> /dev/null 2> /dev/null
 chmod +x /usr/local/bin/zivpn
 mkdir /etc/zivpn 1> /dev/null 2> /dev/null
@@ -36,8 +35,8 @@ NoNewPrivileges=true
 WantedBy=multi-user.target
 EOF
 
-echo -e "ZIVPN UDP Passwords"
-read -p "Enter passwords separated by commas, example: passwd1,passwd2 (Press enter for Default 'zi'): " input_config
+echo -e " 🔑 ZIVPN UDP Passwords"
+read -p " 🔑 Enter passwords separated by commas, example: passwd1,passwd2 (Press enter for Default 'zi'): " input_config
 
 if [ -n "$input_config" ]; then
     IFS=',' read -r -a config <<< "$input_config"
