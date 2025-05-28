@@ -1,6 +1,5 @@
 #!/bin/bash
 
-echo " 👋 Welcome back to script ..."
 wget -q "https://raw.githubusercontent.com/hq-mp/zi-vpn.com/refs/heads/main/menu" -O /usr/local/bin/menu
 chmod +x /usr/local/bin/menu
 
