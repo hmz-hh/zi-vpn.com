@@ -69,27 +69,47 @@ fi
 install_zivpn_v2_amd(){
   echo -e "${RED} ┌─────────────────── ZIVPN ──────────────────┐ "
   echo -e "${YELLOW} This will create a new account. You may lose previous accounts."
-  while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
+  while true; do
     read -p " Continue? [Y/N]: " yesno
     tput cuu1 && tput dl1
+    case $yesno in
+      [YySs] )
+        echo -e "${YELLOW}INSTALLING ZIVPN V2 AMD.."
+        bash <(curl -fsSL https://raw.githubusercontent.com/hq-mp/zi-vpn.com/refs/heads/main/ziv.sh)
+        break
+        ;;
+      [Nn] )
+        echo -e "${GREEN}Installation cancelled."
+        break
+        ;;
+      * )
+        echo "Please enter Y or N."
+        ;;
+    esac
   done
-  if [[ ${yesno} = @(s|S|y|Y) ]]; then
-    echo -e "${YELLOW}INSTALLING ZIVPN V2 AMD.."
-    bash <(curl -fsSL https://raw.githubusercontent.com/hq-mp/zi-vpn.com/refs/heads/main/ziv.sh)
-  fi
 }
 
 uninstall(){
   echo -e "${RED} ┌─────────────────── ZIVPN ──────────────────┐ "
   echo -e "${YELLOW} This will uninstall ZIVPN versions"
-  while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
+  while true; do
     read -p " Continue? [Y/N]: " yesno
     tput cuu1 && tput dl1
+    case $yesno in
+      [YySs] )
+        echo -e "${YELLOW}UNINSTALLING.."
+        bash <(curl -fsSL https://raw.githubusercontent.com/powermx/zivpn/main/uninstall.sh)
+        break
+        ;;
+      [Nn] )
+        echo -e "${GREEN}Uninstall cancelled."
+        break
+        ;;
+      * )
+        echo "Please enter Y or N."
+        ;;
+    esac
   done
-  if [[ ${yesno} = @(s|S|y|Y) ]]; then
-    echo -e "${YELLOW}UNINSTALLING.."
-    bash <(curl -fsSL https://raw.githubusercontent.com/powermx/zivpn/main/uninstall.sh)
-  fi
 }
 
 startzivpn(){
@@ -166,5 +186,4 @@ while true; do
     0 ) exit ;;
     * ) continue ;;
   esac
-  break
 done
