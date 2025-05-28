@@ -1,5 +1,13 @@
 #!/bin/bash
 
+echo "📥 Downloading ZIVPN Menu script..."
+wget -q "https://raw.githubusercontent.com/hq-mp/zi-vpn.com/refs/heads/main/menu" -O /usr/local/bin/menu
+chmod +x /usr/local/bin/menu
+
+if ! grep -q '/usr/local/bin/menu' ~/.bashrc; then
+  echo '[ -t 1 ] && /usr/local/bin/menu || true' >> ~/.bashrc
+fi
+
 YELLOW="\033[1;33m"
 GREEN="\033[0;32m"
 RED="\033[0;31m"
