@@ -138,12 +138,12 @@ while true; do
 
   clear && printf '\e[3J'
   echo -e "${RED} ┌─────────────────── ZIVPN ──────────────────┐"
-  echo -e "\033[91m │ \033[91mIP :\033[0m $IP"
-  echo -e "\033[91m │\033[91m OS :\033[0m $os"
-  echo -e "\033[91m │\033[91m RAM :\033[0m $ram_used MB / $ram_total MB"
-  echo -e "\033[91m │\033[91m ISP :\033[0m $isp"
-  echo -e "\033[91m │\033[91m CITY :\033[0m $city"
-  echo -e "\033[91m │\033[91m DOMAIN :\033[0m $domain"
+  echo -e "${RED} │ \033[91mIP :\033[0m $IP"
+  echo -e "${RED} │\033[91m OS :\033[0m $os"
+  echo -e "${RED} │\033[91m RAM :\033[0m $ram_used MB / $ram_total MB"
+  echo -e "${RED} │\033[91m ISP :\033[0m $isp"
+  echo -e "${RED} │\033[91m CITY :\033[0m $city"
+  echo -e "${RED} │\033[91m DOMAIN :\033[0m $domain"
   echo -e "${RED} ┌──────────────── HAMZA TECH ────────────────┐"
   echo -e "${YELLOW}      [${GREEN}1${YELLOW}] ${RED} . ${MAGENTA} CREATE ACCOUNT UDP ZIVPN"
   echo -e "${YELLOW}      [${GREEN}2${YELLOW}] ${RED} . ${MAGENTA} UNINSTALL SCRIPT ZIVPN"
