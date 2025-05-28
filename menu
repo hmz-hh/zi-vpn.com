@@ -117,7 +117,7 @@ restartzivpn(){
 }
 
 changedomain(){
-  echo -e "${RED} ┌─────────────────── ZIVPN ──────────────────┐ "
+  echo -e "${RED} ┌────────────────── DOMAIN  ─────────────────┐ "
   echo -e "${YELLOW} Enter domain:"
   read -p " Domain: " custom_domain
   echo "$custom_domain" > /tmp/zivpn_domain.txt
