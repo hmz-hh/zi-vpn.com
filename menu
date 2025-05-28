@@ -81,7 +81,7 @@ install_zivpn_v2_amd(){
 
 uninstall(){
   echo -e "${RED} ┌─────────────────── ZIVPN ──────────────────┐ "
-  echo -e "${YELLOW}This will uninstall ZIVPN versions"
+  echo -e "${YELLOW} This will uninstall ZIVPN versions"
   while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
     read -p " Continue? [Y/N]: " yesno
     tput cuu1 && tput dl1
