@@ -93,6 +93,7 @@ uninstall(){
 }
 
 startzivpn(){
+  echo -e "${RED} ┌─────────────────── ZIVPN ──────────────────┐ "
   echo -e "${YELLOW} STARTING ZIVPN SERVICES.."
   [[ -f /etc/systemd/system/zivpn.service ]] && sudo systemctl start zivpn.service
   [[ -f /etc/systemd/system/zivpn_backfill.service ]] && sudo systemctl start zivpn_backfill.service
@@ -100,6 +101,7 @@ startzivpn(){
 }
 
 stopzivpn(){
+  echo -e "${RED} ┌─────────────────── ZIVPN ──────────────────┐ "
   echo -e "${YELLOW} STOPPING ZIVPN SERVICES.."
   [[ -f /etc/systemd/system/zivpn.service ]] && sudo systemctl stop zivpn.service
   [[ -f /etc/systemd/system/zivpn_backfill.service ]] && sudo systemctl stop zivpn_backfill.service
@@ -107,6 +109,7 @@ stopzivpn(){
 }
 
 restartzivpn(){
+  echo -e "${RED} ┌─────────────────── ZIVPN ──────────────────┐ "
   echo -e "${YELLOW} RESTARTING ZIVPN SERVICES.."
   [[ -f /etc/systemd/system/zivpn.service ]] && sudo systemctl restart zivpn.service
   [[ -f /etc/systemd/system/zivpn_backfill.service ]] && sudo systemctl restart zivpn_backfill.service
@@ -114,6 +117,7 @@ restartzivpn(){
 }
 
 changedomain(){
+  echo -e "${RED} ┌─────────────────── ZIVPN ──────────────────┐ "
   echo -e "${YELLOW} Enter domain:"
   read -p " Domain: " custom_domain
   echo "$custom_domain" > /tmp/zivpn_domain.txt
