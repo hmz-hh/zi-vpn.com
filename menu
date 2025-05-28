@@ -80,30 +80,18 @@ install_zivpn_v2_amd(){
 }
 
 uninstall(){
-  uninstall(){
   echo -e "${RED} ┌─────────────────── ZIVPN ──────────────────┐ "
-  echo -e "${YELLOW} This will uninstall ZIVPN versions${NC}"
-
-  while true; do
+  echo -e "${YELLOW} This will uninstall ZIVPN versions"
+  while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
     read -p " Continue? [Y/N]: " yesno
     tput cuu1 && tput dl1
-
-    case $yesno in
-      [YySs] )
-        echo -e "${YELLOW}UNINSTALLING..${NC}"
-        bash <(curl -fsSL https://raw.githubusercontent.com/powermx/zivpn/main/uninstall.sh)
-        break
-        ;;
-      [Nn] )
-        echo -e "${GREEN}Uninstall cancelled.${NC}"
-        break
-        ;;
-      * )
-        echo -e "${RED}Please enter Y or N.${NC}"
-        ;;
-    esac
   done
+  if [[ ${yesno} = @(s|S|y|Y) ]]; then
+    echo -e "${YELLOW}UNINSTALLING.."
+    bash <(curl -fsSL https://raw.githubusercontent.com/powermx/zivpn/main/uninstall.sh)
+  fi
 }
+
 startzivpn(){
   echo -e "${RED} ┌─────────────────── ZIVPN ──────────────────┐ "
   echo -e "${YELLOW} STARTING ZIVPN SERVICES.."
