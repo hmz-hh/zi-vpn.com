@@ -63,9 +63,11 @@ if [[ ! -f "$FLAG_FILE" ]]; then
   touch "$FLAG_FILE"
   echo -e "${GREEN}✅  Password verified successfully.${NC}"
 else
+ echo -e "${GREEN}✅  Password already verified. Proceeding with script execution.${NC}"
+fi
 
 install_zivpn_v2_amd(){
-echo -e "${RED} ┌─────────────────── ZIVPN ──────────────────┐"
+  echo -e "${RED} ┌─────────────────── ZIVPN ──────────────────┐ "
   echo -e "${YELLOW}This is the create a new account. You may lose previous accounts"
   echo -e "${YELLOW}Continue?"
   while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
@@ -79,7 +81,7 @@ echo -e "${RED} ┌─────────────────── ZIV
 }
 
 uninstall(){
-echo -e "${RED} ┌─────────────────── ZIVPN ──────────────────┐"
+  echo -e "${RED} ┌─────────────────── ZIVPN ──────────────────┐ "
   echo -e "${YELLOW}This will uninstall ZIVPN versions"
   echo -e "${YELLOW}Continue?"
   while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
