@@ -68,7 +68,7 @@ fi
 
 install_zivpn_v2_amd(){
   echo -e "${RED} ┌─────────────────── ZIVPN ──────────────────┐ "
-  echo -e "${YELLOW}This is the create a new account. You may lose previous accounts"
+  echo -e "${YELLOW} This will create a new account. You may lose previous accounts."
   while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
     read -p " Continue? [Y/N]: " yesno
     tput cuu1 && tput dl1
