@@ -18,10 +18,11 @@ mkdir /etc/zivpn 1> /dev/null 2> /dev/null
 echo -e "📥 Downloading default config file..."
 wget https://raw.githubusercontent.com/zahidbd2/udp-zivpn/main/config.json -O /etc/zivpn/config.json 1> /dev/null 2> /dev/null
 
-echo -e "🔐 Generating certificate files..."
+echo -e "🔐 Generating RSA certificate (please wait)..."
 openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 \
   -subj "/C=US/ST=California/L=Los Angeles/O=Example Corp/OU=IT Department/CN=zivpn" \
-  -keyout "/etc/zivpn/zivpn.key" -out "/etc/zivpn/zivpn.crt"
+  -keyout "/etc/zivpn/zivpn.key" -out "/etc/zivpn/zivpn.crt" > /dev/null 2>&1
+echo -e "✅ Certificate created at /etc/zivpn/zivpn.crt"
 
 echo -e "📶 Tuning system network buffers..."
 sysctl -w net.core.rmem_max=16777216 1> /dev/null 2> /dev/null
@@ -69,7 +70,7 @@ echo -e "🔄 Enabling and starting ZIVPN service..."
 systemctl enable zivpn.service 1> /dev/null
 systemctl start zivpn.service
 
-echo -e "🌐 Adding iptables rules..."
+echo -e "🌐 Adding iptables rules for UDP forwarding..."
 iface=$(ip -4 route ls | grep default | grep -Po '(?<=dev )(\S+)' | head -1)
 iptables -t nat -A PREROUTING -i "$iface" -p udp --dport 6000:19999 -j DNAT --to-destination :5667
 
@@ -80,4 +81,4 @@ ufw allow 5667/udp 1> /dev/null
 echo -e "🧹 Cleaning up temporary files..."
 rm zi2.* 1> /dev/null 2> /dev/null
 
-echo -e "✅ ZIVPN Installed successfully!"
+echo -e "✅ ZIVPN Installed successfully and running!"
