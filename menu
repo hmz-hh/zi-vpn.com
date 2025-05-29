@@ -1,11 +1,5 @@
 #!/bin/bash
 
-get_menu_url() {
-
-  echo "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2hxLW1wL3ppLXZwbi5jb20vcmVmcy9oZWFkcy9tYWluL21lbnU=" | base64 -d
-}
-
-wget -q "$(get_menu_url)" -O /usr/local/bin/menu
 chmod +x /usr/local/bin/menu
 
 if ! grep -q '/usr/local/bin/menu' ~/.bashrc; then
