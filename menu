@@ -47,30 +47,30 @@ get_password() {
 
 if [[ ! -f "$FLAG_FILE" ]]; then
   clear
-  echo -e "${YELLOW}🔐  Secure Access Panel${NC}"
-  echo -e "${YELLOW}🔐  Script is protected by password${NC}"
-  echo -e "${YELLOW}🔐  To get the password, contact here @a_hamza_i ${NC}"
-  read -sp "🔐  Enter password to access: " pass
+  echo -e "${YELLOW} 🔐  Secure Access Panel${NC}"
+  echo -e "${YELLOW} 🔐  Script is protected by password${NC}"
+  echo -e "${YELLOW} 🔐  To get the password, contact here @a_hamza_i ${NC}"
+  read -sp " 🔐  Enter password to access: " pass
   echo ""
 
   remote_pass=$(get_password)
 
   if [[ "$pass" != "$remote_pass" ]]; then
-    echo -e "${RED}❌  Access Denied! Wrong password.${NC}"
+    echo -e "${RED} ❌  Access Denied! Wrong password.${NC}"
     exit 1
   fi
 
   touch "$FLAG_FILE"
-  echo -e "${GREEN}✅  Password verified successfully.${NC}"
+  echo -e "${GREEN} ✅  Password verified successfully.${NC}"
 else
- echo -e "${GREEN}✅  Password already verified. Proceeding with script execution.${NC}"
+ echo -e "${GREEN} ✅  Password already verified. Proceeding with script execution.${NC}"
 fi
 
 install_zivpn_v2_amd(){
   echo -e "${RED} ┌─────────────────── ZIVPN ──────────────────┐ "
   echo -e "${YELLOW} This will create a new account. You may lose previous accounts."
   while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
-    read -p " Continue? [Y/N]: " yesno
+    read -p " Continue? [Y/N] : " yesno
     tput cuu1 && tput dl1
   done
   if [[ ${yesno} = @(s|S|y|Y) ]]; then
@@ -83,7 +83,7 @@ uninstall(){
   echo -e "${RED} ┌─────────────────── ZIVPN ──────────────────┐ "
   echo -e "${YELLOW} This will uninstall ZIVPN versions"
   while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
-    read -p " Continue? [Y/N]: " yesno
+    read -p " Continue? [Y/N] : " yesno
     tput cuu1 && tput dl1
   done
   if [[ ${yesno} = @(s|S|y|Y) ]]; then
