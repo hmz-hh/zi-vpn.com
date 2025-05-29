@@ -93,11 +93,20 @@ uninstall(){
 }
 
 startzivpn(){
+  yesno=""
   echo -e "${RED} ┌─────────────────── ZIVPN ──────────────────┐ "
-  echo -e "${YELLOW} STARTING ZIVPN SERVICES.."
-  [[ -f /etc/systemd/system/zivpn.service ]] && sudo systemctl start zivpn.service
-  [[ -f /etc/systemd/system/zivpn_backfill.service ]] && sudo systemctl start zivpn_backfill.service
-  echo -e "${GREEN} ✅ DONE!"
+  echo -e "${YELLOW} This option will start the Accounts udp ZIVPN server"
+  while [[ ! "$yesno" =~ ^[yYnNsS]$ ]]; do
+    read -p " Continue? [Y/N]: " yesno
+    tput cuu1 && tput dl1
+  done
+  if [[ "$yesno" =~ ^[yY]$ ]]; then
+    echo -e "${YELLOW} STARTING ZIVPN SERVICES.."
+    [[ -f /etc/systemd/system/zivpn.service ]] && sudo systemctl start zivpn.service
+    [[ -f /etc/systemd/system/zivpn_backfill.service ]] && sudo systemctl start zivpn_backfill.service
+    echo -e "${GREEN} ✅ DONE!"
+  else
+    echo -e "${GREEN} Operation cancelled.${NC}"
 }
 
 stopzivpn(){
