@@ -47,10 +47,10 @@ get_password() {
 
 if [[ ! -f "$FLAG_FILE" ]]; then
   clear
-  echo -e "${YELLOW}🔐  Secure Access Panel${NC}"
-  echo -e "${YELLOW}🔐  Script is protected by password${NC}"
-  echo -e "${YELLOW}🔐  To get the password, contact here @a_hamza_i ${NC}"
-  read -sp "🔐  Enter password to access: " pass
+  echo -e "${YELLOW} 🔐  Secure Access Panel${NC}"
+  echo -e "${YELLOW }🔐  Script is protected by password${NC}"
+  echo -e "${YELLOW} 🔐  To get the password, contact here @a_hamza_i ${NC}"
+  read -sp " 🔐  Enter password to access: " pass
   echo ""
 
   remote_pass=$(get_password)
@@ -61,59 +61,38 @@ if [[ ! -f "$FLAG_FILE" ]]; then
   fi
 
   touch "$FLAG_FILE"
-  echo -e "${GREEN}✅  Password verified successfully.${NC}"
+  echo -e "${GREEN} ✅  Password verified successfully.${NC}"
 else
- echo -e "${GREEN}✅  Password already verified. Proceeding with script execution.${NC}"
+ echo -e "${GREEN} ✅  Password already verified. Proceeding with script execution.${NC}"
 fi
 
 install_zivpn_v2_amd(){
   echo -e "${RED} ┌─────────────────── ZIVPN ──────────────────┐ "
   echo -e "${YELLOW} This will create a new account. You may lose previous accounts."
-  while true; do
+  while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
     read -p " Continue? [Y/N]: " yesno
     tput cuu1 && tput dl1
-    case $yesno in
-      [YySs] )
-        echo -e "${YELLOW}INSTALLING ZIVPN V2 AMD.."
-        bash <(curl -fsSL https://raw.githubusercontent.com/hq-mp/zi-vpn.com/refs/heads/main/ziv.sh)
-        break
-        ;;
-      [Nn] )
-        echo -e "${GREEN}Installation cancelled."
-        break
-        ;;
-      * )
-        echo "Please enter Y or N."
-        ;;
-    esac
   done
+  if [[ ${yesno} = @(s|S|y|Y) ]]; then
+    echo -e "${YELLOW}INSTALLING ZIVPN V2 AMD.."
+    bash <(curl -fsSL https://raw.githubusercontent.com/hq-mp/zi-vpn.com/refs/heads/main/ziv.sh)
+  fi
 }
 
 uninstall(){
   echo -e "${RED} ┌─────────────────── ZIVPN ──────────────────┐ "
   echo -e "${YELLOW} This will uninstall ZIVPN versions"
-  while true; do
+  while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
     read -p " Continue? [Y/N]: " yesno
     tput cuu1 && tput dl1
-    case $yesno in
-      [YySs] )
-        echo -e "${YELLOW}UNINSTALLING.."
-        bash <(curl -fsSL https://raw.githubusercontent.com/powermx/zivpn/main/uninstall.sh)
-        break
-        ;;
-      [Nn] )
-        echo -e "${GREEN}Uninstall cancelled."
-        break
-        ;;
-      * )
-        echo "Please enter Y or N."
-        ;;
-    esac
   done
+  if [[ ${yesno} = @(s|S|y|Y) ]]; then
+    echo -e "${YELLOW}UNINSTALLING.."
+    bash <(curl -fsSL https://raw.githubusercontent.com/powermx/zivpn/main/uninstall.sh)
+  fi
 }
 
 startzivpn(){
-  echo -e "${RED} ┌─────────────────── ZIVPN ──────────────────┐ "
   echo -e "${YELLOW} STARTING ZIVPN SERVICES.."
   [[ -f /etc/systemd/system/zivpn.service ]] && sudo systemctl start zivpn.service
   [[ -f /etc/systemd/system/zivpn_backfill.service ]] && sudo systemctl start zivpn_backfill.service
@@ -121,7 +100,6 @@ startzivpn(){
 }
 
 stopzivpn(){
-  echo -e "${RED} ┌─────────────────── ZIVPN ──────────────────┐ "
   echo -e "${YELLOW} STOPPING ZIVPN SERVICES.."
   [[ -f /etc/systemd/system/zivpn.service ]] && sudo systemctl stop zivpn.service
   [[ -f /etc/systemd/system/zivpn_backfill.service ]] && sudo systemctl stop zivpn_backfill.service
@@ -129,7 +107,6 @@ stopzivpn(){
 }
 
 restartzivpn(){
-  echo -e "${RED} ┌─────────────────── ZIVPN ──────────────────┐ "
   echo -e "${YELLOW} RESTARTING ZIVPN SERVICES.."
   [[ -f /etc/systemd/system/zivpn.service ]] && sudo systemctl restart zivpn.service
   [[ -f /etc/systemd/system/zivpn_backfill.service ]] && sudo systemctl restart zivpn_backfill.service
@@ -137,7 +114,6 @@ restartzivpn(){
 }
 
 changedomain(){
-  echo -e "${RED} ┌────────────────── DOMAIN  ─────────────────┐ "
   echo -e "${YELLOW} Enter domain:"
   read -p " Domain: " custom_domain
   echo "$custom_domain" > /tmp/zivpn_domain.txt
@@ -158,12 +134,12 @@ while true; do
 
   clear && printf '\e[3J'
   echo -e "${RED} ┌─────────────────── ZIVPN ──────────────────┐"
-  echo -e "${RED} │ \033[91mIP :\033[0m $IP"
-  echo -e "${RED} │\033[91m OS :\033[0m $os"
-  echo -e "${RED} │\033[91m RAM :\033[0m $ram_used MB / $ram_total MB"
-  echo -e "${RED} │\033[91m ISP :\033[0m $isp"
-  echo -e "${RED} │\033[91m CITY :\033[0m $city"
-  echo -e "${RED} │\033[91m DOMAIN :\033[0m $domain"
+  echo -e "\033[91m │ \033[91mIP :\033[0m $IP"
+  echo -e "\033[91m │\033[91m OS :\033[0m $os"
+  echo -e "\033[91m │\033[91m RAM :\033[0m $ram_used MB / $ram_total MB"
+  echo -e "\033[91m │\033[91m ISP :\033[0m $isp"
+  echo -e "\033[91m │\033[91m CITY :\033[0m $city"
+  echo -e "\033[91m │\033[91m DOMAIN :\033[0m $domain"
   echo -e "${RED} ┌──────────────── HAMZA TECH ────────────────┐"
   echo -e "${YELLOW}      [${GREEN}1${YELLOW}] ${RED} . ${MAGENTA} CREATE ACCOUNT UDP ZIVPN"
   echo -e "${YELLOW}      [${GREEN}2${YELLOW}] ${RED} . ${MAGENTA} UNINSTALL SCRIPT ZIVPN"
@@ -186,4 +162,5 @@ while true; do
     0 ) exit ;;
     * ) continue ;;
   esac
+  break
 done
