@@ -36,6 +36,7 @@ get_url() {
   a9="/refs"
   a10="/heads"
   a11="/main"
+
   # password: zivs123
   echo "${a1}${a2}${a3}${a4}${a5}${a6}${a7}${a8}${a9}${a10}${a11}${a12}"
 }
@@ -61,18 +62,13 @@ if [[ ! -f "$FLAG_FILE" ]]; then
 
   touch "$FLAG_FILE"
   echo -e "${GREEN} ✅  Password verified successfully.${NC}"
+else
+ echo -e "${GREEN} ✅  Password already verified. Proceeding with script execution.${NC}"
 fi
-
-pause_and_return() {
-  read -r _
-  /usr/local/bin/menu
-  exit
-}
 
 install_zivpn_v2_amd(){
   echo -e "${RED} ┌─────────────────── ZIVPN ──────────────────┐ "
   echo -e "${YELLOW} This will create a new account. You may lose previous accounts."
-  unset yesno
   while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
     read -p " Continue? [Y/N] : " yesno
     tput cuu1 && tput dl1
@@ -80,16 +76,12 @@ install_zivpn_v2_amd(){
   if [[ ${yesno} = @(s|S|y|Y) ]]; then
     echo -e "${YELLOW}INSTALLING ZIVPN V2 AMD.."
     bash <(curl -fsSL https://raw.githubusercontent.com/hq-mp/zi-vpn.com/refs/heads/main/ziv.sh)
-    pause_and_return
-  else
-    pause_and_return
   fi
 }
 
 uninstall(){
   echo -e "${RED} ┌─────────────────── ZIVPN ──────────────────┐ "
   echo -e "${YELLOW} This will uninstall ZIVPN versions"
-  unset yesno
   while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
     read -p " Continue? [Y/N] : " yesno
     tput cuu1 && tput dl1
@@ -97,9 +89,6 @@ uninstall(){
   if [[ ${yesno} = @(s|S|y|Y) ]]; then
     echo -e "${YELLOW}UNINSTALLING.."
     bash <(curl -fsSL https://raw.githubusercontent.com/powermx/zivpn/main/uninstall.sh)
-    pause_and_return
-  else
-    pause_and_return
   fi
 }
 
@@ -109,7 +98,6 @@ startzivpn(){
   [[ -f /etc/systemd/system/zivpn.service ]] && sudo systemctl start zivpn.service
   [[ -f /etc/systemd/system/zivpn_backfill.service ]] && sudo systemctl start zivpn_backfill.service
   echo -e "${GREEN} ✅ DONE!"
-  pause_and_return
 }
 
 stopzivpn(){
@@ -118,7 +106,6 @@ stopzivpn(){
   [[ -f /etc/systemd/system/zivpn.service ]] && sudo systemctl stop zivpn.service
   [[ -f /etc/systemd/system/zivpn_backfill.service ]] && sudo systemctl stop zivpn_backfill.service
   echo -e "${GREEN} ✅ DONE!"
-  pause_and_return
 }
 
 restartzivpn(){
@@ -127,7 +114,6 @@ restartzivpn(){
   [[ -f /etc/systemd/system/zivpn.service ]] && sudo systemctl restart zivpn.service
   [[ -f /etc/systemd/system/zivpn_backfill.service ]] && sudo systemctl restart zivpn_backfill.service
   echo -e "${GREEN} ✅ DONE!"
-  pause_and_return
 }
 
 changedomain(){
@@ -136,10 +122,8 @@ changedomain(){
   read -p " Domain: " custom_domain
   echo "$custom_domain" > /tmp/zivpn_domain.txt
   echo -e "${GREEN} ✅ Domain saved: $custom_domain${NC}"
-  pause_and_return
 }
 
-# القائمة الرئيسية
 while true; do
   [[ $(id -u) -ne 0 ]] && echo -e "${RED}Run as root!${NC}" && exit 1
 
@@ -161,13 +145,13 @@ while true; do
   echo -e "\033[91m │\033[91m CITY :\033[0m $city"
   echo -e "\033[91m │\033[91m DOMAIN :\033[0m $domain"
   echo -e "${RED} ┌──────────────── HAMZA TECH ────────────────┐"
-  echo -e "${YELLOW}      [${GREEN}1${YELLOW}] ${RED} . CREATE ACCOUNT UDP ZIVPN"
-  echo -e "${YELLOW}      [${GREEN}2${YELLOW}] ${RED} . UNINSTALL SCRIPT ZIVPN"
-  echo -e "${YELLOW}      [${GREEN}3${YELLOW}] ${RED} . START ACCOUNT ZIVPN"
-  echo -e "${YELLOW}      [${GREEN}4${YELLOW}] ${RED} . STOP ACCOUNT ZIVPN"
-  echo -e "${YELLOW}      [${GREEN}5${YELLOW}] ${RED} . RESTART ACCOUNT ZIVPN"
-  echo -e "${YELLOW}      [${GREEN}6${YELLOW}] ${RED} . CHANGE DOMAIN SERVER"
-  echo -e "${YELLOW}      [${GREEN}0${YELLOW}] ${RED} . EXIT ZIVPN"
+  echo -e "${YELLOW}      [${GREEN}1${YELLOW}] ${RED} . ${MAGENTA} CREATE ACCOUNT UDP ZIVPN"
+  echo -e "${YELLOW}      [${GREEN}2${YELLOW}] ${RED} . ${MAGENTA} UNINSTALL SCRIPT ZIVPN"
+  echo -e "${YELLOW}      [${GREEN}3${YELLOW}] ${RED} . ${MAGENTA} START ACCOUNT ZIVPN"
+  echo -e "${YELLOW}      [${GREEN}4${YELLOW}] ${RED} . ${MAGENTA} STOP ACCOUNT ZIVPN"
+  echo -e "${YELLOW}      [${GREEN}5${YELLOW}] ${RED} . ${MAGENTA} RESTART ACCOUNT ZIVPN"
+  echo -e "${YELLOW}      [${GREEN}6${YELLOW}] ${RED} . ${MAGENTA} CHANGE DOMAIN SERVER"
+  echo -e "${YELLOW}      [${GREEN}0${YELLOW}] ${RED} . ${MAGENTA} EXIT ZIVPN"
   echo -e "${RED} └────────────────────────────────────────────┘"
   echo -e "\033[0m         Select From Options [ 1 - 6 ] : \033[0m"
   read -p " : " option
@@ -182,4 +166,5 @@ while true; do
     0 ) exit ;;
     * ) continue ;;
   esac
+  break
 done
