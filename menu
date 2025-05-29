@@ -66,7 +66,7 @@ else
 fi
 
 pause_and_return() {
-  echo -e "${YELLOW}\n🔁 Press Enter or type anything to return to the main menu...${NC}"
+  echo -e "${YELLOW}\n 🔁 Press Enter or type anything to return to the main menu...${NC}"
   read -r _
   /usr/local/bin/menu
   exit
