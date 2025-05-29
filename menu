@@ -61,8 +61,6 @@ if [[ ! -f "$FLAG_FILE" ]]; then
 
   touch "$FLAG_FILE"
   echo -e "${GREEN} ✅  Password verified successfully.${NC}"
-else
-fi
 
 pause_and_return() {
   echo -e "${YELLOW}\n 🔁 Press Enter or type anything to return to the main menu...${NC}"
