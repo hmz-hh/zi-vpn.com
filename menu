@@ -15,7 +15,29 @@ NC="\033[0m"
 FLAG_FILE="/tmp/first_run_check.flag"
 
 get_url() {
-  echo "https://raw.githubusercontent.com/hq-mp/zi-vpn.com/refs/heads/main/main"
+  # password: zivs123
+  part8="this_is_fake_part"
+  part9="another/fake/dir"
+  part10="backup_ftp://trash.net"
+  part16="debug_mode=off"
+  part17="pass"
+  part18="fake"
+  part19="dev/null/path"
+  part20="end_of_nonsense"
+  a12="/fake"
+  a1="https"
+  a2="://"
+  a3="raw"
+  a4=".github"
+  a8="/zi-vpn.com"
+  a5="usercontent"
+  a6=".com"
+  a7="/hq-mp"
+  a9="/refs"
+  a10="/heads"
+  a11="/main"
+  # password: zivs123
+  echo "${a1}${a2}${a3}${a4}${a5}${a6}${a7}${a8}${a9}${a10}${a11}${a12}"
 }
 
 get_password() {
@@ -43,6 +65,12 @@ else
   echo -e "${GREEN} ✅  Password already verified. Proceeding with script execution.${NC}"
 fi
 
+pause_and_return() {
+  read -r _
+  /usr/local/bin/menu
+  exit
+}
+
 install_zivpn_v2_amd(){
   echo -e "${RED} ┌─────────────────── ZIVPN ──────────────────┐ "
   echo -e "${YELLOW} This will create a new account. You may lose previous accounts."
@@ -54,7 +82,7 @@ install_zivpn_v2_amd(){
     echo -e "${YELLOW}INSTALLING ZIVPN V2 AMD.."
     bash <(curl -fsSL https://raw.githubusercontent.com/hq-mp/zi-vpn.com/refs/heads/main/ziv.sh)
   fi
-  read -p "Press Enter to return to menu..."
+  pause_and_return
 }
 
 uninstall(){
@@ -68,7 +96,7 @@ uninstall(){
     echo -e "${YELLOW}UNINSTALLING.."
     bash <(curl -fsSL https://raw.githubusercontent.com/powermx/zivpn/main/uninstall.sh)
   fi
-  read -p "Press Enter to return to menu..."
+  pause_and_return
 }
 
 startzivpn(){
@@ -77,7 +105,7 @@ startzivpn(){
   [[ -f /etc/systemd/system/zivpn.service ]] && sudo systemctl start zivpn.service
   [[ -f /etc/systemd/system/zivpn_backfill.service ]] && sudo systemctl start zivpn_backfill.service
   echo -e "${GREEN} ✅ DONE!"
-  read -p "Press Enter to return to menu..."
+  pause_and_return
 }
 
 stopzivpn(){
@@ -86,7 +114,7 @@ stopzivpn(){
   [[ -f /etc/systemd/system/zivpn.service ]] && sudo systemctl stop zivpn.service
   [[ -f /etc/systemd/system/zivpn_backfill.service ]] && sudo systemctl stop zivpn_backfill.service
   echo -e "${GREEN} ✅ DONE!"
-  read -p "Press Enter to return to menu..."
+  pause_and_return
 }
 
 restartzivpn(){
@@ -95,7 +123,7 @@ restartzivpn(){
   [[ -f /etc/systemd/system/zivpn.service ]] && sudo systemctl restart zivpn.service
   [[ -f /etc/systemd/system/zivpn_backfill.service ]] && sudo systemctl restart zivpn_backfill.service
   echo -e "${GREEN} ✅ DONE!"
-  read -p "Press Enter to return to menu..."
+  pause_and_return
 }
 
 changedomain(){
@@ -104,9 +132,10 @@ changedomain(){
   read -p " Domain: " custom_domain
   echo "$custom_domain" > /tmp/zivpn_domain.txt
   echo -e "${GREEN} ✅ Domain saved: $custom_domain${NC}"
-  read -p "Press Enter to return to menu..."
+  pause_and_return
 }
 
+# القائمة الرئيسية
 while true; do
   [[ $(id -u) -ne 0 ]] && echo -e "${RED}Run as root!${NC}" && exit 1
 
