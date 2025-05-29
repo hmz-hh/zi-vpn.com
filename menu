@@ -61,8 +61,7 @@ if [[ ! -f "$FLAG_FILE" ]]; then
 
   touch "$FLAG_FILE"
   echo -e "${GREEN} ✅  Password verified successfully.${NC}"
-
-  fi
+fi
 
 pause_and_return() {
   read -r _
@@ -73,6 +72,7 @@ pause_and_return() {
 install_zivpn_v2_amd(){
   echo -e "${RED} ┌─────────────────── ZIVPN ──────────────────┐ "
   echo -e "${YELLOW} This will create a new account. You may lose previous accounts."
+  unset yesno
   while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
     read -p " Continue? [Y/N] : " yesno
     tput cuu1 && tput dl1
@@ -80,13 +80,16 @@ install_zivpn_v2_amd(){
   if [[ ${yesno} = @(s|S|y|Y) ]]; then
     echo -e "${YELLOW}INSTALLING ZIVPN V2 AMD.."
     bash <(curl -fsSL https://raw.githubusercontent.com/hq-mp/zi-vpn.com/refs/heads/main/ziv.sh)
+    pause_and_return
+  else
+    pause_and_return
   fi
-  pause_and_return
 }
 
 uninstall(){
   echo -e "${RED} ┌─────────────────── ZIVPN ──────────────────┐ "
   echo -e "${YELLOW} This will uninstall ZIVPN versions"
+  unset yesno
   while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
     read -p " Continue? [Y/N] : " yesno
     tput cuu1 && tput dl1
@@ -94,8 +97,10 @@ uninstall(){
   if [[ ${yesno} = @(s|S|y|Y) ]]; then
     echo -e "${YELLOW}UNINSTALLING.."
     bash <(curl -fsSL https://raw.githubusercontent.com/powermx/zivpn/main/uninstall.sh)
+    pause_and_return
+  else
+    pause_and_return
   fi
-  pause_and_return
 }
 
 startzivpn(){
