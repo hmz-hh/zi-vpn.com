@@ -134,10 +134,17 @@ restartzivpn(){
 
 changedomain(){
   echo -e "${RED} ┌────────────────── DOMAIN  ─────────────────┐ "
-  echo -e "${YELLOW} Enter domain:"
-  read -p " Domain: " custom_domain
-  echo "$custom_domain" > /tmp/zivpn_domain.txt
-  echo -e "${GREEN} ✅ Domain saved: $custom_domain${NC}"
+  echo -e "${YELLOW} This option will change domain server.."
+  while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
+    read -p " Continue? [Y/N] : " yesno
+    tput cuu1 && tput dl1
+  done
+  if [[ ${yesno} = @(s|S|y|Y) ]]; then
+    echo -e "${YELLOW} Enter domain:"
+    read -p " Domain: " custom_domain
+    echo "$custom_domain" > /tmp/zivpn_domain.txt
+    echo -e "${GREEN} ✅ Domain saved: $custom_domain${NC}"
+  fi
 }
 
 while true; do
