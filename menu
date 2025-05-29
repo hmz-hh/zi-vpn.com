@@ -170,8 +170,8 @@ while true; do
   echo -e "${RED} ┌──────────────── HAMZA TECH ────────────────┐"
   echo -e "${YELLOW}      [${GREEN}1${YELLOW}] ${RED} . ${MAGENTA} CREATE ACCOUNT UDP ZIVPN"
   echo -e "${YELLOW}      [${GREEN}2${YELLOW}] ${RED} . ${MAGENTA} UNINSTALL SCRIPT ZIVPN"
-  echo -e "${YELLOW}      [${GREEN}3${YELLOW}] ${RED} . ${MAGENTA} START ACCOUNT ZIVPN"
-  echo -e "${YELLOW}      [${GREEN}4${YELLOW}] ${RED} . ${MAGENTA} STOP ACCOUNT ZIVPN"
+  echo -e "${YELLOW}      [${GREEN}3${YELLOW}] ${RED} . ${MAGENTA} STOP ACCOUNT ZIVPN"
+  echo -e "${YELLOW}      [${GREEN}4${YELLOW}] ${RED} . ${MAGENTA} START ACCOUNT ZIVPN"
   echo -e "${YELLOW}      [${GREEN}5${YELLOW}] ${RED} . ${MAGENTA} RESTART ACCOUNT ZIVPN"
   echo -e "${YELLOW}      [${GREEN}6${YELLOW}] ${RED} . ${MAGENTA} CHANGE DOMAIN SERVER"
   echo -e "${YELLOW}      [${GREEN}0${YELLOW}] ${RED} . ${MAGENTA} EXIT ZIVPN"
@@ -182,8 +182,8 @@ while true; do
   case $option in
     1 ) install_zivpn_v2_amd ;;
     2 ) uninstall ;;
-    3 ) startzivpn ;;
-    4 ) stopzivpn ;;
+    3 ) stopzivpn ;;
+    4 ) startzivpn ;;
     5 ) restartzivpn ;;
     6 ) changedomain ;;
     0 ) exit ;;
