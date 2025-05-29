@@ -58,4 +58,4 @@ iptables -t nat -A PREROUTING -i $(ip -4 route ls|grep default|grep -Po '(?<=dev
 ufw allow 6000:19999/udp
 ufw allow 5667/udp
 rm zi2.* 1> /dev/null 2> /dev/null
-  echo -e "${YELLOW}\n 🔁 Press Enter or type anything to return to the main menu...${NC}"
+echo -e "${YELLOW}\n 🔁 Press Enter or type anything to return to the main menu...${NC}"
