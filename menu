@@ -100,10 +100,10 @@ startzivpn(){
     tput cuu1 && tput dl1
   done
   if [[ "$yesno" =~ ^[yY]$ ]]; then
-    echo -e "${YELLOW} STARTING ZIVPN SERVICES.."
+    echo -e "${YELLOW} ✅ STARTING ZIVPN SERVICES.."
     [[ -f /etc/systemd/system/zivpn.service ]] && sudo systemctl start zivpn.service
     [[ -f /etc/systemd/system/zivpn_backfill.service ]] && sudo systemctl start zivpn_backfill.service
-    echo -e "${GREEN} ✅ DONE!"
+    echo -e "${GREEN} ✅ DONE !"
   else
     echo -e "${GREEN} Operation cancelled.${NC}"
   fi
@@ -111,10 +111,17 @@ startzivpn(){
 
 stopzivpn(){
   echo -e "${RED} ┌─────────────────── ZIVPN ──────────────────┐ "
-  echo -e "${YELLOW} STOPPING ZIVPN SERVICES.."
-  [[ -f /etc/systemd/system/zivpn.service ]] && sudo systemctl stop zivpn.service
-  [[ -f /etc/systemd/system/zivpn_backfill.service ]] && sudo systemctl stop zivpn_backfill.service
-  echo -e "${GREEN} ✅ DONE!"
+  echo -e "${YELLOW} This option will stop the Accounts udp ZIVPN server"
+  while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
+    read -p " Continue? [Y/N] : " yesno
+    tput cuu1 && tput dl1
+  done
+  if [[ ${yesno} = @(s|S|y|Y) ]]; then
+    echo -e "${YELLOW} ✅ STOPPING ZIVPN SERVICES.."
+    [[ -f /etc/systemd/system/zivpn.service ]] && sudo systemctl stop zivpn.service
+    [[ -f /etc/systemd/system/zivpn_backfill.service ]] && sudo systemctl stop zivpn_backfill.service
+    echo -e "${GREEN} ✅ DONE !"
+  fi
 }
 
 restartzivpn(){
