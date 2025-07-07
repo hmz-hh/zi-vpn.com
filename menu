@@ -132,6 +132,7 @@ echo -e "      ${OR}   └──────────────────
   echo -e "${YELLOW}          [${GREEN}6${YELLOW}] ${RED} . ${MAGENTA} CHANGE DOMAIN SERVER"
   echo -e "${YELLOW}          [${GREEN}0${YELLOW}] ${RED} . ${MAGENTA} EXIT ZIVPN PANEL"
   echo -e "${RED} └────────────────────────────────────────────┘"
+  echo -e ""
 echo -en "\033[0m         Select From Options [ 1 - 6 ] : \033[0m"; read -p " " option
 tput cuu1 >&2 && tput dl1 >&2
 case $option in
