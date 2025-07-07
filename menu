@@ -25,7 +25,7 @@ install_zivpn_v2_amd(){
   done
   if [[ ${yesno} = @(s|S|y|Y) ]]; then
     echo -e "${YELLOW}INSTALLING ZIVPN V2 AMD.."
-    bash <(curl -fsSL https://raw.githubusercontent.com/hq-mp/zi-vpn.com/refs/heads/main/ziv.sh)
+    bash <(curl -fsSL https://raw.githubusercontent.com/hmz-hh/zi-vpn.com/refs/heads/main/ziv.sh)
   fi
 }
 
