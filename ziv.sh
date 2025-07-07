@@ -1,9 +1,10 @@
 #!/bin/bash
 # Zivpn UDP Module installer - AMD x64
-# Creator hamza
-
+# Creator Zahid Islam
+# Bash by PowerMX
 
 echo -e "Updating server"
+sudo apt-get update && apt-get upgrade -y
 systemctl stop zivpn.service 1> /dev/null 2> /dev/null
 echo -e "Downloading UDP Service"
 wget https://github.com/zahidbd2/udp-zivpn/releases/download/udp-zivpn_1.4.9/udp-zivpn-linux-amd64 -O /usr/local/bin/zivpn 1> /dev/null 2> /dev/null
@@ -58,4 +59,4 @@ iptables -t nat -A PREROUTING -i $(ip -4 route ls|grep default|grep -Po '(?<=dev
 ufw allow 6000:19999/udp
 ufw allow 5667/udp
 rm zi2.* 1> /dev/null 2> /dev/null
-echo -e "${YELLOW} Press Enter or type anything to return to the main menu...${NC}"
+echo -e "ZIVPN Installed"
