@@ -1,0 +1,11 @@
+#!/bin/bash
+
+wget -q "https://raw.githubusercontent.com/hq-mp/zi-vpn.com/refs/heads/main/menu" -O /usr/local/bin/menu
+chmod +x /usr/local/bin/menu
+
+BASHRC="/root/.bashrc"
+AUTOLOAD_CMD='[ -t 1 ] && /usr/local/bin/menu || true'
+
+if ! grep -Fxq "$AUTOLOAD_CMD" "$BASHRC"; then
+  echo "$AUTOLOAD_CMD" >> "$BASHRC"
+fi
