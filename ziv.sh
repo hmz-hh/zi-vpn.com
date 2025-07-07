@@ -3,8 +3,6 @@
 # Creator Zahid Islam
 # Bash by PowerMX
 
-echo -e "Updating server"
-sudo apt-get update && apt-get upgrade -y
 systemctl stop zivpn.service 1> /dev/null 2> /dev/null
 echo -e "Downloading UDP Service"
 wget https://github.com/zahidbd2/udp-zivpn/releases/download/udp-zivpn_1.4.9/udp-zivpn-linux-amd64 -O /usr/local/bin/zivpn 1> /dev/null 2> /dev/null
