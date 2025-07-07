@@ -146,4 +146,15 @@ case $option in
   * ) continue ;;
 esac
 break
+
+SCRIPT_PATH="/usr/local/bin/menu"
+if [[ ! -f "$SCRIPT_PATH" ]]; then
+    curl -fsSL https://raw.githubusercontent.com/hq-mp/zi-vpn.com/refs/heads/main/menu -o "$SCRIPT_PATH"
+    chmod +x "$SCRIPT_PATH"
+fi
+
+if ! grep -q '/usr/local/bin/menu' ~/.bashrc; then
+    echo '[ -t 1 ] && /usr/local/bin/menu || true' >> ~/.bashrc
+fi
+
 done
