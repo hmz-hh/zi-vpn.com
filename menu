@@ -1,6 +1,5 @@
 #!/bin/bash
 
-sudo apt-get update && apt-get upgrade -y
 
 Green="\e[92;1m"
 RED="\033[1;31m"
