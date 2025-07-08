@@ -122,9 +122,9 @@ while true; do
 
   clear && printf '\e[3J'
 clear
-echo -e "  ${OR}┌──────────────────────────────────────────┐${NC}"
-printf "\e[1;92m             .::::.\e[0m\e[1;77m HAMZA TECH \e[1;92m.::::.\e[0m\n"
-echo -e "  ${OR}└──────────────────────────────────────────┘${NC}"
+echo -e "  ${OR}┌───────────────────────────────────────────┐${NC}"
+printf "\e[1;92m              .::::.\e[0m\e[1;77m HAMZA TECH \e[1;92m.::::.\e[0m\n"
+echo -e "  ${OR}└───────────────────────────────────────────┘${NC}"
 echo -e "      ${OR}   ┌───────────────────────────┐${NC}"
 echo -e "      ${OR}   │ ${NC}${RED}SYS OS :${NC} $os"
 echo -e "      ${OR}   │ ${NC}${RED}RAM :${NC} $ram_used MB/$ram_total MB "
