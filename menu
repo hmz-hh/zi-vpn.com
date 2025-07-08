@@ -134,7 +134,7 @@ echo -e "      ${OR}   │ ${NC}${RED}CITY :${NC} $city"
 echo -e "      ${OR}   │ ${NC}${RED}IP :${NC} $ipsaya"
 echo -e "      ${OR}   │ ${NC}${RED}OWNER :${NC} @a_hamza_i"
 echo -e "      ${OR}   └────────────────────────────┘${NC}"
-  echo -e "${RED} ┌──────────────── HAMZA TECH ────────────────┐"
+  echo -e "${RED}  ┌──────────────── HAMZA TECH ────────────────┐"
   echo -e "${YELLOW}          [${GREEN}1${YELLOW}] ${RED} . ${MAGENTA} CREATE ACCOUNT UDP ZIVPN"
   echo -e "${YELLOW}          [${GREEN}2${YELLOW}] ${RED} . ${MAGENTA} UNINSTALL SCRIPT ZIVPN"
   echo -e "${YELLOW}          [${GREEN}3${YELLOW}] ${RED} . ${MAGENTA} STOP ACCOUNT ZIVPN"
@@ -142,7 +142,7 @@ echo -e "      ${OR}   └──────────────────
   echo -e "${YELLOW}          [${GREEN}5${YELLOW}] ${RED} . ${MAGENTA} RESTART ACCOUNT ZIVPN"
   echo -e "${YELLOW}          [${GREEN}6${YELLOW}] ${RED} . ${MAGENTA} CHANGE DOMAIN SERVER"
   echo -e "${YELLOW}          [${GREEN}0${YELLOW}] ${RED} . ${MAGENTA} EXIT ZIVPN PANEL"
-  echo -e "${RED} └────────────────────────────────────────────┘"
+  echo -e "${RED}  └────────────────────────────────────────────┘"
   echo -e ""
 echo -en "\033[0m         Select From Options [ 1 - 6 ] : \033[0m"; read -p " " option
 tput cuu1 >&2 && tput dl1 >&2
